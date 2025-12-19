@@ -7,21 +7,21 @@
 
 ```prompt
 
-/constitution this blog-tech-kit project is a fork of the github.com spec-kit project. read @README_spec-kit.md to get a global view of the original spec-kit and its spec-driven development workflow.
+/constitution this growth-hacking-kit project is a fork of the github.com spec-kit project. read @README_spec-kit.md to get a global view of the original spec-kit and its spec-driven development workflow.
 
-spec-driven development is a strong methodology for complex work with llm-based agents, and the same pattern can be applied to many domains (project management, product design, marketing, business writing, etc.). blog-tech-kit is a featured variant of spec-kit focused on twitter marketing and growth for ai saas products.
+spec-driven development is a strong methodology for complex work with llm-based agents, and the same pattern can be applied to many domains (project management, product design, marketing, business writing, etc.). growth-hacking-kit is a featured variant of spec-kit focused on twitter marketing and growth for ai saas products.
 
 i will also use this project as a worked example of how to create your own spec-kit variants (for example, pm-kit, pd-kit, marketing-kit, biz-writing-kit). i will develop comprehensive documents in @refs/ to show, step by step, how to use prompts and search tools to build up-to-date references and adapt the original spec-kit templates.
 
 in the constitution for this project, a few things are especially important:
 1. i want to reuse the overall spec-kit design, including installation model, cli commands, and how it integrates with claude code, cursor, and other coding agents.
 2. users may install multiple *-kit variants on the same machine, so the base `specify` command name can conflict across packages. you must design a clean naming and namespace strategy so spec-kit, blog-kit, pd-kit, and other kits can coexist without collisions.
-3. related to (2), slash commands like `blogkit.plan` and `blogkit.implement` are how agents such as claude code invoke workflows. you must ensure there is no conflict between commands like `blogkit.plan` and `blogkit.plan`, and that they can reliably trigger different agents or workflows.
+3. related to (2), slash commands like `growthkit.plan` and `growthkit.implement` are how agents such as claude code invoke workflows. you must ensure there is no conflict between commands like `blogkit.plan` and `growthkit.plan`, and that they can reliably trigger different agents or workflows.
 
-think carefully and globally about the architecture, naming, and multi-kit coexistence first, then draft a clear, opinionated constitution for blog-tech-kit that respects these constraints and follows the principles in @memory/constitution.md.
+think carefully and globally about the architecture, naming, and multi-kit coexistence first, then draft a clear, opinionated constitution for growth-hacking-kit that respects these constraints and follows the principles in @memory/constitution.md.
 
-IMPORTANT: DO NOT modify the .claude/ folder - it's a working copy from spec-kit for the current Claude Code agent to use.
-IMPORTANT: The word "specify" shows up in two situations. One situation is as the command name like in "speckit.specify" or "./specify". In this situation, when change to "blogkit.specify" , or "./specify", you should keep as it is for consistency. In the second situation, "specify" refers to the package name, like in folder name for "./specify/memory/constituation.md". Since multiple spec-kit like kits may work together in the same project, their package names should be distinct to avoid conflicts. Change "./specify/memory/constituation.md" to "./blogkit/memory/constituation.md" 
+IMPORTANT: DO NOT modify the .claude/ and .windsurf folder - it's a working copy from spec-kit for the current Claude Code / windsurf agent to use.
+IMPORTANT: The word "specify" shows up in two situations. One situation is as the command name like in "speckit.specify" or "./specify". In this situation, when change to "growthkit.specify" , or "./specify", you should keep as it is for consistency. In the second situation, "specify" refers to the package name, like in folder name for "./specify/memory/constituation.md". Since multiple spec-kit like kits may work together in the same project, their package names should be distinct to avoid conflicts. Change "./specify/memory/constituation.md" to "./growthkit/memory/constituation.md" 
 ```
 
 
@@ -30,21 +30,21 @@ IMPORTANT: The word "specify" shows up in two situations. One situation is as th
 
 
 ```prompt
-/specify is running… this blog-tech-kit project is a fork of the github.com spec-kit project. read @README_spec-kit.md to get a global view of the original spec-kit project and its spec-driven development workflow.
+/specify is running… this growth-hacking-kit project is a fork of the github.com spec-kit project. read @README_spec-kit.md to get a global view of the original spec-kit project and its spec-driven development workflow.
 
-spec-driven development is a strong methodology for complex work with llm-based agents, and the same pattern can be applied to many domains (project management, product design, marketing, business writing, etc.). blog-tech-kit is a featured variant of spec-kit focused on project management for discovering and validating product-market fit for ai saas products.
+spec-driven development is a strong methodology for complex work with llm-based agents, and the same pattern can be applied to many domains (project management, product design, marketing, business writing, etc.). growth-hacking-kit is a featured variant of spec-kit focused on project management for discovering and validating product-market fit for ai saas products.
 
 read @memory/constitution.md and generate the spec.md for this project. you MUST also read @refs/2_define_for_specify.md and follow its structure and intent.
 
 there are a few important constraints:
 1. re-use the overall spec-kit design, including the cli model and how it integrates with claude code, cursor, and other coding agents.
 2. assume users may install multiple *-kit variants on the same machine, so the base `specify` command name can conflict across packages. design a clean naming and namespace strategy so spec-kit, blog-tech-kit, pd-kit, and other variants can coexist.
-3. related to (2), slash commands like `blogkit.plan` and `blogkit.implement` are how agents invoke workflows. ensure there is no conflict between commands such as `specify.plan` and `blogkit.plan`, and that each reliably triggers the correct workflow.
+3. related to (2), slash commands like `growthkit.plan` and `growthkit.implement` are how agents invoke workflows. ensure there is no conflict between commands such as `specify.plan` and `growthkit.plan`, and that each reliably triggers the correct workflow.
 
-think carefully and globally about architecture, naming, and multi-kit coexistence first, then draft a clear, opinionated spec.md for blog-tech-kit that is consistent with @memory/constitution.md and suitable as a reference for future *-kit variants.
+think carefully and globally about architecture, naming, and multi-kit coexistence first, then draft a clear, opinionated spec.md for growth-hacking-kit that is consistent with @memory/constitution.md and suitable as a reference for future *-kit variants.
 
-IMPORTANT: DO NOT modify the .claude/ folder - it's a working copy from spec-kit for the current Claude Code agent to use.
-IMPORTANT: The word "specify" shows up in two situations. One situation is as the command name like in "speckit.specify" or "./specify". In this situation, when change to "blogkit.specify" , or "./specify", you should keep as it is for consistency. In the second situation, "specify" refers to the package name, like in folder name for "./specify/memory/constituation.md". Since multiple spec-kit like kits may work together in the same project, their package names should be distinct to avoid conflicts. Change "./specify/memory/constituation.md" to "./blogkit/memory/constituation.md" 
+IMPORTANT: DO NOT modify the .claude/ and .windsurf folder - it's a working copy from spec-kit for the current Claude Code / windsurf agent to use.
+IMPORTANT: The word "specify" shows up in two situations. One situation is as the command name like in "speckit.specify" or "./specify". In this situation, when change to "growthkit.specify" , or "./specify", you should keep as it is for consistency. In the second situation, "specify" refers to the package name, like in folder name for "./specify/memory/constituation.md". Since multiple spec-kit like kits may work together in the same project, their package names should be distinct to avoid conflicts. Change "./specify/memory/constituation.md" to "./growthkit/memory/constituation.md" 
 REMEMBER to edit the package names in pyproject.toml file.
 ```
 
