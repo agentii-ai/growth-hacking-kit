@@ -1,353 +1,518 @@
-# Growth Hacking Kit
-
-**Spec-driven growth campaign management for AI SaaS products**
-
-Growth Hacking Kit is a CLI tool that applies systematic, constitution-driven methodology to growth campaigns. Built for growth marketers, founders, and product managers working on AI/LLM SaaS products.
-
-## Key Features
-
-| Feature | Description | Benefit |
-|---------|-------------|---------|
-| **Constitution-Driven** | Seven Core Principles enforce proven growth patterns | Avoid common pitfalls (Pilot Purgatory, Wrapper Trap, Cost-Per-Query Suicide) |
-| **Multi-Platform** | Platform-specific tactics (X/Twitter 16:9, TikTok 9:16, LinkedIn case studies) | Native content that matches platform algorithms |
-| **Viral Loop Engineering** | Built-in Remix, Integration, and Watermark loop mechanisms | Systematic k-factor >1.1 growth |
-| **Test-Before-Scale** | Mandatory pilot phases (<10% budget) with validation gates | Reduce wasted spend on unvalidated campaigns |
-| **Agent-First** | Slash commands for Claude Code, Cursor, Windsurf, Copilot | AI agents execute campaigns systematically |
-
-## Installation
-
-**Requirements**: Python 3.11+, [uv](https://github.com/astral-sh/uv)
-
-```bash
-# Install via uv (recommended)
-uv tool install growthkit-cli
-
-# Verify installation
-growthkit --version
-```
-
-## Quick Start
-
-### 1. Initialize Project
-
-```bash
-# Create new project
-growthkit init my-campaign --ai claude
-
-# Or initialize in current directory
-growthkit init --here --ai cursor-agent
-```
-
-This creates:
-- `.growthkit/` directory with constitution, templates, scripts
-- Slash commands for your AI agent (`/growthkit.specify`, `/growthkit.plan`, etc.)
-- Git repository (unless `--no-git` specified)
-
-### 2. Create Campaign Specification
-
-In your AI agent (Claude Code, Cursor, etc.), run:
-
-```
-/growthkit.specify Launch Product Hunt campaign with demo video,
-first-100-user incentives, and maker community engagement strategy
-```
-
-This generates:
-- New branch `001-product-hunt-launch`
-- `specs/001-product-hunt-launch/spec.md` with user stories, requirements, success metrics
-- Constitution Check validation results
-
-### 3. Plan Campaign Implementation
-
-```
-/growthkit.plan Use X/Twitter for vibe coding demos, TikTok for 15-second
-wow moments, Product Hunt for launch day. Pilot budget: $500, scale budget: $5000
-```
-
-This generates:
-- `specs/001-product-hunt-launch/plan.md` with platform-specific tactics
-- Constitution Check gate validation
-- Research documents for GEO optimization
-- Pilot phase scope (<10% budget)
-
-### 4. Generate Task Breakdown
-
-```
-/growthkit.tasks
-```
-
-This generates:
-- `specs/001-product-hunt-launch/tasks.md` with dependency-ordered tasks
-- Phases: Setup → Pilot → Validation → Scale → Measure
-- Parallel opportunities marked with [P]
-
-### 5. Execute Campaign
-
-```
-/growthkit.implement
-```
-
-This executes:
-- All tasks in dependency order
-- Content creation in platform-native formats
-- Pilot validation checkpoint (pause before scaling)
-- Retrospective generation with learnings
-
-## 2025 Growth Metrics Benchmarks
-
-| Metric | Definition | Benchmark (Good) | Why It Matters |
-|--------|-----------|------------------|----------------|
-| **Acceptance Rate** | % of AI suggestions accepted | >30% | Measures product stickiness |
-| **Time-to-Wow** | Seconds to Magic Moment | <5 minutes | Faster = higher conversion |
-| **Time-to-Trust** | Days to production use | <7 days | Trust drives enterprise adoption |
-| **Agent Autonomy** | Steps without human intervention | 5+ steps | Efficiency multiplier |
-| **k-factor** | New users per existing user | >1.1 | Sustainable viral growth |
-| **NRR** | Net Revenue Retention | 106-120% | Expansion > churn |
-| **Time-to-First-Share** | Hours until social post | <24 hours | Viral loop activation |
-
-## Seven Core Principles
-
-1. **Spec-Driven Growth**: Every campaign starts with measurable specifications
-2. **Viral Loop Engineering**: Remix, Integration, or Watermark loops built in
-3. **Agent-First Architecture**: Content optimized for LLM citation (Answer Density)
-4. **Measurement-First Development**: Primary, activation, and engagement metrics defined upfront
-5. **Multi-Platform Distribution**: Platform-specific tactics (X: 16:9, TikTok: 9:16, etc.)
-6. **Test-Before-Scale**: Pilot phase (<10% budget) with validation gates
-7. **Community-Led Amplification**: Organic reach prioritized over paid ads
-
-## Platform-Specific Tactics
-
-### X/Twitter
-- **Format**: 30-60s screen recordings, 16:9 aspect ratio
-- **Viral Mechanism**: Quote tweets, developer community amplification
-- **Example**: "Watch me build a SaaS in 60 seconds with [Product]"
-
-### TikTok
-- **Format**: 15-30s vertical video, 9:16 aspect ratio, hook in first 3 seconds
-- **Viral Mechanism**: Duets, remixes, trending audio overlays
-- **Example**: "POV: You just discovered AI that codes for you"
-
-### LinkedIn
-- **Format**: Data-driven case studies with ROI metrics
-- **Viral Mechanism**: Professional sharing, credibility signals
-- **Example**: "How [Company] reduced onboarding from 7 days to 5 minutes with AI"
-
-### Product Hunt
-- **Format**: Demo video + first-100-user incentives
-- **Viral Mechanism**: Maker community engagement, upvote momentum
-- **Example**: Launch day with exclusive early access perks
-
-## Multi-Kit Coexistence
-
-Growth Hacking Kit is designed to coexist with other *-kit variants:
-
-| Kit | Package Name | Directory | Slash Commands | Purpose |
-|-----|--------------|-----------|----------------|---------|
-| **Spec Kit** | `specify-cli` | `.specify/` | `/speckit.*` | Software development |
-| **Growth Hacking Kit** | `growthkit-cli` | `.growthkit/` | `/growthkit.*` | Growth campaigns |
-| **Blog Kit** | `blogkit-cli` | `.blogkit/` | `/blogkit.*` | Content marketing |
-| **PD Kit** | `pdkit-cli` | `.pdkit/` | `/pdkit.*` | Product design |
-
-Install multiple kits on the same machine without conflicts:
-
-```bash
-uv tool install specify-cli
-uv tool install growthkit-cli
-uv tool install blogkit-cli
-
-# All commands work independently
-specify init my-app
-growthkit init my-campaign
-blogkit init my-blog
-```
-
-## CLI Commands
-
-### `growthkit init`
-
-Initialize a new growth-hacking-kit project.
-
-```bash
-growthkit init <project-name> [OPTIONS]
-
-Options:
-  --ai TEXT              Target AI agent (claude, cursor-agent, windsurf, copilot)
-  --script TEXT          Script type (bash, powershell)
-  --ignore-agent-tools   Skip agent tool installation
-  --no-git              Skip git initialization
-  --here                Initialize in current directory
-  --force               Overwrite existing files
-  --skip-tls            Skip TLS verification for network requests
-  --debug               Enable debug logging
-  --github-token TEXT   GitHub token for private repositories
-```
-
-**Examples**:
-
-```bash
-# Claude Code user
-growthkit init my-campaign --ai claude
-
-# Cursor user in existing directory
-growthkit init --here --ai cursor-agent
-
-# Windows user with PowerShell
-growthkit init my-campaign --ai copilot --script powershell
-```
-
-### `growthkit check`
-
-Verify dependencies and environment.
-
-```bash
-growthkit check
-
-Checks:
-  ✅ Git installed (version 2.39.0)
-  ✅ Python installed (version 3.11.5)
-  ✅ uv installed (version 0.1.23)
-  ✅ Claude Code detected
-  ⚠️  Cursor not found
-```
-
-## Constitution Check Gates
-
-Every campaign plan is validated against mandatory and advisory gates:
-
-### Mandatory Gates (MUST pass before implementation)
-
-- ✅ Campaign specification exists
-- ✅ Growth type identified (Vibe/Trust/Agentic)
-- ✅ Target audience specific (not "developers" but "Python backend devs using FastAPI")
-- ✅ Viral loop mechanism specified (Remix/Integration/Watermark)
-- ✅ k-factor target defined (>1.1 for sustainable growth)
-- ✅ Primary/activation/engagement metrics set
-- ✅ Pilot phase scope defined (<10% of final budget)
-
-### Advisory Gates (re-check after design)
-
-- ⚠ Content optimized for "Answer Density" (structured tables, benchmarks)
-- ⚠ Platform-specific content strategy defined
-- ⚠ Community-led amplification plan established
-
-## Common Anti-Patterns (Failure Modes)
-
-| Anti-Pattern | Description | Fix |
-|--------------|-------------|-----|
-| **Pilot Purgatory** | Endless A/B testing, never scaling | Set time-box (2-4 weeks), clear go/no-go criteria |
-| **Wrapper Trap** | Over-reliance on OpenAI without differentiation | Add unique workflows, custom models, proprietary data |
-| **Cost-Per-Query Suicide** | Free tier loses money on every query | Price by value (seats, outputs) not usage (tokens) |
-| **Generic Cross-Platform** | Same content on X/Twitter and TikTok | Platform-native content (X: 16:9, TikTok: 9:16) |
-
-## Examples
-
-### Example 1: Product Hunt Launch Campaign
-
-```bash
-# Initialize project
-growthkit init product-hunt-launch --ai claude
-
-# In Claude Code, run:
-/growthkit.specify Launch Product Hunt campaign with demo video,
-first-100-user incentives, and maker community engagement strategy
-
-/growthkit.plan Use Product Hunt for launch day, X/Twitter for
-pre-launch buzz, GitHub for technical walkthrough. Pilot budget: $200,
-scale budget: $2000
-
-/growthkit.tasks
-
-/growthkit.implement
-```
-
-**Results**:
-- Branch: `001-product-hunt-launch`
-- Spec: User stories for launch day, pre-launch, post-launch engagement
-- Plan: Platform-specific tactics (demo video format, upvote strategy, maker outreach)
-- Tasks: 45 tasks across Setup, Pilot, Scale, Measure phases
-- Implementation: AI agent executes tasks, creates content, tracks metrics
-
-### Example 2: TikTok Viral Loop
-
-```bash
-growthkit init tiktok-viral --ai cursor-agent
-
-# In Cursor, run:
-/growthkit.specify Create TikTok viral loop with 15-second wow moments
-showcasing AI code generation, targeting junior developers and bootcamp students
-
-/growthkit.plan Use TikTok for primary distribution (9:16 vertical,
-hook in 3 seconds), X/Twitter for cross-promotion. Pilot budget: $300,
-scale budget: $3000
-
-/growthkit.tasks
-
-/growthkit.implement
-```
-
-**Results**:
-- Viral loop: Watermark Loop (branded outputs shared on social)
-- Target k-factor: >1.2 (TikTok's virality multiplier)
-- Content format: 15-30s vertical videos with trending audio overlays
-- Success metric: Time-to-First-Share <12 hours (TikTok velocity)
-
-## Project Structure
-
-After `growthkit init`, your project will have:
-
-```
-my-campaign/
-├── .growthkit/
-│   ├── memory/
-│   │   └── constitution.md        # Seven Core Principles
-│   ├── scripts/
-│   │   ├── bash/
-│   │   │   ├── common.sh
-│   │   │   ├── check-prerequisites.sh
-│   │   │   ├── create-new-feature.sh
-│   │   │   ├── setup-plan.sh
-│   │   │   └── update-agent-context.sh
-│   │   └── powershell/            # Windows equivalents
-│   └── templates/
-│       ├── spec-template.md
-│       ├── plan-template.md
-│       ├── tasks-template.md
-│       └── commands/              # Slash command templates
-│           ├── growthkit-specify.md
-│           ├── growthkit-plan.md
-│           ├── growthkit-tasks.md
-│           ├── growthkit-implement.md
-│           └── growthkit-constitution.md
-├── .claude/commands/              # Claude Code integration
-│   ├── growthkit-specify.md      # Symlink to .growthkit/templates/commands/
-│   ├── growthkit-plan.md
-│   └── ...
-├── specs/                         # Campaign documentation
-│   └── 001-campaign-name/
-│       ├── spec.md                # Campaign specification
-│       ├── plan.md                # Implementation plan
-│       ├── tasks.md               # Task breakdown
-│       ├── research.md            # Platform research
-│       ├── retrospective.md       # Post-campaign learnings
-│       └── checklists/
-│           └── requirements.md    # Quality validation
-└── README.md
-```
-
-## Contributing
-
-Contributions welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-## License
-
-MIT License - see [LICENSE](LICENSE) for details.
-
-## Links
-
-- **Documentation**: [docs.growth-hacking-kit.dev](https://docs.growth-hacking-kit.dev)
-- **GitHub**: [github.com/agentii/growth-hacking-kit](https://github.com/agentii/growth-hacking-kit)
-- **Issues**: [github.com/agentii/growth-hacking-kit/issues](https://github.com/agentii/growth-hacking-kit/issues)
+<div align="center">
+    <img src="./media/logo.png" alt="Growth Hacking Kit Logo" width="200" height="200"/>
+    <h1>🚀 Growth Hacking Kit</h1>
+    <h3><em>Discover and validate growth strategies faster with AI agents.</em></h3>
+</div>
+
+<p align="center">
+    <strong>A spec-driven toolkit for systematic growth campaign planning and execution of AI SaaS products, built on the foundations of spec-kit.</strong>
+</p>
+
+<p align="center">
+    <a href="https://github.com/agentii-ai/growth-hacking-kit/actions"><img src="https://img.shields.io/badge/status-production-green" alt="Status"/></a>
+    <a href="https://github.com/agentii-ai/growth-hacking-kit/stargazers"><img src="https://img.shields.io/github/stars/agentii-ai/growth-hacking-kit?style=social" alt="GitHub stars"/></a>
+    <a href="https://github.com/agentii-ai/growth-hacking-kit/blob/main/LICENSE"><img src="https://img.shields.io/github/license/agentii-ai/growth-hacking-kit" alt="License"/></a>
+    <a href="https://kits.agentii.ai"><img src="https://img.shields.io/badge/kits-agentii.ai-blue" alt="Kit Variants"/></a>
+</p>
 
 ---
 
-**Growth Hacking Kit v0.1.0** - Built with systematic growth methodology for AI SaaS products.
+## 🎯 What is Growth Hacking Kit?
+
+**Growth Hacking Kit** is a specialized variant of [**Spec-Kit**](https://github.com/github/spec-kit), adapted for growth campaign planning and execution of AI SaaS products.
+
+While Spec-Kit enables spec-driven software development with AI agents, **Growth Hacking Kit applies the same methodology to the domain of growth marketing, viral mechanics, and campaign validation**—helping founders and growth teams discover sustainable growth through structured, AI-assisted workflows instead of ad-hoc experimentation.
+
+### Key Differences from Spec-Kit
+
+| Aspect | Spec-Kit | Growth Hacking Kit |
+|--------|----------|--------------------|
+| **Focus** | Software feature development | Growth campaign planning & execution |
+| **Primary Workflow** | Specification → Plan → Code → Test | Specification → Research → Tasks → Execute |
+| **Success Metrics** | Code quality, test coverage, performance | K-factor, time-to-wow, engagement rate, NRR |
+| **Deliverables** | Production software & APIs | Campaign specifications, growth tactics, retrospective analysis |
+| **CLI Command** | `specify` | `growthkit` |
+| **Agent Commands** | `/speckit.*` | `/growthkit.*` |
+
+---
+
+## 🚀 Get Started
+
+### 1. Install Growth Hacking Kit
+
+Choose your preferred installation method:
+
+#### Option 1: One-Time Usage (Recommended)
+
+Run directly without installing—always uses the latest version:
+
+```bash
+uvx --from git+https://github.com/agentii-ai/growth-hacking-kit.git growthkit init my-product
+uvx --from git+https://github.com/agentii-ai/growth-hacking-kit.git growthkit check
+```
+
+> **Note**: This project is improving rapidly. We recommend `uvx` to always get the latest features and fixes.
+
+#### Option 2: Persistent Installation
+
+Install once and use everywhere (may require periodic updates):
+
+```bash
+uv tool install growthkit-cli --from git+https://github.com/agentii-ai/growth-hacking-kit.git
+```
+
+Then use the tool directly:
+
+```bash
+growthkit init my-product
+growthkit check
+```
+
+To update to the latest version:
+
+```bash
+uv tool install growthkit-cli --force --from git+https://github.com/agentii-ai/growth-hacking-kit.git
+```
+
+### 2. Initialize Your First Growth Campaign Project
+
+```bash
+growthkit init my-ai-product
+cd my-ai-product
+```
+
+This creates a project with growth-specific templates, constitution, and agent commands.
+
+### 3. Launch Your AI Agent
+
+Open your AI assistant (Claude Code, Cursor, Windsurf, etc.) in the project directory. You'll see `/growthkit.*` commands available:
+
+```bash
+/growthkit.constitution    # Establish growth-specific principles
+/growthkit.specify         # Define what you're trying to grow
+/growthkit.clarify         # Resolve ambiguities in your hypothesis
+/growthkit.plan            # Create campaign execution plan
+/growthkit.tasks           # Generate actionable growth tasks
+/growthkit.implement       # Execute growth campaign workflow
+```
+
+### 4. Run Your First Growth Discovery Workflow
+
+```bash
+/growthkit.specify Launch Product Hunt campaign for AI code assistant targeting solo developers and small teams, focusing on onboarding speed and code generation quality
+```
+
+This generates a growth specification with:
+- Sharp personas (role, company, tools, environment)
+- Growth type and viral loop mechanism
+- Platform-specific distribution strategy
+- Success metrics (k-factor, time-to-wow, activation rate)
+- Pilot phase budget and scope
+
+---
+
+## 🤖 Supported AI Agents
+
+Growth Hacking Kit works with all agents supported by Spec-Kit:
+
+| Agent | Support | Notes |
+|-------|---------|-------|
+| [Claude Code](https://www.anthropic.com/claude-code) | ✅ | Native support |
+| [Cursor](https://cursor.sh/) | ✅ | Full integration |
+| [Windsurf](https://windsurf.com/) | ✅ | Complete support |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | ✅ | Verified working |
+| [GitHub Copilot](https://github.com/features/copilot) | ✅ | Compatible |
+| [Qoder CLI](https://qoder.com/cli) | ✅ | Supported |
+| Plus 10+ additional agents | ✅ | See Spec-Kit docs |
+
+---
+
+## 📦 Growth Hacking Kit Templates
+
+Growth Hacking Kit provides project templates for 17 AI coding agents, automatically downloaded when you run `growthkit init`. Each template includes:
+
+- **Growth Hacking Kit Constitution v0.1.0** with 7 growth-focused principles
+- **Workflow templates**: spec.md, plan.md, tasks.md for growth documentation
+- **6 slash commands**: /growthkit.specify, /growthkit.plan, /growthkit.tasks, /growthkit.implement, /growthkit.clarify, /growthkit.constitution
+- **Scripts**: Bash and PowerShell variants for automation
+- **Memory system**: constitution.md for project-specific growth principles
+
+### Supported Template Agents
+
+Templates are available for all 17 agents in both bash and PowerShell variants (34 total):
+
+- Claude Code • Cursor Agent • Windsurf • Google Gemini
+- GitHub Copilot • Qoder • Qwen • OpenCode
+- Codex • KiloCode • Auggie • CodeBuddy
+- AMP • Shai • Amazon Q • Bob • Roo
+
+See [GitHub Releases](https://github.com/agentii-ai/growth-hacking-kit/releases) for downloadable template archives with SHA-256 checksums.
+
+---
+
+## 🎯 Core Growth Workflow
+
+### Phase 1: Specification (`/growthkit.specify`)
+
+Define **WHAT** you're trying to grow and **WHY**:
+- Target personas (role/skill, company, tools, environment)
+- Growth type (Vibe Growth, Trust Growth, Agentic Growth)
+- Viral loop mechanism (Remix Loop, Integration Loop, Watermark Loop)
+- Success metrics (k-factor >1.1, time-to-wow <5 min, NRR >106%)
+- Platform distribution strategy
+- Pilot phase budget and scope
+
+### Phase 2: Clarification (`/growthkit.clarify`)
+
+Resolve ambiguities before committing to execution:
+- Validate persona sharpness and specificity
+- Clarify growth mechanisms and viral loops
+- Define success metrics precisely
+- Identify unstated assumptions about distribution
+
+### Phase 3: Planning (`/growthkit.plan`)
+
+Define **HOW** you'll execute growth:
+- Platform-specific tactics (X/Twitter 16:9, TikTok 9:16, LinkedIn case studies)
+- Content strategy and creative direction
+- Audience targeting and acquisition strategy
+- Pilot phase validation criteria
+- Scale phase budget and timeline
+
+### Phase 4: Task Breakdown (`/growthkit.tasks`)
+
+Generate actionable growth tasks:
+- Organize by phases: Setup → Pilot → Scale → Measure
+- Pilot phase execution (<10% of total budget)
+- Go/no-go validation checkpoints
+- Scale phase parallel opportunities
+- Measurement and retrospective tasks
+
+### Phase 5: Execution (`/growthkit.implement`)
+
+Execute growth campaign systematically:
+- Create campaign assets (video, copy, graphics)
+- Run pilot phase with audience segment
+- Validate go/no-go criteria before scaling
+- Execute full-scale distribution
+- Measure and document learnings
+
+---
+
+## 🌟 Growth Hacking Kit Constitution
+
+Growth Hacking Kit is built on 7 core principles that guide all campaign work:
+
+### I. Spec-Driven Growth
+Plan every campaign with measurable specifications before execution.
+
+### II. Viral Loop Engineering
+Build systematic viral mechanics (Remix, Integration, or Watermark) into every campaign.
+
+### III. Agent-First Distribution
+Optimize content for AI agent citation and algorithmic amplification.
+
+### IV. Measurement-First Metrics
+Define success metrics (k-factor, time-to-wow, engagement) upfront, not retrospectively.
+
+### V. Platform-Native Tactics
+Create platform-specific content (X: 16:9, TikTok: 9:16, LinkedIn: professional) that matches algorithms.
+
+### VI. Test-Before-Scale
+Run mandatory pilot phases (<10% budget) with validation gates before full rollout.
+
+### VII. Community-Led Growth
+Prioritize organic community amplification over paid advertising.
+
+See [`memory/constitution.md`](./memory/constitution.md) for full details.
+
+---
+
+## 📚 Reference Documentation
+
+Growth Hacking Kit includes comprehensive reference materials to guide your campaigns:
+
+- **`refs/0_overview.md`** - Overview of growth campaigns for AI SaaS products
+- **`refs/1_principles_for_constitution.md`** - Growth-specific principles and patterns
+- **`refs/2_define_for_specify.md`** - How to structure sharp growth specifications
+- **`refs/3_project_management_for_plan.md`** - Campaign planning methodology
+- **`refs/4_pm_tasking_for_tasks.md`** - Growth campaign task patterns
+- **`refs/instructions.md`** - How to create your own kit variants
+
+---
+
+## 🔧 Multi-Kit Installation
+
+Growth Hacking Kit is designed to coexist with Spec-Kit and other kit variants:
+
+```bash
+# Install Spec-Kit for software development
+uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
+
+# Install Growth Hacking Kit for growth campaigns
+uv tool install growthkit-cli --from git+https://github.com/agentii-ai/growth-hacking-kit.git
+
+# Both tools work independently
+specify check    # Shows Spec-Kit configuration
+growthkit check  # Shows Growth Hacking Kit configuration
+
+# Create projects with different kits
+specify init my-feature           # Software feature project
+growthkit init my-campaign       # Growth campaign project
+```
+
+In your AI agent, both command namespaces are available:
+- `/speckit.*` commands for software development workflows
+- `/growthkit.*` commands for growth campaign workflows
+
+---
+
+## 🎛️ CLI Reference
+
+### `growthkit init` - Initialize Growth Campaign Project
+
+```bash
+growthkit init <PROJECT_NAME>
+growthkit init my-product --ai claude
+growthkit init . --here --force        # Initialize in current directory
+growthkit init my-product --ai cursor --script ps   # PowerShell scripts
+```
+
+**Options:**
+- `--ai` - Specify AI assistant (claude, cursor, windsurf, gemini, copilot, etc.)
+- `--script` - Script variant (sh for bash/zsh, ps for PowerShell)
+- `--here` - Initialize in current directory
+- `--force` - Skip confirmation when directory has files
+- `--no-git` - Skip git initialization
+- `--ignore-agent-tools` - Skip tool availability checks
+- `--debug` - Enable detailed debugging
+
+### `growthkit check` - Verify Installation
+
+```bash
+growthkit check
+```
+
+Verifies Growth Hacking Kit installation and checks for required tools (git, python, uv) and AI agents.
+
+---
+
+## 🚀 Examples by Growth Type
+
+### Vibe Growth (Developer Tools - Cursor, Claude Code)
+
+```
+growthkit init ai-code-assistant
+/growthkit.specify "Validate product-market-fit for AI-powered code generation among backend engineers working at Series A SaaS companies, similar to Cursor's approach"
+```
+
+Expected artifacts:
+- Personas: Backend engineers at 50-500 person SaaS, use Python/Go/Rust
+- Viral loop: Watermark Loop (code snippets shared with product watermark)
+- Success metric: Time-to-first-completion <10 seconds, edit distance <15%
+- K-factor target: >1.2 (developer network effects)
+
+### Trust Growth (Vertical AI - Harvey, Writer)
+
+```
+growthkit init contract-ai
+/growthkit.specify "Validate willingness-to-pay for AI-powered legal document analysis among solo practitioners and small law firms with 1-10 lawyers"
+```
+
+Expected artifacts:
+- Personas: Solo practitioners and 2-person law firms, spending >$5k/month on legal research
+- Viral loop: Integration Loop (AI outputs embedded in existing legal workflows)
+- Success metric: Time-to-first-document <3 minutes, cost savings >50% vs. manual review
+- K-factor target: >1.1 (professional referral network)
+
+### Agentic Growth (Creative Tools - Runway, HeyGen)
+
+```
+growthkit init video-generation
+/growthkit.specify "Validate demand for text-to-video generation among YouTube creators and TikTok content creators with 10k-100k subscriber base"
+```
+
+Expected artifacts:
+- Personas: Content creators, 20-40 hours/week creating videos, spend $200-500/month on tools
+- Viral loop: Remix Loop (creators share generated videos with platform attribution)
+- Success metric: Time-to-first-render <5 minutes, video completion rate >80%
+- K-factor target: >1.3 (TikTok/YouTube network effects)
+
+---
+
+## 📖 Learn More
+
+- **[Growth Hacking Kit Specification](./specs/001-growth-hacking-kit/spec.md)** - Full feature specification
+- **[Growth Hacking Kit Implementation Plan](./specs/001-growth-hacking-kit/plan.md)** - Technical implementation details
+- **[API Reference](./docs/API.md)** - Complete API documentation
+- **[Troubleshooting Guide](./docs/TROUBLESHOOTING.md)** - Common issues and solutions
+- **[Spec-Kit Repository](https://github.com/github/spec-kit)** - Upstream project for software development
+- **[Spec-Driven Development Methodology](https://github.com/github/spec-kit/blob/main/spec-driven.md)** - Core methodology
+
+---
+
+## 🚧 Roadmap
+
+### Phase 1: Core Growth Workflow ✅ COMPLETE
+- `growthkit init` - Project initialization
+- `growthkit check` - Dependency verification
+- `/growthkit.specify` - Campaign specification
+- `/growthkit.clarify` - Ambiguity resolution
+- `/growthkit.plan` - Campaign planning
+- `/growthkit.tasks` - Task generation
+- `/growthkit.implement` - Campaign execution
+
+### Phase 2: Growth Intelligence (v0.2.0) 🔄 PLANNED
+- Growth metrics dashboard
+- Viral loop analyzer
+- Platform-specific optimization engine
+- A/B testing framework
+- Real-time campaign monitoring
+
+### Phase 3: Team Collaboration (v0.3.0) 🔄 PLANNED
+- Multi-user campaign management
+- Shared retrospectives
+- Team role-based access
+- Campaign templates library
+
+### Phase 4: Advanced Analytics (v1.0.0) 🔄 PLANNED
+- Attribution modeling
+- Cohort analysis
+- Predictive growth forecasting
+- Community sentiment analysis
+
+---
+
+## 🏗️ Project Structure
+
+```
+growth-hacking-kit/
+├── .claude/commands/          # Claude Code slash commands
+│   ├── growthkit-constitution.md
+│   ├── growthkit-specify.md
+│   ├── growthkit-clarify.md
+│   ├── growthkit-plan.md
+│   ├── growthkit-tasks.md
+│   └── growthkit-implement.md
+├── .growthkit/                # Growth Hacking Kit templates
+│   ├── memory/
+│   │   └── constitution.md        # Growth principles (v0.1.0)
+│   ├── templates/
+│   │   ├── spec-template.md       # Campaign specification template
+│   │   ├── plan-template.md       # Campaign planning template
+│   │   ├── tasks-template.md      # Task breakdown template
+│   │   └── commands/              # Agent command templates
+│   └── scripts/
+│       ├── bash/                  # Bash automation scripts
+│       └── powershell/            # PowerShell automation scripts
+├── docs/                      # Documentation
+│   ├── API.md                 # API reference
+│   └── TROUBLESHOOTING.md     # Troubleshooting guide
+├── specs/
+│   └── 001-growth-hacking-kit/    # Feature specification
+├── tests/                     # Test suite
+├── src/growthkit/             # Source code
+│   ├── cli/                   # CLI commands
+│   ├── constitution/          # Validation engine
+│   └── research/              # Growth research modules
+├── pyproject.toml
+├── README.md
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+└── PROJECT_COMPLETION_SUMMARY.md
+```
+
+---
+
+## 🔧 Prerequisites
+
+- **Linux/macOS/Windows**
+- [Supported](#-supported-ai-agents) AI coding agent
+- [uv](https://docs.astral.sh/uv/) for package management
+- [Python 3.11+](https://www.python.org/downloads/)
+- [Git](https://git-scm.com/downloads)
+
+### Verify Your Setup
+
+Run `growthkit check` to verify all prerequisites and see which AI agents are available:
+
+```bash
+growthkit check
+```
+
+---
+
+## 🌐 Creating Your Own Kit Variant
+
+Growth Hacking Kit demonstrates how to adapt spec-driven methodology to any domain. Want to create a variant for product design, marketing, or business writing?
+
+See [`refs/instructions.md`](./refs/instructions.md) for a comprehensive guide on:
+- How to fork and adapt spec-kit for your domain
+- How to define domain-specific principles
+- How to create templates and reference materials
+- How to enable multi-kit coexistence
+
+**Example variants:**
+- **`pd-kit`** - Product design and UX workflows
+- **`marketing-kit`** - Content marketing and distribution
+- **`writing-kit`** - Technical and business writing
+- **`blog-kit`** - Blog content planning
+
+All variants are published at [**kits.agentii.ai**](https://kits.agentii.ai).
+
+---
+
+## 🙏 Acknowledgements
+
+Growth Hacking Kit is built on the excellent work of the [**Spec-Kit**](https://github.com/github/spec-kit) project from GitHub. We preserve 100% of Spec-Kit's architecture and infrastructure while adapting templates and methodology for growth campaign planning and execution.
+
+**Spec-Kit Credits:**
+- [Den Delimarsky](https://github.com/localden)
+- [John Lam](https://github.com/jflam)
+
+---
+
+## 💬 Support
+
+For issues, questions, or feedback:
+
+- **GitHub Issues**: [Report on Growth Hacking Kit](https://github.com/agentii-ai/growth-hacking-kit/issues)
+- **Spec-Kit Issues**: [Report on Spec-Kit](https://github.com/github/spec-kit/issues)
+- **Kit Variants**: [Visit kits.agentii.ai](https://kits.agentii.ai)
+- **Documentation**: [API Reference](./docs/API.md) | [Troubleshooting](./docs/TROUBLESHOOTING.md)
+
+---
+
+## 📄 License
+
+This project is licensed under the terms of the MIT open source license. See [LICENSE](./LICENSE) for details.
+
+**Note**: Growth Hacking Kit extends Spec-Kit's MIT license. For Spec-Kit license details, see [Spec-Kit LICENSE](https://github.com/github/spec-kit/blob/main/LICENSE).
+
+---
+
+## 🌟 Why Growth Hacking Kit?
+
+### For Growth Teams & Founders:
+- **Systematic**: Replace intuition-based growth with structured, hypothesis-driven campaigns
+- **AI-Assisted**: Leverage AI agents for specification, planning, and execution
+- **Validated**: Reference templates based on proven growth patterns from successful AI products
+- **Evidence-Driven**: Focus on measurable metrics (k-factor, time-to-wow) and validation gates
+
+### For the Open Source Community:
+- **Reproducible**: Spec-driven workflows are more transparent and collaborative than ad-hoc processes
+- **Extensible**: Growth Hacking Kit serves as a reference for creating domain-specific kit variants
+- **Community-Friendly**: All templates and reference materials are open source and MIT-licensed
+- **Professional**: Built on proven Spec-Kit infrastructure, adapted by experienced growth leaders
+
+---
+
+**Ready to systematize your growth with confidence?**
+
+```bash
+growthkit init my-product
+```
+
+Let's build sustainable growth through measurement, validation, and community amplification.
+
+---
