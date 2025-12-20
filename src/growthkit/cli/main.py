@@ -9,7 +9,7 @@ from rich.console import Console
 from rich.table import Table
 
 from growthkit import __version__
-from growthkit.cli import config, utils
+from growthkit.cli import config, utils, specify, plan, tasks, implement
 
 # Initialize Typer app
 app = typer.Typer(
@@ -230,6 +230,96 @@ def check(debug: bool = typer.Option(False, "--debug", help="Enable debug output
         console.print(f"  Python OK: {python_ok}")
         console.print(f"  uv OK: {uv_ok}")
         console.print(f"  Agents: {agents}")
+
+
+@app.command()
+def specify(
+    description: str = typer.Argument(..., help="Campaign description"),
+    force: bool = typer.Option(False, "--force", help="Force overwrite existing spec"),
+    debug: bool = typer.Option(False, "--debug", help="Enable debug logging"),
+) -> None:
+    """
+    Create a growth campaign specification from natural language description.
+
+    This command:
+    1. Extracts campaign name from description
+    2. Creates/checks campaign branch
+    3. Generates spec.md from template
+    4. Validates against Constitution Check gates
+    5. Creates quality checklist
+
+    Example:
+        growthkit specify "Launch Product Hunt campaign with demo video"
+    """
+    specify.specify_command(description, force, debug)
+
+
+@app.command()
+def plan(
+    description: str = typer.Argument(..., help="Campaign plan description or existing spec name"),
+    force: bool = typer.Option(False, "--force", help="Force overwrite existing plan"),
+    debug: bool = typer.Option(False, "--debug", help="Enable debug logging"),
+) -> None:
+    """
+    Create an implementation plan from an approved specification.
+
+    This command:
+    1. Loads the approved specification
+    2. Generates platform-specific tactics
+    3. Creates GEO optimization research
+    4. Generates supporting documents (research.md, data-model.md, quickstart.md)
+    5. Validates against Constitution Check gates
+    6. Updates agent context
+
+    Example:
+        growthkit plan "001-product-hunt-launch"
+    """
+    plan.plan_command(description, force, debug)
+
+
+@app.command()
+def tasks_cmd(
+    description: str = typer.Argument(..., help="Campaign plan name or spec name"),
+    force: bool = typer.Option(False, "--force", help="Force overwrite existing tasks"),
+    debug: bool = typer.Option(False, "--debug", help="Enable debug logging"),
+) -> None:
+    """
+    Generate actionable task breakdown from implementation plan.
+
+    This command:
+    1. Loads the approved plan
+    2. Parses platform tactics and schedules
+    3. Generates phase-organized tasks (Setup → Pilot → Scale → Measure)
+    4. Marks parallel opportunities [P]
+    5. Creates checkpoint validation tasks
+    6. Validates dependency ordering
+
+    Example:
+        growthkit tasks "001-product-hunt-launch"
+    """
+    tasks.tasks_command(description, force, debug)
+
+
+@app.command()
+def implement(
+    description: str = typer.Argument(..., help="Campaign name or task list"),
+    force: bool = typer.Option(False, "--force", help="Skip checkpoint confirmations"),
+    debug: bool = typer.Option(False, "--debug", help="Enable debug logging"),
+) -> None:
+    """
+    Execute campaign tasks with checkpoint validations.
+
+    This command:
+    1. Loads task breakdown (tasks.md)
+    2. Guides execution through Setup → Pilot → Scale → Measure phases
+    3. Validates checkpoints before proceeding
+    4. Tracks execution progress
+    5. Generates retrospective report
+
+    Example:
+        growthkit implement "001-product-hunt-launch"
+    """
+    implement.implement_command(description, force, debug)
 
 
 @app.command()

@@ -229,3 +229,86 @@ class ConstitutionValidator:
             "status": "PASS" if len(matches) <= 3 else "FAIL",
             "markers": matches,
         }
+
+    def extract_growth_type(self, content: str) -> dict[str, Any]:
+        """
+        Extract growth type from specification.
+
+        Args:
+            content: Specification content
+
+        Returns:
+            Dictionary with identified growth types
+        """
+        growth_types = {
+            "vibe": bool(re.search(r"Vibe Growth", content)),
+            "trust": bool(re.search(r"Trust Growth", content)),
+            "agentic": bool(re.search(r"Agentic Growth", content)),
+        }
+
+        identified = [g_type for g_type, found in growth_types.items() if found]
+
+        return {
+            "identified_types": identified,
+            "primary_type": identified[0] if identified else "unspecified",
+            "count": len(identified),
+        }
+
+    def extract_viral_loop(self, content: str) -> dict[str, Any]:
+        """
+        Extract viral loop type from specification.
+
+        Args:
+            content: Specification content
+
+        Returns:
+            Dictionary with identified viral loops
+        """
+        viral_loops = {
+            "remix": bool(re.search(r"Remix Loop", content)),
+            "integration": bool(re.search(r"Integration Loop", content)),
+            "watermark": bool(re.search(r"Watermark Loop", content)),
+        }
+
+        identified = [loop for loop, found in viral_loops.items() if found]
+
+        return {
+            "identified_loops": identified,
+            "primary_loop": identified[0] if identified else "unspecified",
+            "count": len(identified),
+        }
+
+    def extract_metrics(self, content: str) -> dict[str, Any]:
+        """
+        Extract metrics from specification.
+
+        Args:
+            content: Specification content
+
+        Returns:
+            Dictionary with identified metrics
+        """
+        metrics = {
+            "k_factor": re.search(r"k-factor\s*[>≥]\s*([0-9.]+)", content, re.IGNORECASE),
+            "time_to_wow": re.search(r"time.to.wow|time-to-wow\s*[:<]\s*(\d+)", content, re.IGNORECASE),
+            "nrr": re.search(r"NRR|Net Revenue Retention\s*[=:]\s*([0-9.]+)%?", content, re.IGNORECASE),
+            "primary_activation": re.search(
+                r"primary.*activation|activation.*primary", content, re.IGNORECASE
+            ),
+            "engagement_rate": re.search(
+                r"engagement\s+rate|engagement.*metric", content, re.IGNORECASE
+            ),
+        }
+
+        identified = {
+            name: {
+                "found": bool(match),
+                "value": match.group(1) if match and match.groups() else None,
+            }
+            for name, match in metrics.items()
+        }
+
+        return {
+            "metrics": identified,
+            "defined_count": sum(1 for m in identified.values() if m["found"]),
+        }

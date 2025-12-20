@@ -356,3 +356,31 @@ def parse_json_output(output: str) -> dict[str, Any]:
         return json.loads(output)
     except json.JSONDecodeError as e:
         raise ValueError(f"Failed to parse JSON output: {e}")
+
+
+def get_campaign_dir_from_branch(branch_or_campaign: str) -> Path:
+    """
+    Get campaign directory from branch name or campaign ID.
+
+    Args:
+        branch_or_campaign: Branch name (e.g., "001-product-hunt-launch") or campaign ID
+
+    Returns:
+        Path to campaign directory
+
+    Raises:
+        ValueError: If campaign directory not found
+    """
+    specs_dir = get_project_root() / SPECS_DIR
+
+    # Try exact match first
+    if (specs_dir / branch_or_campaign).exists():
+        return specs_dir / branch_or_campaign
+
+    # Try to find by pattern
+    for campaign_dir in specs_dir.iterdir():
+        if campaign_dir.is_dir() and campaign_dir.name.startswith(branch_or_campaign):
+            return campaign_dir
+
+    raise ValueError(f"Campaign not found: {branch_or_campaign}")
+
