@@ -1,363 +1,603 @@
----
+# Task Breakdown: Growth Hacking Kit
 
-description: "Task list for Growth Hacking Kit implementation"
----
+**Purpose**: Actionable tasks organized by campaign phase (Setup → Pilot → Scale → Measure)
+**Project**: Growth Hacking Kit CLI
+**Created**: 2025-12-20
+**Status**: Ready for execution
 
-# Tasks: Growth Hacking Kit
+## Overview
 
-**Input**: Design documents from `/specs/001-growth-hacking-kit/`
-**Prerequisites**: plan.md (required), spec.md (required for user stories)
+This task breakdown organizes the Growth Hacking Kit implementation into four phases, following the spec-driven methodology and growth hacking principles. Each phase has clear deliverables, dependencies, and checkpoints.
 
-**Tests**: Tests are OPTIONAL - only included if explicitly requested. This feature does not explicitly request tests in the specification, so test tasks are omitted unless requested by user.
+## Legend
 
-**Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story. The MVP scope is User Story 1 (Initialize Growth Campaign Project), which delivers immediate value.
-
-## Format: `[ID] [P?] [Story] Description`
-
-- **[P]**: Can run in parallel (different files, no dependencies)
-- **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3, US4, US5)
-- Include exact file paths in descriptions
-
-## Path Conventions
-
-- **Package root**: `src/growthkit/` for Python CLI code
-- **Kit directory**: `.growthkit/` for project-specific files (templates, scripts, memory)
-- **Tests**: `tests/` for pytest unit/integration tests (if requested)
-- **Specs**: `specs/###-campaign-name/` for campaign documentation
+- `[P]` = Parallel opportunity (can run simultaneously with other [P] tasks)
+- `[CP]` = Checkpoint (must validate before proceeding)
+- Sequential tasks without markers must run in order
 
 ---
 
-## Phase 1: Setup (Shared Infrastructure)
+## Phase 1: Setup - Infrastructure & Foundation
 
-**Purpose**: Project initialization and basic CLI structure
+**Goal**: Establish project infrastructure, templates, and core utilities
+**Timeline**: 2-3 days
+**Budget**: Foundation layer (no external costs)
 
-- [ ] T001 Create project directory structure matching plan.md (src/growthkit/, .growthkit/, tests/)
-- [ ] T002 Create pyproject.toml with package name `growthkit-cli`, entry point `growthkit`, dependencies (typer, jinja2, pyyaml, gitpython, httpx, pytest)
-- [ ] T003 [P] Create src/growthkit/__init__.py with version "0.1.0"
-- [ ] T004 [P] Create src/growthkit/__main__.py with entry point for `python -m growthkit`
-- [ ] T005 [P] Create LICENSE file (MIT, inherited from spec-kit pattern)
-- [ ] T006 Create README.md with GEO-optimized content (structured tables, benchmarks, installation guide)
+### Core Infrastructure Tasks
 
----
+- [ ] T077 [P] Create directory structure in .growthkit/
+  - Deliverable: `.growthkit/memory/`, `.growthkit/scripts/`, `.growthkit/templates/`
+  - Status: Create subdirectories if missing
+  - Owner: Growth Eng Lead
+  - Duration: 1 hour
 
-## Phase 2: Foundational (Blocking Prerequisites)
+- [ ] T078 [P] Copy constitution template to .growthkit/memory/
+  - Deliverable: `.growthkit/memory/constitution.md` (verified readable)
+  - Validation: File contains 7 Core Principles (I-VII)
+  - Owner: Growth Eng Lead
+  - Duration: 30 min
 
-**Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented
+- [ ] T079 [P] Copy bash scripts to .growthkit/scripts/bash/
+  - Deliverable: common.sh, check-prerequisites.sh, create-new-feature.sh, setup-plan.sh, update-agent-context.sh
+  - Status: All scripts present and executable (chmod +x)
+  - Owner: Growth Eng Lead
+  - Duration: 30 min
 
-**⚠️ CRITICAL**: No user story work can begin until this phase is complete
+- [ ] T080 [P] Copy command templates to .growthkit/templates/commands/
+  - Deliverable: growthkit-specify.md, growthkit-plan.md, growthkit-tasks.md, growthkit-implement.md, growthkit-constitution.md
+  - Status: All templates kit-agnostic (use {{KIT_NAME}} variable)
+  - Owner: Growth Eng Lead
+  - Duration: 1 hour
 
-- [ ] T007 Create src/growthkit/cli/config.py with KIT_NAME="growthkit", PACKAGE_DIR=".growthkit/", ENV_VAR="GROWTHKIT_CAMPAIGN"
-- [ ] T008 [P] Create src/growthkit/cli/utils.py with git operations (branch creation, status checks) using gitpython
-- [ ] T009 [P] Create src/growthkit/cli/utils.py agent detection functions (Claude Code, Cursor, Windsurf, Copilot, etc.)
-- [ ] T010 [P] Create src/growthkit/cli/utils.py template rendering functions using jinja2
-- [ ] T011 Create .growthkit/templates/spec-template.md (copy from .specify/templates/spec-template.md and parameterize {{KIT_NAME}})
-- [ ] T012 [P] Create .growthkit/templates/plan-template.md (copy from .specify/templates/plan-template.md and parameterize {{KIT_NAME}})
-- [ ] T013 [P] Create .growthkit/templates/tasks-template.md (copy from .specify/templates/tasks-template.md and parameterize {{KIT_NAME}})
-- [ ] T014 Create .growthkit/templates/constitution-template.md (copy from .specify/memory/constitution.md as Growth Hacking Kit Constitution v1.1.0)
-- [ ] T015 Create .growthkit/scripts/bash/common.sh (utility functions for bash scripts, parameterized for growthkit)
-- [ ] T016 [P] Create .growthkit/scripts/bash/check-prerequisites.sh (checks git, uv, python, agent installations)
-- [ ] T017 [P] Create .growthkit/scripts/bash/create-new-feature.sh (creates ###-campaign-name branches, parameterized for growthkit)
-- [ ] T018 [P] Create .growthkit/scripts/bash/setup-plan.sh (copies plan template, returns JSON with paths)
-- [ ] T019 [P] Create .growthkit/scripts/bash/update-agent-context.sh (updates CLAUDE.md, .cursor/README.md, .windsurf/README.md)
-- [ ] T020 Create src/growthkit/constitution/__init__.py
-- [ ] T021 [P] Create src/growthkit/constitution/gates.py with mandatory/advisory gate definitions (Seven Core Principles)
-- [ ] T022 [P] Create src/growthkit/constitution/validator.py with Constitution Check validation logic (regex parsing of spec.md)
+### Configuration Tasks
 
-**Checkpoint**: Foundation ready - user story implementation can now begin in parallel
+- [ ] T081 Verify pyproject.toml configuration
+  - Deliverable: `pyproject.toml` with correct settings
+  - Checklist:
+    - Package name: `growthkit-cli`
+    - Entry point: `growthkit`
+    - Python version: 3.11+
+    - Dependencies: typer, rich, gitpython, jinja2, pyyaml
+  - Owner: Growth Eng Lead
+  - Duration: 30 min
 
----
+- [ ] T082 Verify git repository setup
+  - Deliverable: `.git/` directory exists, origin configured
+  - Validation: `git status` returns clean tree
+  - Owner: Growth Eng Lead
+  - Duration: 15 min
 
-## Phase 3: User Story 1 - Initialize Growth Campaign Project (Priority: P1) 🎯 MVP
-
-**Goal**: Enable users to bootstrap a growth-hacking-kit project with CLI and establish constitution
-
-**Independent Test**: Run `growthkit init my-campaign --ai claude` and verify .growthkit/ directory created, constitution.md exists, slash commands available in agent
-
-### Implementation for User Story 1
-
-- [ ] T023 [US1] Create src/growthkit/cli/main.py with Typer app definition
-- [ ] T024 [US1] Implement `growthkit init` command in src/growthkit/cli/main.py with arguments (project-name, --ai, --script, --ignore-agent-tools, --no-git, --here, --force, --skip-tls, --debug, --github-token)
-- [ ] T025 [US1] Add agent detection logic in `growthkit init` (Claude Code, Cursor, Windsurf detection via utils.py)
-- [ ] T026 [US1] Add .growthkit/ directory creation in `growthkit init` (memory/, scripts/, templates/ subdirectories)
-- [ ] T027 [US1] Add constitution template copy in `growthkit init` (from src/growthkit/templates/constitution-template.md to .growthkit/memory/constitution.md)
-- [ ] T028 [US1] Add script templates copy in `growthkit init` (bash scripts to .growthkit/scripts/bash/, powershell to .growthkit/scripts/powershell/)
-- [ ] T029 [US1] Add spec/plan/tasks templates copy in `growthkit init` (to .growthkit/templates/)
-- [ ] T030 [US1] Add agent command file generation in `growthkit init` (create .claude/commands/growthkit-*.md, .cursor/commands/growthkit-*.md, .windsurf/commands/growthkit-*.md)
-- [ ] T031 [US1] Add Git repository initialization in `growthkit init` (if not --no-git, run git init)
-- [ ] T032 [US1] Add success message display in `growthkit init` with next steps (run /growthkit.constitution, /growthkit.specify)
-- [ ] T033 [US1] Implement `growthkit check` command in src/growthkit/cli/main.py (checks git, uv, python, agents, displays results table)
-- [ ] T034 [US1] Create .growthkit/templates/commands/growthkit-specify.md (slash command template for /growthkit.specify)
-- [ ] T035 [P] [US1] Create .growthkit/templates/commands/growthkit-plan.md (slash command template for /growthkit.plan)
-- [ ] T036 [P] [US1] Create .growthkit/templates/commands/growthkit-tasks.md (slash command template for /growthkit.tasks)
-- [ ] T037 [P] [US1] Create .growthkit/templates/commands/growthkit-implement.md (slash command template for /growthkit.implement)
-- [ ] T038 [P] [US1] Create .growthkit/templates/commands/growthkit-constitution.md (slash command template for /growthkit.constitution)
-
-**Checkpoint**: At this point, User Story 1 should be fully functional - users can run `growthkit init` and see slash commands in their agent
+- [ ] T083 [CP] Setup Phase Checkpoint
+  - Deliverable: Checklist document confirming infrastructure ready
+  - Validation criteria:
+    - ✓ All directories created
+    - ✓ All templates copied
+    - ✓ All scripts executable
+    - ✓ Git initialized and clean
+  - Decision: Proceed to Pilot phase?
+  - Owner: Growth Eng Lead
+  - Duration: 30 min
 
 ---
 
-## Phase 4: User Story 2 - Create Growth Campaign Specification (Priority: P2)
+## Phase 2: Pilot - Core Command Implementation
 
-**Goal**: Enable users to specify growth campaigns using /growthkit.specify command from natural language
+**Goal**: Implement primary CLI commands and agent integration
+**Timeline**: 5-7 days
+**Budget**: Development effort only
 
-**Independent Test**: Run `/growthkit.specify Launch Product Hunt campaign...` and verify branch created, spec.md generated with Constitution Check validation, no [NEEDS CLARIFICATION] markers remain
+### Command Handlers - Setup Tasks
 
-### Implementation for User Story 2
+- [ ] T084 [P] Enhance main.py with new command handlers
+  - Deliverable: `src/growthkit/cli/main.py` with all 6 commands
+  - Commands: init, check, version, specify, plan, tasks, implement
+  - Status: All commands registered in Typer app
+  - Owner: Growth Eng Lead
+  - Duration: 2 hours
 
-- [ ] T039 [US2] Implement branch name generation logic in src/growthkit/cli/utils.py (extract 2-4 word short name from campaign description)
-- [ ] T040 [US2] Implement feature number detection in src/growthkit/cli/utils.py (check remote branches, local branches, specs/ directories for highest number)
-- [ ] T041 [US2] Implement .growthkit/scripts/bash/create-new-feature.sh integration (call script with --number, --short-name, --json)
-- [ ] T042 [US2] Implement spec template rendering in src/growthkit/cli/utils.py using jinja2 (replace {{KIT_NAME}}, {{CAMPAIGN_NAME}}, {{CAMPAIGN_NUMBER}}, {{FEATURE_BRANCH}})
-- [ ] T043 [US2] Implement growth type identification in src/growthkit/constitution/validator.py (Vibe Growth, Trust Growth, or Agentic Growth from target audience)
-- [ ] T044 [US2] Implement viral loop extraction in src/growthkit/constitution/validator.py (Remix, Integration, or Watermark from campaign description)
-- [ ] T045 [US2] Implement metrics extraction in src/growthkit/constitution/validator.py (primary metric with target, activation metric, engagement metric)
-- [ ] T046 [US2] Implement Constitution Check validation in src/growthkit/constitution/validator.py (validate spec against mandatory gates: spec exists, growth type identified, viral loop defined, k-factor target, metrics set)
-- [ ] T047 [US2] Implement [NEEDS CLARIFICATION] limiting logic (maximum 3 markers, prioritized by scope > security/privacy > UX)
-- [ ] T048 [US2] Create specs/###-campaign-name/checklists/requirements.md template in src/growthkit/templates/
-- [ ] T049 [US2] Implement checklist generation in src/growthkit/cli/utils.py (spec quality validation checklist)
-- [ ] T050 [US2] Add spec.md writing logic (generate from template, write to specs/###-campaign-name/spec.md)
-- [ ] T051 [US2] Add checklist validation logic (check Content Quality, Requirement Completeness, Feature Readiness)
+- [ ] T085 [P] Create implement.py command handler
+  - Deliverable: `src/growthkit/cli/implement.py` (partially done, needs completion)
+  - Functions:
+    - `implement_command()` - Main entry point
+    - `_parse_execution_phases()` - Extract phases from tasks.md
+    - `_extract_phase_tasks()` - Parse tasks for each phase
+    - `_confirm_phase_start()` - User confirmation gates
+    - `_validate_checkpoint()` - Checkpoint validation logic
+    - `_generate_retrospective()` - Post-campaign documentation
+  - Owner: Growth Eng Lead
+  - Duration: 4 hours
 
-**Checkpoint**: At this point, User Stories 1 AND 2 should both work independently - users can initialize project and generate campaign specs
+- [ ] T086 [P] Enhance utils.py with execution utilities
+  - Deliverable: `src/growthkit/cli/utils.py` with new functions
+  - New functions:
+    - `parse_tasks_markdown()` - Parse tasks.md structure
+    - `validate_task_dependencies()` - Check dependency ordering
+    - `track_execution_progress()` - Progress tracking
+    - `generate_metrics_dashboard()` - Metrics aggregation
+  - Owner: Growth Eng Lead
+  - Duration: 3 hours
 
----
+### Constitution Check Enhancement
 
-## Phase 5: User Story 3 - Plan Campaign Implementation (Priority: P3)
+- [ ] T087 [P] Enhance validator.py with execution validation
+  - Deliverable: `src/growthkit/constitution/validator.py` extended
+  - New methods:
+    - `validate_plan_execution()` - Validate plan readiness
+    - `validate_checkpoint_results()` - Validate pilot results
+    - `track_complexity_violations()` - Monitor constitution violations
+  - Owner: Growth Eng Lead
+  - Duration: 2 hours
 
-**Goal**: Convert validated campaign spec into implementation plan with platform tactics, Constitution Check, pilot scoping
+### Agent Integration
 
-**Independent Test**: Run `/growthkit.plan Use X/Twitter...` on approved spec and verify plan.md created with Constitution Check gates, platform-specific tactics documented, pilot budget <10% of scale budget
+- [ ] T088 [P] Create agent command files for implement
+  - Deliverable: Command templates in `.growthkit/templates/commands/`
+  - Files:
+    - `growthkit-implement.md` - Template for `/growthkit.implement` command
+    - Updated `growthkit-constitution.md` with full integration examples
+  - Status: All templates ready for agent use
+  - Owner: Growth Eng Lead
+  - Duration: 2 hours
 
-### Implementation for User Story 3
+### Testing - Pilot Phase
 
-- [ ] T052 [US3] Implement plan template rendering in src/growthkit/cli/utils.py (Technical Context, Constitution Check, Project Structure sections)
-- [ ] T053 [US3] Implement Constitution Check gate validation in src/growthkit/constitution/validator.py (mandatory gates: spec exists, growth type, target audience, viral loop, k-factor, metrics, pilot)
-- [ ] T054 [US3] Implement platform tactic extraction in src/growthkit/research/platforms.py (X/Twitter 30-60s 16:9, TikTok 15-30s 9:16, LinkedIn case studies, GitHub code examples, Product Hunt demo video)
-- [ ] T055 [US3] Implement GEO optimization research in src/growthkit/research/platforms.py (Answer Density, structured tables, LLM citation validation)
-- [ ] T056 [US3] Implement pilot phase scoping validation (ensure pilot budget <10% of scale budget per Principle VI)
-- [ ] T057 [US3] Create research.md template in src/growthkit/templates/
-- [ ] T058 [P] [US3] Create data-model.md template in src/growthkit/templates/
-- [ ] T059 [P] [US3] Create quickstart.md template in src/growthkit/templates/
-- [ ] T060 [US3] Implement research.md generation (platform API specs, GEO strategy, tactical decisions from refs/0_overview.md, refs/1_principles_for_constitution.md, refs/3_project_mangement_for_plan.md)
-- [ ] T061 [US3] Implement data-model.md generation (Campaign, Constitution, PlatformTactic, ViralLoop, PilotPhase, Retrospective, GrowthMetricsDashboard entities)
-- [ ] T062 [US3] Create contracts/ directory templates (cli-commands.yaml, slash-commands.yaml, template-variables.json)
-- [ ] T063 [US3] Implement contracts/ generation (CLI command schemas, slash command schemas, template variable definitions)
-- [ ] T064 [US3] Implement quickstart.md generation (installation via uv tool install, project init, first campaign walkthrough)
-- [ ] T065 [US3] Implement .growthkit/scripts/bash/update-agent-context.sh execution (detect agent, update CLAUDE.md/.cursor/README.md/.windsurf/README.md with technology references from plan.md)
-- [ ] T066 [US3] Implement advisory gates re-validation (Agent-First Architecture, Multi-Platform Distribution, Community-Led Amplification)
-- [ ] T067 [US3] Add Complexity Tracking section generation (if constitution violations exist, document justification)
+- [ ] T089 Create unit tests for implement command
+  - Deliverable: `tests/cli/test_implement.py`
+  - Test cases:
+    - Test phase parsing from tasks.md
+    - Test checkpoint validation logic
+    - Test retrospective generation
+    - Test error handling for missing files
+  - Coverage target: >80%
+  - Owner: QA Lead
+  - Duration: 3 hours
 
-**Checkpoint**: At this point, User Stories 1, 2, AND 3 should all work independently - users can initialize, specify, and plan campaigns
+- [ ] T090 [P] Create integration tests for full workflow
+  - Deliverable: `tests/integration/test_full_workflow.py`
+  - Test scenarios:
+    - End-to-end: init → specify → plan → tasks → implement
+    - Verify all files created at each step
+    - Verify Constitution Check gates applied
+    - Test pilot checkpoint validation
+  - Owner: QA Lead
+  - Duration: 4 hours
 
----
-
-## Phase 6: User Story 4 - Generate Campaign Task Breakdown (Priority: P4)
-
-**Goal**: Convert implementation plan into actionable, dependency-ordered task list organized by campaign phase
-
-**Independent Test**: Run `/growthkit.tasks` on completed plan and verify tasks.md created with phases (Setup → Pilot → Scale → Measure), exact deliverables, parallel opportunities marked [P], checkpoint validation after Pilot
-
-### Implementation for User Story 4
-
-- [ ] T068 [US4] Implement plan.md parsing in src/growthkit/cli/utils.py (extract platforms, budget, tactics, pilot scope)
-- [ ] T069 [US4] Implement data-model.md parsing in src/growthkit/cli/utils.py (extract entities for task generation)
-- [ ] T070 [US4] Implement task template rendering in src/growthkit/cli/utils.py (Phase 1 Setup, Phase 2 Pilot, Phase 3 Scale, Phase 4 Measure)
-- [ ] T071 [US4] Implement task ID generation (sequential T001, T002, T003...)
-- [ ] T072 [US4] Implement parallel task marking logic (mark tasks with [P] when different files, no dependencies)
-- [ ] T073 [US4] Implement deliverable specification logic (exact file paths for content, platform posts, tracking URLs)
-- [ ] T074 [US4] Implement checkpoint validation task generation (document pilot results, validate against success criteria, make go/no-go decision)
-- [ ] T075 [US4] Implement dependency order enforcement (Setup → Pilot → Validation → Scale → Measure)
-- [ ] T076 [US4] Add tasks.md writing logic (generate from template, write to specs/###-campaign-name/tasks.md)
-
-**Checkpoint**: At this point, User Stories 1, 2, 3, AND 4 should all work independently - users can initialize, specify, plan, and generate task breakdowns
-
----
-
-## Phase 7: User Story 5 - Execute Campaign Implementation (Priority: P5)
-
-**Goal**: Execute all tasks in correct order with pilot validation gates, content creation, metric tracking, retrospective generation
-
-**Independent Test**: Run `/growthkit.implement` on complete task list and verify AI agent executes tasks in dependency order, pauses at pilot checkpoint if criteria not met, creates platform-native content (X: 16:9, TikTok: 9:16), generates retrospective.md
-
-### Implementation for User Story 5
-
-- [ ] T077 [US5] Implement tasks.md parsing in src/growthkit/cli/utils.py (extract task list with dependencies, phases, checkpoints)
-- [ ] T078 [US5] Implement dependency graph generation (validate Setup → Pilot → Validation → Scale → Measure order)
-- [ ] T079 [US5] Implement task execution engine (execute tasks sequentially, respect [P] markers for parallel opportunities)
-- [ ] T080 [US5] Implement checkpoint validation logic (pause at Pilot phase, validate results against success criteria from plan.md)
-- [ ] T081 [US5] Implement go/no-go decision prompting (if pilot k-factor <0.8 or engagement <5%, prompt user to halt or justify continuation)
-- [ ] T082 [US5] Implement platform-native content generation (X/Twitter: 16:9 video 30-60s, TikTok: 9:16 video 15-30s with hook in first 3s, LinkedIn: data-driven case studies, GitHub: code examples/READMEs, Product Hunt: demo video + first-100-user incentives)
-- [ ] T083 [US5] Create specs/###-campaign-name/assets/ directory for generated content
-- [ ] T084 [US5] Implement metrics tracking logic (views, engagement rate, signups, k-factor, Time-to-First-Share)
-- [ ] T085 [US5] Create retrospective.md template in src/growthkit/templates/
-- [ ] T086 [US5] Implement retrospective generation (actual vs. predicted metrics, principles followed/violated, failure modes encountered, creative lessons, audience insights, platform effectiveness, recommendations)
-- [ ] T087 [US5] Add retrospective.md writing logic (generate from template, write to specs/###-campaign-name/retrospective.md)
-
-**Checkpoint**: All user stories should now be independently functional - users can execute full workflow (init → specify → plan → tasks → implement)
+- [ ] T091 [CP] Pilot Phase Checkpoint
+  - Deliverable: Test results and validation report
+  - Validation criteria:
+    - ✓ All unit tests pass (>80% coverage)
+    - ✓ All integration tests pass
+    - ✓ `/growthkit implement` command works end-to-end
+    - ✓ Retrospective generation produces valid markdown
+  - Manual testing: Create test campaign and run through full workflow
+  - Decision: Ready for scale?
+  - Owner: QA Lead / Product Manager
+  - Duration: 2 hours
 
 ---
 
-## Phase 8: Polish & Cross-Cutting Concerns
+## Phase 3: Scale - Full Feature Implementation
 
-**Purpose**: Improvements that affect multiple user stories, documentation, testing infrastructure
+**Goal**: Complete remaining features and optimize performance
+**Timeline**: 5-7 days
+**Budget**: Development effort only
 
-- [ ] T088 [P] Update README.md with comprehensive installation guide, feature showcase, multi-kit coexistence examples
-- [ ] T089 [P] Create refs/4_pm_tasking_for_tasks.md (task breakdown guidance based on refs/4_pm_tasking_for_tasks.md research)
-- [ ] T090 [P] Create refs/5_writing_for_optimize.md (content optimization guidance for GEO)
-- [ ] T091 [P] Create refs/6_claude_code.md (agent-specific workflow guidance)
-- [ ] T092 [P] Create refs/7_optimization.md (performance patterns, caching strategies)
-- [ ] T093 Add error handling for all CLI commands (clear error messages, exit codes per contracts/cli-commands.yaml)
-- [ ] T094 Add input validation for all CLI commands (validate project-name, --ai choices, budget values)
-- [ ] T095 Add progress indicators for long-running operations (research.md generation, content creation)
-- [ ] T096 Add logging infrastructure (debug logs for --debug flag, error logs for troubleshooting)
-- [ ] T097 Optimize Constitution Check validation performance (<1 second per SC-001 performance goal)
-- [ ] T098 Optimize spec generation performance (<5 seconds per SC-017 success criteria)
-- [ ] T099 Add pyproject.toml metadata (description, authors, keywords, classifiers, project URLs)
-- [ ] T100 Create CONTRIBUTING.md (contribution guidelines for community contributions)
-- [ ] T101 Create .gitignore (Python cache, venv, IDE files, .DS_Store)
-- [ ] T102 Run pyproject.toml validation (ensure package name `growthkit-cli`, entry point `growthkit` correctly configured)
+### Content & Platform Support
+
+- [ ] T092 [P] Create platform-specific content generators
+  - Deliverable: `src/growthkit/content/platform_generators.py`
+  - Generators:
+    - Twitter/X: 16:9 video format, 30-60s, screen recordings
+    - TikTok: 9:16 video format, 15-30s, hook in first 3s
+    - LinkedIn: Professional case studies, data-driven narratives
+    - GitHub: Code examples, READMEs, integration documentation
+    - Product Hunt: Full demo video, 16:9 format
+  - Owner: Growth Content Lead
+  - Duration: 6 hours
+
+- [ ] T093 [P] Create metrics tracking integration
+  - Deliverable: `src/growthkit/metrics/dashboard.py`
+  - Metrics tracked:
+    - K-factor (viral growth coefficient)
+    - Time-to-Wow (seconds to magic moment)
+    - Time-to-Trust (days to production decision)
+    - Engagement rate (% interaction)
+    - Activation rate (% completing onboarding)
+    - NRR (Net Revenue Retention)
+    - Time-to-First-Share (hours to organic sharing)
+  - Integration: Parse metrics from tasks.md and track throughout execution
+  - Owner: Analytics Lead
+  - Duration: 4 hours
+
+- [ ] T094 [P] Create retrospective analysis module
+  - Deliverable: `src/growthkit/analysis/retrospective_analyzer.py`
+  - Analysis functions:
+    - Compare actual vs predicted metrics
+    - Identify principle violations
+    - Document failure modes (Pilot Purgatory, Wrapper Trap, etc.)
+    - Extract learnings and recommendations
+  - Owner: Growth Analyst
+  - Duration: 3 hours
+
+### Documentation & Guides
+
+- [ ] T095 [P] Create comprehensive README for growthkit
+  - Deliverable: `README.md` (kit-specific, not inherited from spec-kit)
+  - Sections:
+    - What is Growth Hacking Kit?
+    - Installation instructions (`uv tool install growthkit-cli`)
+    - Quick start guide (5-minute tutorial)
+    - Command reference (growthkit init/check/version)
+    - Slash command reference (/growthkit.*)
+    - Architecture overview
+    - Multi-kit coexistence explanation
+  - Status: GEO-optimized with Answer Density tables
+  - Owner: Technical Writer
+  - Duration: 3 hours
+
+- [ ] T096 [P] Create troubleshooting guide
+  - Deliverable: `TROUBLESHOOTING.md`
+  - Topics:
+    - Common CLI errors and solutions
+    - Agent integration issues (Claude, Cursor, Windsurf)
+    - Git branch naming conventions
+    - Constitution Check failures and how to resolve
+    - Multi-kit coexistence gotchas
+  - Owner: Technical Writer
+  - Duration: 2 hours
+
+- [ ] T097 [P] Create API documentation
+  - Deliverable: `docs/API.md`
+  - Documentation for:
+    - CLI command structure and options
+    - Template variable system ({{KIT_NAME}}, etc.)
+    - Constitution Check gate definitions
+    - Extension points for custom validators
+  - Owner: Technical Writer
+  - Duration: 2 hours
+
+### Error Handling & Validation
+
+- [ ] T098 [P] Add comprehensive error handling
+  - Deliverable: Enhanced error handling in all CLI commands
+  - Error scenarios to handle:
+    - Missing files (spec.md, plan.md, tasks.md)
+    - Invalid git state (detached head, uncommitted changes)
+    - Constitution Check failures (mandatory gate violations)
+    - File system errors (permissions, disk full)
+    - Agent not found when running slash commands
+  - Pattern: Clear error messages with suggestions
+  - Owner: Growth Eng Lead
+  - Duration: 3 hours
+
+- [ ] T099 [P] Add input validation
+  - Deliverable: Input validation for all CLI arguments
+  - Validations:
+    - Campaign names (alphanumeric with hyphens only)
+    - Budget amounts (positive numbers within reasonable ranges)
+    - Platform selections (valid platform names only)
+    - File paths (exist and have correct format)
+  - Owner: Growth Eng Lead
+  - Duration: 2 hours
+
+- [ ] T100 [P] Add progress indicators
+  - Deliverable: Progress bars and status indicators for long operations
+  - Operations:
+    - Spec generation (5-10 seconds)
+    - Plan generation (10-20 seconds)
+    - Task execution (variable, shows checkpoint progress)
+  - Tool: Use `rich.progress` for visual feedback
+  - Owner: Growth Eng Lead
+  - Duration: 2 hours
+
+### Testing - Scale Phase
+
+- [ ] T101 Create comprehensive test suite
+  - Deliverable: `tests/` directory with full coverage
+  - Test categories:
+    - Unit tests: Each module and function (target >85% coverage)
+    - Integration tests: Full workflows and agent interactions
+    - Regression tests: Verify multi-kit coexistence (spec-kit + growthkit)
+    - Performance tests: Validate <2s init, <5s spec, <1s Constitution Check
+  - Owner: QA Lead
+  - Duration: 8 hours
+
+- [ ] T102 [P] Run full test suite
+  - Deliverable: Test report showing coverage and results
+  - Command: `pytest tests/ -v --cov=src/growthkit --cov-report=html`
+  - Target: >85% code coverage, 0 test failures
+  - Owner: QA Lead
+  - Duration: 1 hour
+
+- [ ] T103 [P] Test multi-kit coexistence
+  - Deliverable: Test report verifying spec-kit + growthkit coexistence
+  - Test scenarios:
+    - Both `.specify/` and `.growthkit/` present in same project
+    - `/speckit.plan` and `/growthkit.plan` both available
+    - No file collisions or command conflicts
+    - Environment variables isolated (SPECIFY_FEATURE vs GROWTHKIT_CAMPAIGN)
+  - Owner: QA Lead
+  - Duration: 2 hours
+
+- [ ] T104 [CP] Scale Phase Checkpoint
+  - Deliverable: Scale validation report
+  - Validation criteria:
+    - ✓ All tests pass (>85% coverage)
+    - ✓ Performance targets met (<2s, <5s, <1s)
+    - ✓ Multi-kit coexistence verified
+    - ✓ Documentation complete and reviewed
+    - ✓ Error handling comprehensive
+  - Decision: Ready for production/measure?
+  - Owner: Product Manager
+  - Duration: 2 hours
 
 ---
 
-## Dependencies & Execution Order
+## Phase 4: Measure - Optimization & Production
 
-### Phase Dependencies
+**Goal**: Optimize performance, prepare for production, document learnings
+**Timeline**: 3-5 days
+**Budget**: Final optimization and documentation
 
-- **Setup (Phase 1)**: No dependencies - can start immediately
-- **Foundational (Phase 2)**: Depends on Setup completion - BLOCKS all user stories
-- **User Stories (Phase 3-7)**: All depend on Foundational phase completion
-  - User Story 1 (P1): Can start after Foundational - No dependencies on other stories
-  - User Story 2 (P2): Can start after Foundational - No dependencies on other stories
-  - User Story 3 (P3): Can start after Foundational - May integrate with US1/US2 but should be independently testable
-  - User Story 4 (P4): Can start after Foundational - Depends on US3 (needs plan.md to generate tasks.md)
-  - User Story 5 (P5): Can start after Foundational - Depends on US4 (needs tasks.md to execute)
-- **Polish (Phase 8)**: Depends on all desired user stories being complete
+### Performance Optimization
 
-### User Story Dependencies
+- [ ] T105 [P] Profile CLI execution time
+  - Deliverable: Performance profile report
+  - Profiling targets:
+    - `growthkit init`: Target <2 seconds
+    - Spec generation: Target <5 seconds
+    - Constitution Check: Target <1 second
+    - Task parsing: Target <2 seconds
+  - Tool: Python `cProfile` + `snakeviz` visualization
+  - Owner: DevOps Lead
+  - Duration: 2 hours
 
-- **User Story 1 (P1)**: Can start after Foundational (Phase 2) - No dependencies on other stories
-- **User Story 2 (P2)**: Can start after Foundational (Phase 2) - No dependencies on other stories
-- **User Story 3 (P3)**: Can start after Foundational (Phase 2) - No dependencies on other stories (reads spec.md from US2 but can be tested with mock spec)
-- **User Story 4 (P4)**: Depends on User Story 3 (needs plan.md) - Can start after Phase 5
-- **User Story 5 (P5)**: Depends on User Story 4 (needs tasks.md) - Can start after Phase 6
+- [ ] T106 [P] Optimize regex-based Constitution Check
+  - Deliverable: Enhanced `validator.py` with optimized patterns
+  - Optimizations:
+    - Compile regex patterns once (cache)
+    - Pre-compile all gate validation patterns
+    - Use iterative parsing instead of full file scans where possible
+  - Target: Sub-100ms validation time
+  - Owner: Growth Eng Lead
+  - Duration: 2 hours
 
-### Within Each User Story
+- [ ] T107 [P] Optimize template rendering
+  - Deliverable: Enhanced `utils.py` with Jinja2 caching
+  - Optimizations:
+    - Cache compiled Jinja2 templates
+    - Pre-load all templates at startup
+    - Use lazy-loading for rarely-used templates
+  - Target: <100ms per template render
+  - Owner: Growth Eng Lead
+  - Duration: 1 hour
 
-- Utility functions before commands that use them
-- Template creation before template rendering
-- Validation logic before enforcement
-- CLI commands after all supporting infrastructure
-- Story complete before moving to next priority
+### CI/CD Setup
 
-### Parallel Opportunities
+- [ ] T108 Create GitHub Actions workflows
+  - Deliverable: `.github/workflows/` directory with automation
+  - Workflows:
+    - `test.yml`: Run full test suite on push/PR
+    - `coverage.yml`: Generate and upload coverage reports
+    - `release.yml`: Auto-release to PyPI on tag
+    - `security.yml`: SAST/dependency scanning
+  - Owner: DevOps Lead
+  - Duration: 3 hours
 
-- **Setup phase**: T003, T004, T005, T006 can run in parallel
-- **Foundational phase**: T008, T009, T010 can run in parallel; T012, T013 can run in parallel; T016, T017, T018, T019 can run in parallel; T021, T022 can run in parallel
-- **User Story 1**: T035, T036, T037, T038 can run in parallel (different command files)
-- **User Story 3**: T058, T059 can run in parallel (different template files)
-- **Polish phase**: T088, T089, T090, T091, T092 can run in parallel (different documentation files)
+- [ ] T109 [P] Configure pre-commit hooks
+  - Deliverable: `.pre-commit-config.yaml` with linting/formatting
+  - Tools:
+    - `black`: Python code formatting
+    - `isort`: Import sorting
+    - `flake8`: Linting
+    - `mypy`: Type checking
+  - Owner: DevOps Lead
+  - Duration: 1 hour
 
-**Note**: User Stories 1, 2, 3 can be developed in parallel by different team members after Foundational phase completes. User Stories 4 and 5 have sequential dependencies (4 needs 3, 5 needs 4).
+- [ ] T110 [P] Create release checklist
+  - Deliverable: `RELEASE.md` documenting release process
+  - Checklist items:
+    - Update version in `__init__.py`
+    - Update CHANGELOG.md
+    - Run full test suite
+    - Verify PyPI packaging
+    - Tag release in git
+    - Update GitHub release notes
+  - Owner: Release Manager
+  - Duration: 1 hour
+
+### Documentation & Knowledge Transfer
+
+- [ ] T111 Create CHANGELOG.md
+  - Deliverable: `CHANGELOG.md` with version history
+  - Format: Keep a Changelog (https://keepachangelog.com/)
+  - Sections: Added, Changed, Deprecated, Removed, Fixed, Security
+  - Owner: Technical Writer
+  - Duration: 2 hours
+
+- [ ] T112 Create architecture decision records (ADRs)
+  - Deliverable: `docs/ADRs/` directory with decisions
+  - ADRs to document:
+    - ADR-001: Multi-kit coexistence strategy (.growthkit/ directory)
+    - ADR-002: Kit-agnostic templates ({{KIT_NAME}} variable)
+    - ADR-003: Constitution Check as gating mechanism
+    - ADR-004: Phase-based task execution model
+  - Owner: Tech Lead
+  - Duration: 3 hours
+
+- [ ] T113 [P] Create deployment guide
+  - Deliverable: `docs/DEPLOYMENT.md`
+  - Topics:
+    - Installation methods (uv tool install, from source, Docker)
+    - Configuration options (environment variables, config files)
+    - Multi-kit deployment scenarios
+    - Troubleshooting deployment issues
+  - Owner: DevOps Lead
+  - Duration: 2 hours
+
+- [ ] T114 [P] Create developer contribution guide
+  - Deliverable: `CONTRIBUTING.md` (already exists, update if needed)
+  - Sections:
+    - Development setup
+    - Code style guide (PEP 8 + Black)
+    - Testing requirements (>85% coverage)
+    - Pull request process
+    - Reporting issues
+  - Owner: Tech Lead
+  - Duration: 1 hour
+
+### Retrospective & Analysis
+
+- [ ] T115 Generate implementation retrospective
+  - Deliverable: `RETROSPECTIVE.md` documenting implementation journey
+  - Sections:
+    - Actual vs predicted timeline
+    - Technical challenges encountered
+    - Principles followed/violated
+    - Key learnings from implementation
+    - Recommendations for future kit variants
+  - Owner: Product Manager
+  - Duration: 2 hours
+
+- [ ] T116 [P] Create metrics summary
+  - Deliverable: `METRICS.md` with implementation KPIs
+  - Metrics:
+    - Code quality: Test coverage (>85%), type coverage (>90%)
+    - Performance: CLI execution times, Constitution Check latency
+    - Documentation: Coverage of features, API completeness
+    - User experience: CLI intuitiveness, error message clarity
+  - Owner: Analytics Lead
+  - Duration: 1 hour
+
+- [ ] T117 [P] Create lessons learned document
+  - Deliverable: `LESSONS_LEARNED.md`
+  - Content:
+    - What went well: Multi-kit coexistence, spec-driven methodology
+    - What was challenging: Template parameterization, Constitution Check validation
+    - How to improve next kit variant: Based on this experience
+    - Best practices emerging from this implementation
+  - Owner: Tech Lead
+  - Duration: 2 hours
+
+### Production Preparation
+
+- [ ] T118 [P] Prepare PyPI metadata
+  - Deliverable: Enhanced `pyproject.toml` with complete metadata
+  - Fields:
+    - Description: Growth Hacking Kit for AI SaaS
+    - Keywords: growth-hacking, ai, saas, spec-driven
+    - Homepage: GitHub repository URL
+    - License: MIT
+    - Authors/Maintainers
+    - Changelog URL
+    - Documentation URL
+  - Owner: Release Manager
+  - Duration: 1 hour
+
+- [ ] T119 [P] Create security policy
+  - Deliverable: `SECURITY.md` documenting vulnerability reporting
+  - Content:
+    - Supported versions for security updates
+    - How to report vulnerabilities
+    - Security best practices for users
+  - Owner: Security Lead
+  - Duration: 1 hour
+
+- [ ] T120 [P] Prepare first public release
+  - Deliverable: Release ready for PyPI
+  - Checklist:
+    - ✓ All tests passing
+    - ✓ Documentation complete
+    - ✓ Version bumped to 0.1.0
+    - ✓ CHANGELOG updated
+    - ✓ PyPI metadata complete
+    - ✓ Security policy in place
+  - Owner: Release Manager
+  - Duration: 1 hour
+
+- [ ] T121 [CP] Final Production Checkpoint
+  - Deliverable: Production readiness certification
+  - Validation criteria:
+    - ✓ All 120 tasks completed and verified
+    - ✓ Test coverage >85% with 0 failures
+    - ✓ Performance targets achieved
+    - ✓ Documentation complete and reviewed
+    - ✓ Security measures in place
+    - ✓ Multi-kit coexistence verified
+    - ✓ First release ready for PyPI
+  - Decision: Ship to production?
+  - Owner: Product Manager / Tech Lead
+  - Duration: 2 hours
 
 ---
 
-## Parallel Example: User Story 1
+## Task Summary by Phase
 
-```bash
-# Launch template command files together (after T034 completes):
-Task T035: "Create .growthkit/templates/commands/growthkit-plan.md"
-Task T036: "Create .growthkit/templates/commands/growthkit-tasks.md"
-Task T037: "Create .growthkit/templates/commands/growthkit-implement.md"
-Task T038: "Create .growthkit/templates/commands/growthkit-constitution.md"
-```
-
----
-
-## Implementation Strategy
-
-### MVP First (User Story 1 Only)
-
-1. Complete Phase 1: Setup (T001-T006)
-2. Complete Phase 2: Foundational (T007-T022) - CRITICAL - blocks all stories
-3. Complete Phase 3: User Story 1 (T023-T038)
-4. **STOP and VALIDATE**: Test User Story 1 independently
-   - Run `uv tool install growthkit-cli --from .`
-   - Run `growthkit init test-campaign --ai claude`
-   - Verify `.growthkit/` directory created
-   - Verify constitution.md exists at `.growthkit/memory/constitution.md`
-   - Verify slash commands available in Claude Code (`.claude/commands/growthkit-*.md` files exist)
-   - Verify no collision with spec-kit (if installed, both `/speckit.*` and `/growthkit.*` commands should work)
-5. Deploy/demo MVP (User Story 1 = immediate value)
-
-### Incremental Delivery
-
-1. Complete Setup + Foundational → Foundation ready
-2. Add User Story 1 → Test independently → Deploy/Demo (MVP: users can initialize projects)
-3. Add User Story 2 → Test independently → Deploy/Demo (users can generate campaign specs)
-4. Add User Story 3 → Test independently → Deploy/Demo (users can plan campaigns)
-5. Add User Story 4 → Test independently → Deploy/Demo (users can generate task breakdowns)
-6. Add User Story 5 → Test independently → Deploy/Demo (users can execute full workflow)
-7. Each story adds value without breaking previous stories
-
-### Parallel Team Strategy
-
-With multiple developers:
-
-1. Team completes Setup + Foundational together
-2. Once Foundational is done:
-   - Developer A: User Story 1 (Initialize Project)
-   - Developer B: User Story 2 (Specify Campaign)
-   - Developer C: User Story 3 (Plan Campaign)
-3. After US3 completes:
-   - Developer D: User Story 4 (Task Breakdown) - depends on US3
-4. After US4 completes:
-   - Developer E: User Story 5 (Execute Campaign) - depends on US4
-5. Stories complete and integrate independently
-
-**Note**: User Stories 1, 2, 3 have no interdependencies and can be developed in parallel. User Stories 4 and 5 must wait for their prerequisites (3 and 4 respectively).
+| Phase | Tasks | Duration | Checkpoint | Status |
+|-------|-------|----------|------------|--------|
+| **Setup** | T077-T083 | 2-3 days | T083 [CP] | [ ] |
+| **Pilot** | T084-T091 | 5-7 days | T091 [CP] | [ ] |
+| **Scale** | T092-T104 | 5-7 days | T104 [CP] | [ ] |
+| **Measure** | T105-T121 | 3-5 days | T121 [CP] | [ ] |
+| **TOTAL** | 45 tasks | 15-22 days | 4 checkpoints | [ ] |
 
 ---
 
-## Notes
+## Execution Guidelines
 
-- **[P] tasks** = different files, no dependencies - can run concurrently
-- **[Story] label** maps task to specific user story for traceability (US1, US2, US3, US4, US5)
-- Each user story should be independently completable and testable
-- Commit after each task or logical group
-- Stop at any checkpoint to validate story independently
-- **Multi-kit coexistence**: All tasks ensure namespace isolation (growthkit-cli vs. specify-cli, .growthkit/ vs. .specify/, /growthkit.* vs. /speckit.*)
-- **Constitution alignment**: Tasks T020-T022, T043-T046, T053, T066-T067 implement Constitution Check enforcement per Growth Hacking Kit Constitution v1.1.0
-- Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence
+### Before Starting
+1. Ensure all Phase 1 (Setup) infrastructure is in place
+2. Review each phase's goal and deliverables
+3. Verify checkpoint criteria before proceeding to next phase
+
+### During Execution
+1. Mark tasks [X] as completed immediately after finishing
+2. For parallel [P] tasks, execute simultaneously across team
+3. For sequential tasks, complete in order respecting dependencies
+4. At each checkpoint [CP], pause for validation and decision
+
+### Parallel Opportunity Optimization
+- **T084-T088**: All Setup-related tasks can run in parallel
+- **T089-T090**: Testing can run in parallel with content/metrics work
+- **T092-T094**: Content, metrics, and retrospective generators run in parallel
+- **T095-T097**: All documentation can be created in parallel
+- **T098-T100**: Error handling, validation, and progress indicators in parallel
+- **T105-T107**: All performance optimizations in parallel
+- **T108-T110**: CI/CD, pre-commit, and release checklist in parallel
+- **T112-T114**: All ADRs and guides in parallel
+- **T116-T117**: Metrics and lessons learned in parallel
+- **T118-T120**: PyPI prep and security policy in parallel
+
+### Checkpoint Validations
+
+**T083 - Setup Checkpoint**: Infrastructure ready?
+- Confirm directories, templates, scripts all present
+- Verify git repository clean
+- Proceed: YES → Phase 2 | NO → Fix issues
+
+**T091 - Pilot Checkpoint**: Core implementation solid?
+- All unit tests pass (>80% coverage)
+- Integration tests passing
+- End-to-end workflow functional
+- Proceed: YES → Phase 3 | NO → Fix issues
+
+**T104 - Scale Checkpoint**: Ready for production?
+- All tests pass (>85% coverage)
+- Performance targets met
+- Multi-kit coexistence verified
+- Documentation complete
+- Proceed: YES → Phase 4 | NO → Fix issues
+
+**T121 - Production Checkpoint**: Ship it?
+- All 120 tasks completed
+- Test coverage >85%
+- Performance optimized
+- Documentation comprehensive
+- Security ready
+- Proceed: YES → RELEASE | NO → Fix critical issues
 
 ---
 
-## Summary
-
-**Total Tasks**: 102 tasks
-**Task Breakdown by User Story**:
-- Setup (Phase 1): 6 tasks
-- Foundational (Phase 2): 16 tasks
-- User Story 1 (Phase 3): 16 tasks
-- User Story 2 (Phase 4): 13 tasks
-- User Story 3 (Phase 5): 16 tasks
-- User Story 4 (Phase 6): 9 tasks
-- User Story 5 (Phase 7): 11 tasks
-- Polish (Phase 8): 15 tasks
-
-**Parallel Opportunities**: 23 tasks marked with [P] across all phases
-
-**Independent Test Criteria**:
-- US1: Can initialize project and see slash commands in under 2 minutes
-- US2: Can generate campaign spec from natural language in under 5 minutes
-- US3: Can plan campaign with platform tactics and Constitution Check validation
-- US4: Can generate task breakdown with checkpoint validation
-- US5: Can execute full campaign with pilot gates and retrospective
-
-**Suggested MVP Scope**: User Story 1 only (T001-T038) delivers immediate value - users can initialize growth-hacking-kit projects and see slash commands in their AI agents
-
-**Format Validation**: ✅ All 102 tasks follow strict checklist format:
-- All tasks start with `- [ ]` checkbox
-- All tasks have sequential Task ID (T001-T102)
-- All user story tasks have [Story] label (US1-US5)
-- All parallelizable tasks have [P] marker
-- All tasks include exact file paths in descriptions
+**Created**: 2025-12-20
+**Status**: Ready for execution
+**Next Step**: Begin Phase 1 (Setup) execution with T077
