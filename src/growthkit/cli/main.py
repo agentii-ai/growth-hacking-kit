@@ -21,6 +21,20 @@ app = typer.Typer(
 console = Console()
 
 
+def print_banner():
+    """Display the Growth Hacking Kit ASCII banner."""
+    banner = r"""
+   ____                   _   _       _   _            _    _             _  ___ _
+  / ___|_ __ _____      _| |_| |__   | | | | __ _  ___| | _(_)_ __   __ _| |/ (_) |_
+ | |  _| '__/ _ \ \ /\ / / __| '_ \  | |_| |/ _` |/ __| |/ / | '_ \ / _` | ' /| | __|
+ | |_| | | | (_) \ V  V /| |_| | | | |  _  | (_| | (__|   <| | | | | (_| | . \| | |_
+  \____|_|  \___/ \_/\_/  \__|_| |_| |_| |_|\__,_|\___|_|\_\_|_| |_|\__, |_|\_\_|\__|
+                                                                     |___/
+                          Spec-Driven Growth Campaign Management
+    """
+    console.print(f"[bold cyan]{banner}[/bold cyan]")
+
+
 @app.command()
 def init(
     project_name: Optional[str] = typer.Argument(
@@ -81,7 +95,11 @@ def init(
         growthkit init . --ai cursor-agent
         growthkit init --here --ai windsurf
     """
+    # Display ASCII banner
+    print_banner()
+
     console.print("[bold cyan]Growth Hacking Kit[/bold cyan] - Initializing project...")
+    console.print("")
 
     # Determine project directory
     if here or project_name == ".":
@@ -136,12 +154,38 @@ def init(
             ai = config.DEFAULT_AI_AGENT
             console.print(f"[yellow]⚠[/yellow] No AI agent detected, defaulting to {ai}")
 
-    # Create agent command directories
-    for agent in config.AGENT_DIRS.keys():
-        agent_cmd_dir = project_dir / config.AGENT_DIRS[agent]
+    # Determine script type based on platform
+    import platform
+    if script is None:
+        script = "ps" if platform.system() == "Windows" else "sh"
+
+    # Try to download templates from GitHub releases
+    console.print(f"\n[cyan]Downloading Growth Hacking Kit templates for {ai}...[/cyan]")
+
+    template_zip = utils.download_template_from_github(
+        agent=ai,
+        script=script,
+        github_token=github_token,
+        skip_tls=skip_tls
+    )
+
+    if template_zip and template_zip.exists():
+        console.print(f"[green]✓[/green] Downloaded template: {template_zip.name}")
+
+        # Extract template
+        if utils.extract_template(template_zip, project_dir):
+            console.print(f"[green]✓[/green] Templates installed from GitHub release")
+        else:
+            console.print(f"[yellow]⚠[/yellow] Template extraction failed, using default structure")
+    else:
+        console.print(f"[yellow]⚠[/yellow] Could not download templates from GitHub, using default structure")
+
+    # Create agent command directories (fallback if download failed)
+    for agent_name in config.AGENT_DIRS.keys():
+        agent_cmd_dir = project_dir / config.AGENT_DIRS[agent_name]
         agent_cmd_dir.mkdir(parents=True, exist_ok=True)
 
-    console.print("[green]✓[/green] Agent command directories created")
+    console.print("[green]✓[/green] Agent command directories verified")
 
     # Output next steps
     console.print("\n[bold green]Project initialized successfully![/bold green]\n")

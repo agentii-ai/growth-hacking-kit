@@ -4,8 +4,11 @@ import json
 import os
 import re
 import subprocess
+import tempfile
+import urllib.request
+import zipfile
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 import git
 from jinja2 import Environment, FileSystemLoader, Template
@@ -18,6 +21,11 @@ from growthkit.cli.config import (
     SPECS_DIR,
     get_project_root,
 )
+
+# Constants for template downloads
+GITHUB_REPO = "your-org/growth-hacking-kit"  # TODO: Update with actual repo
+GITHUB_API_URL = "https://api.github.com"
+GITHUB_RELEASES_URL = f"{GITHUB_API_URL}/repos/{GITHUB_REPO}/releases"
 
 
 # Git Operations
@@ -383,4 +391,150 @@ def get_campaign_dir_from_branch(branch_or_campaign: str) -> Path:
             return campaign_dir
 
     raise ValueError(f"Campaign not found: {branch_or_campaign}")
+
+
+# Template Download from GitHub Releases
+
+
+def get_latest_release_version(github_token: Optional[str] = None, skip_tls: bool = False) -> Optional[str]:
+    """
+    Get the latest release version from GitHub.
+
+    Args:
+        github_token: Optional GitHub token for API requests
+        skip_tls: Skip TLS verification (for testing)
+
+    Returns:
+        Latest release version (e.g., "v0.2.0") or None if not found
+    """
+    try:
+        headers = {"Accept": "application/vnd.github.v3+json"}
+        if github_token:
+            headers["Authorization"] = f"token {github_token}"
+
+        request = urllib.request.Request(f"{GITHUB_RELEASES_URL}/latest", headers=headers)
+
+        if skip_tls:
+            import ssl
+            context = ssl._create_unverified_context()
+            response = urllib.request.urlopen(request, context=context)
+        else:
+            response = urllib.request.urlopen(request)
+
+        data = json.loads(response.read().decode())
+        return data.get("tag_name")
+    except Exception:
+        # Fallback: return None and let caller handle
+        return None
+
+
+def download_template_from_github(
+    agent: str,
+    script: str,
+    version: Optional[str] = None,
+    github_token: Optional[str] = None,
+    skip_tls: bool = False
+) -> Optional[Path]:
+    """
+    Download template ZIP from GitHub releases.
+
+    Args:
+        agent: Agent name (claude, cursor-agent, windsurf, etc.)
+        script: Script type (sh or ps)
+        version: Version tag (e.g., "v0.2.0"). If None, uses latest
+        github_token: Optional GitHub token for API requests
+        skip_tls: Skip TLS verification (for testing)
+
+    Returns:
+        Path to downloaded ZIP file or None if download failed
+    """
+    try:
+        # Get version if not provided
+        if not version:
+            version = get_latest_release_version(github_token, skip_tls)
+            if not version:
+                return None
+
+        # Construct download URL
+        filename = f"growthkit-template-{agent}-{script}-{version}.zip"
+        download_url = f"https://github.com/{GITHUB_REPO}/releases/download/{version}/{filename}"
+
+        # Create temp file
+        temp_dir = Path(tempfile.gettempdir()) / "growthkit-templates"
+        temp_dir.mkdir(parents=True, exist_ok=True)
+        zip_path = temp_dir / filename
+
+        # Download
+        headers = {}
+        if github_token:
+            headers["Authorization"] = f"token {github_token}"
+
+        request = urllib.request.Request(download_url, headers=headers)
+
+        if skip_tls:
+            import ssl
+            context = ssl._create_unverified_context()
+            response = urllib.request.urlopen(request, context=context)
+        else:
+            response = urllib.request.urlopen(request)
+
+        with open(zip_path, "wb") as f:
+            f.write(response.read())
+
+        return zip_path
+    except Exception:
+        return None
+
+
+def extract_template(zip_path: Path, target_dir: Path) -> bool:
+    """
+    Extract template ZIP to target directory.
+
+    Args:
+        zip_path: Path to template ZIP file
+        target_dir: Directory to extract to
+
+    Returns:
+        True if extraction succeeded, False otherwise
+    """
+    try:
+        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+            # List all files in the ZIP
+            namelist = zip_ref.namelist()
+
+            # Find the root directory (first directory in ZIP)
+            root_dirs = set()
+            for name in namelist:
+                parts = Path(name).parts
+                if len(parts) > 0:
+                    root_dirs.add(parts[0])
+
+            # If there's a single root directory, extract and move contents
+            if len(root_dirs) == 1:
+                root_dir = list(root_dirs)[0]
+                temp_extract = target_dir / ".temp_extract"
+                temp_extract.mkdir(parents=True, exist_ok=True)
+
+                # Extract to temp location
+                zip_ref.extractall(temp_extract)
+
+                # Move contents from root_dir to target_dir
+                source = temp_extract / root_dir
+                for item in source.iterdir():
+                    dest = target_dir / item.name
+                    if dest.exists():
+                        # Skip if already exists (don't overwrite)
+                        continue
+                    item.rename(dest)
+
+                # Cleanup temp directory
+                import shutil
+                shutil.rmtree(temp_extract)
+            else:
+                # Extract directly
+                zip_ref.extractall(target_dir)
+
+        return True
+    except Exception:
+        return False
 

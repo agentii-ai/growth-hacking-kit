@@ -46,3 +46,7 @@ specs/*/assets/
 *.log
 .env
 .env.local
+
+# Template release generation
+.genreleases/
+dist/templates/

@@ -4,6 +4,11 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g., v0.2.0)'
+        required: false
 
 jobs:
   test:
@@ -19,8 +24,10 @@ jobs:
     - name: Install uv
       uses: astral-sh/setup-uv@v2
 
-    - name: Install dependencies
-      run: uv pip install -e ".[dev]"
+    - name: Create venv and install dependencies
+      run: |
+        uv venv
+        uv pip install -e ".[dev]"
 
     - name: Run tests
       run: pytest tests/ -v
@@ -30,6 +37,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -38,14 +47,50 @@ jobs:
 
     - name: Install uv and build tools
       uses: astral-sh/setup-uv@v2
+
+    - name: Install dependencies
       run: |
+        uv venv
         uv pip install build twine
 
-    - name: Build package
+    - name: Build Python package
       run: python -m build
 
     - name: Check package
       run: twine check dist/*
+
+    - name: Build template variants
+      run: |
+        chmod +x .github/workflows/scripts/create-release-packages.sh
+        .github/workflows/scripts/create-release-packages.sh ${{ github.ref_name || inputs.version }}
+
+    - name: Validate templates
+      run: |
+        chmod +x scripts/validate-templates.sh
+        ./scripts/validate-templates.sh .genreleases/
+
+    - name: Generate release notes
+      run: |
+        chmod +x .github/workflows/scripts/generate-release-notes.sh
+        .github/workflows/scripts/generate-release-notes.sh ${{ github.ref_name || inputs.version }}
+
+    - name: Upload Python package artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: python-package
+        path: dist/*.tar.gz
+
+    - name: Upload template artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: templates
+        path: .genreleases/*.zip
+
+    - name: Upload release notes
+      uses: actions/upload-artifact@v3
+      with:
+        name: release-notes
+        path: release_notes.md
 
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
@@ -55,16 +100,56 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - uses: actions/checkout@v4
 
-    - name: Create Release
+    - name: Download Python package
+      uses: actions/download-artifact@v3
+      with:
+        name: python-package
+        path: dist/
+
+    - name: Download templates
+      uses: actions/download-artifact@v3
+      with:
+        name: templates
+        path: .genreleases/
+
+    - name: Download release notes
+      uses: actions/download-artifact@v3
+      with:
+        name: release-notes
+        path: .
+
+    - name: Create GitHub Release
+      id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body_path: CHANGELOG.md
+        tag_name: ${{ github.ref_name || inputs.version }}
+        release_name: Growth Hacking Kit ${{ github.ref_name || inputs.version }}
+        body_path: release_notes.md
         draft: false
         prerelease: false
+
+    - name: Upload template assets to release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        set -e
+        for zip in .genreleases/*.zip; do
+          if [ -f "$zip" ]; then
+            echo "Uploading $(basename $zip)..."
+            gh release upload ${{ github.ref_name || inputs.version }} "$zip" --clobber || true
+          fi
+        done
+
+    - name: Verify release assets
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo "Verifying release assets..."
+        gh release view ${{ github.ref_name || inputs.version }} --json assets --jq '.assets[].name'
