@@ -1,8 +1,5 @@
 """Tests for campaign task generation command."""
 
-import pytest
-from pathlib import Path
-from growthkit.cli import tasks
 
 
 def test_tasks_command_requires_plan(tmp_path):

@@ -1,7 +1,6 @@
 """Pytest configuration."""
 
 import pytest
-from pathlib import Path
 
 
 def pytest_configure(config):

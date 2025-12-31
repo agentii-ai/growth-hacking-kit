@@ -1,8 +1,6 @@
 """Campaign specification command for Growth Hacking Kit."""
 
-import re
 from pathlib import Path
-from typing import Optional
 
 import typer
 from rich.console import Console

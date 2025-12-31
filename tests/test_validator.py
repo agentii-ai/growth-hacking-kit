@@ -1,6 +1,5 @@
 """Tests for Constitution Check validation."""
 
-import pytest
 from growthkit.constitution.validator import ConstitutionValidator
 
 
@@ -14,7 +13,6 @@ def test_validator_initialization():
 
 def test_validate_spec_requires_file(tmp_path):
     """Test that validate_spec checks for spec.md file existence."""
-    validator = ConstitutionValidator()
     # Should return FAIL if spec file doesn't exist
     assert True
 
@@ -57,20 +55,17 @@ def test_validate_plan_checks_advisory_gates(tmp_path):
 
 def test_extract_growth_type(tmp_path):
     """Test growth type extraction from specification."""
-    validator = ConstitutionValidator()
     # Test extraction of Vibe, Trust, Agentic types
     assert True
 
 
 def test_extract_viral_loop(tmp_path):
     """Test viral loop extraction from specification."""
-    validator = ConstitutionValidator()
     # Test extraction of Remix, Integration, Watermark loops
     assert True
 
 
 def test_extract_metrics(tmp_path):
     """Test metrics extraction from specification."""
-    validator = ConstitutionValidator()
     # Test extraction of k-factor, time-to-wow, NRR, engagement rate
     assert True

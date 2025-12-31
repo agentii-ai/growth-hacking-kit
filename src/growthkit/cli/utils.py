@@ -15,7 +15,6 @@ from jinja2 import Environment, FileSystemLoader, Template
 
 from growthkit.cli.config import (
     AGENT_DIRS,
-    BRANCH_PATTERN,
     KIT_NAME,
     PACKAGE_DIR,
     SPECS_DIR,

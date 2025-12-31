@@ -9,7 +9,11 @@ from rich.console import Console
 from rich.table import Table
 
 from growthkit import __version__
-from growthkit.cli import config, utils, specify, plan, tasks, implement
+from growthkit.cli import config, utils
+from growthkit.cli import specify as specify_module
+from growthkit.cli import plan as plan_module
+from growthkit.cli import tasks as tasks_module
+from growthkit.cli import implement as implement_module
 
 # Initialize Typer app
 app = typer.Typer(
@@ -174,11 +178,11 @@ def init(
 
         # Extract template
         if utils.extract_template(template_zip, project_dir):
-            console.print(f"[green]✓[/green] Templates installed from GitHub release")
+            console.print("[green]✓[/green] Templates installed from GitHub release")
         else:
-            console.print(f"[yellow]⚠[/yellow] Template extraction failed, using default structure")
+            console.print("[yellow]⚠[/yellow] Template extraction failed, using default structure")
     else:
-        console.print(f"[yellow]⚠[/yellow] Could not download templates from GitHub, using default structure")
+        console.print("[yellow]⚠[/yellow] Could not download templates from GitHub, using default structure")
 
     # Create agent command directories (fallback if download failed)
     for agent_name in config.AGENT_DIRS.keys():
@@ -198,7 +202,7 @@ def init(
     console.print("  6. Run [cyan]/growthkit.implement[/cyan] to execute campaign")
 
     if debug:
-        console.print(f"\n[dim]Debug info:")
+        console.print("\n[dim]Debug info:")
         console.print(f"  Project: {project_dir}")
         console.print(f"  AI Agent: {ai}")
         console.print(f"  Kit Version: {__version__}[/dim]")
@@ -295,7 +299,7 @@ def specify(
     Example:
         growthkit specify "Launch Product Hunt campaign with demo video"
     """
-    specify.specify_command(description, force, debug)
+    specify_module.specify_command(description, force, debug)
 
 
 @app.command()
@@ -318,7 +322,7 @@ def plan(
     Example:
         growthkit plan "001-product-hunt-launch"
     """
-    plan.plan_command(description, force, debug)
+    plan_module.plan_command(description, force, debug)
 
 
 @app.command()
@@ -341,7 +345,7 @@ def tasks_cmd(
     Example:
         growthkit tasks "001-product-hunt-launch"
     """
-    tasks.tasks_command(description, force, debug)
+    tasks_module.tasks_command(description, force, debug)
 
 
 @app.command()
@@ -363,15 +367,15 @@ def implement(
     Example:
         growthkit implement "001-product-hunt-launch"
     """
-    implement.implement_command(description, force, debug)
+    implement_module.implement_command(description, force, debug)
 
 
 @app.command()
 def version() -> None:
     """Show version information."""
     console.print(f"Growth Hacking Kit version [bold]{__version__}[/bold]")
-    console.print(f"CLI Framework: typer")
-    console.print(f"Python: 3.11+")
+    console.print("CLI Framework: typer")
+    console.print("Python: 3.11+")
 
 
 if __name__ == "__main__":

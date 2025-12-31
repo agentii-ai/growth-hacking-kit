@@ -1,7 +1,6 @@
 """Constitution Check validation logic for Growth Hacking Kit."""
 
 import re
-from pathlib import Path
 from typing import Any
 
 from growthkit.constitution.gates import (

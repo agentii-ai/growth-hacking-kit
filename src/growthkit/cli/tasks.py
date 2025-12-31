@@ -1,14 +1,11 @@
 """Campaign tasks command for Growth Hacking Kit."""
 
-import re
 from datetime import datetime
-from pathlib import Path
-from typing import Any
 
 import typer
 from rich.console import Console
 
-from growthkit.cli import config, utils
+from growthkit.cli import utils
 
 console = Console()
 
@@ -87,7 +84,7 @@ def tasks_command(
     parallel_count = tasks_content.count("[P]")
     checkpoint_count = tasks_content.count("Checkpoint")
 
-    console.print(f"[green]✓[/green] Task breakdown created")
+    console.print("[green]✓[/green] Task breakdown created")
     console.print(f"  Tasks: {task_count}")
     console.print(f"  Parallel opportunities: {parallel_count}")
     console.print(f"  Checkpoints: {checkpoint_count}")
@@ -183,8 +180,8 @@ This task breakdown organizes implementation into four distinct phases:
         task_id = next_task_id()
         tasks_md += f"- [ ] {task_id} [SETUP] {task_desc}\n"
         tasks_md += f"  - Deliverable: `{deliverable}`\n"
-        tasks_md += f"  - Owner: Growth Lead\n"
-        tasks_md += f"  - Duration: 1 day\n\n"
+        tasks_md += "  - Owner: Growth Lead\n"
+        tasks_md += "  - Duration: 1 day\n\n"
 
     tasks_md += "\n## Phase 2: Pilot\n\n"
     tasks_md += """**Goal**: Validate viral mechanics with 10% audience (go/no-go checkpoint)
@@ -209,8 +206,8 @@ This task breakdown organizes implementation into four distinct phases:
         parallel_marker = " [P]" if parallel else " [CP]" if "[CP]" in task_desc else ""
         tasks_md += f"- [ ] {task_id}{parallel_marker} {task_desc}\n"
         tasks_md += f"  - Deliverable: `{deliverable}`\n"
-        tasks_md += f"  - Owner: Growth Lead\n"
-        tasks_md += f"  - Duration: 3-5 days\n\n"
+        tasks_md += "  - Owner: Growth Lead\n"
+        tasks_md += "  - Duration: 3-5 days\n\n"
 
     tasks_md += """### Pilot Go/No-Go Decision
 
@@ -251,8 +248,8 @@ This task breakdown organizes implementation into four distinct phases:
         parallel_marker = " [P]" if parallel else ""
         tasks_md += f"- [ ] {task_id}{parallel_marker} {task_desc}\n"
         tasks_md += f"  - Deliverable: `{deliverable}`\n"
-        tasks_md += f"  - Owner: Growth Team\n"
-        tasks_md += f"  - Duration: 14-30 days (parallel execution)\n\n"
+        tasks_md += "  - Owner: Growth Team\n"
+        tasks_md += "  - Duration: 14-30 days (parallel execution)\n\n"
 
     tasks_md += "\n## Phase 4: Measure\n\n"
     tasks_md += """**Goal**: Analyze results, document learnings, and plan next growth phase
@@ -274,8 +271,8 @@ This task breakdown organizes implementation into four distinct phases:
         task_id = next_task_id()
         tasks_md += f"- [ ] {task_id} [MEASURE] {task_desc}\n"
         tasks_md += f"  - Deliverable: `{deliverable}`\n"
-        tasks_md += f"  - Owner: Growth Lead\n"
-        tasks_md += f"  - Duration: 1 day each\n\n"
+        tasks_md += "  - Owner: Growth Lead\n"
+        tasks_md += "  - Duration: 1 day each\n\n"
 
     tasks_md += f"""---
 

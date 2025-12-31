@@ -1,8 +1,5 @@
 """Tests for campaign implementation command."""
 
-import pytest
-from pathlib import Path
-from growthkit.cli import implement
 
 
 def test_implement_command_requires_tasks(tmp_path):

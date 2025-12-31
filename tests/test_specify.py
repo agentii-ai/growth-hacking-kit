@@ -1,8 +1,5 @@
 """Tests for campaign specification command."""
 
-import pytest
-from pathlib import Path
-from growthkit.cli import specify
 
 
 def test_specify_command_creates_spec_file(tmp_path, monkeypatch):

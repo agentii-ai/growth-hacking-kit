@@ -18,13 +18,13 @@ class GateStatus(Enum):
 
 class PrincipleID(Enum):
     """Growth Hacking Kit Seven Core Principles."""
-    I = "Spec-Driven Growth"
-    II = "Viral Loop Engineering"
-    III = "Agent-First Architecture"
-    IV = "Measurement-First Development"
-    V = "Multi-Platform Distribution"
-    VI = "Test-Before-Scale"
-    VII = "Community-Led Amplification"
+    P1 = "Spec-Driven Growth"  # noqa: E741
+    P2 = "Viral Loop Engineering"
+    P3 = "Agent-First Architecture"
+    P4 = "Measurement-First Development"
+    P5 = "Multi-Platform Distribution"
+    P6 = "Test-Before-Scale"
+    P7 = "Community-Led Amplification"
 
 
 @dataclass
@@ -67,49 +67,49 @@ class AdvisoryGate:
 MANDATORY_GATES = {
     "spec_exists": MandatoryGate(
         gate_id="MG-001",
-        principle=PrincipleID.I,
+        principle=PrincipleID.P1,
         description="Campaign specification exists",
         validation_criteria="File specs/###-campaign-name/spec.md exists and contains user stories",
         failure_message="No campaign specification found. Run /growthkit.specify first.",
     ),
     "growth_type_identified": MandatoryGate(
         gate_id="MG-002",
-        principle=PrincipleID.I,
+        principle=PrincipleID.P1,
         description="Growth type identified (Vibe/Trust/Agentic)",
         validation_criteria="Spec.md explicitly defines growth type in requirements",
         failure_message="Growth type not identified. Must be one of: Vibe Growth, Trust Growth, Agentic Growth",
     ),
     "target_audience_specific": MandatoryGate(
         gate_id="MG-003",
-        principle=PrincipleID.I,
+        principle=PrincipleID.P1,
         description="Target audience is specific (not generic)",
         validation_criteria="Spec defines concrete target audience (e.g., 'Python backend devs using FastAPI' not 'developers')",
         failure_message="Target audience too generic. Must be specific cohort with concrete characteristics.",
     ),
     "viral_loop_defined": MandatoryGate(
         gate_id="MG-004",
-        principle=PrincipleID.II,
+        principle=PrincipleID.P2,
         description="Viral loop mechanism specified",
         validation_criteria="Spec includes at least one viral loop: Remix Loop, Integration Loop, or Watermark Loop",
         failure_message="No viral loop mechanism defined. Must specify: Remix Loop (output sharing), Integration Loop (workflow inhabitation), or Watermark Loop (branded outputs).",
     ),
     "k_factor_target": MandatoryGate(
         gate_id="MG-005",
-        principle=PrincipleID.II,
+        principle=PrincipleID.P2,
         description="k-factor target defined (>1.1 for sustainable growth)",
         validation_criteria="Spec includes primary metric with k-factor target ≥1.1",
         failure_message="k-factor target not defined or below 1.1. Sustainable viral growth requires k-factor >1.1.",
     ),
     "metrics_defined": MandatoryGate(
         gate_id="MG-006",
-        principle=PrincipleID.IV,
+        principle=PrincipleID.P4,
         description="Primary, activation, and engagement metrics set",
         validation_criteria="Spec defines all three metric types with targets",
         failure_message="Missing metric definitions. Must include: primary (k-factor), activation (Time-to-Wow), engagement (daily active users).",
     ),
     "pilot_scoped": MandatoryGate(
         gate_id="MG-007",
-        principle=PrincipleID.VI,
+        principle=PrincipleID.P6,
         description="Pilot phase scope defined (<10% of final budget)",
         validation_criteria="Plan includes pilot budget <10% of scale budget with success criteria",
         failure_message="Pilot phase scope not defined. Must allocate <10% of final budget to pilot validation.",
@@ -120,21 +120,21 @@ MANDATORY_GATES = {
 ADVISORY_GATES = {
     "content_optimized": AdvisoryGate(
         gate_id="AG-001",
-        principle=PrincipleID.III,
+        principle=PrincipleID.P3,
         description="Content optimized for 'Answer Density' (structured tables, benchmarks)",
         validation_criteria="README and documentation use structured tables, metrics, benchmarks",
         recommendation="Add structured tables, data-driven examples, and benchmark comparisons to increase LLM citation likelihood.",
     ),
     "platform_strategy": AdvisoryGate(
         gate_id="AG-002",
-        principle=PrincipleID.V,
+        principle=PrincipleID.P5,
         description="Platform-specific content strategy defined",
         validation_criteria="Plan includes platform-specific tactics (X: 16:9, TikTok: 9:16, LinkedIn case studies, etc.)",
         recommendation="Define content format and viral mechanism for each target platform.",
     ),
     "community_amplification": AdvisoryGate(
         gate_id="AG-003",
-        principle=PrincipleID.VII,
+        principle=PrincipleID.P7,
         description="Community-led amplification plan",
         validation_criteria="Plan includes organic reach strategy (GitHub stars, retrospective sharing, user showcase)",
         recommendation="Prioritize organic reach and community engagement over paid ads.",

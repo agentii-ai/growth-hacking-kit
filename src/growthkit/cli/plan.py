@@ -1,6 +1,5 @@
 """Campaign plan command for Growth Hacking Kit."""
 
-import re
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -10,7 +9,6 @@ from rich.console import Console
 
 from growthkit.cli import config, utils
 from growthkit.constitution.validator import ConstitutionValidator
-from growthkit.research.platforms import PLATFORMS, VIRAL_LOOPS, GEO_GUIDELINES
 
 console = Console()
 

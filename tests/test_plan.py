@@ -1,8 +1,5 @@
 """Tests for campaign planning command."""
 
-import pytest
-from pathlib import Path
-from growthkit.cli import plan
 
 
 def test_plan_command_requires_spec(tmp_path):

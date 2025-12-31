@@ -2,13 +2,12 @@
 
 import re
 from datetime import datetime
-from pathlib import Path
 from typing import Any
 
 import typer
 from rich.console import Console
 
-from growthkit.cli import config, utils
+from growthkit.cli import utils
 
 console = Console()
 
@@ -94,10 +93,10 @@ def implement_command(
                 console.print(f"\n[bold yellow]Checkpoint: {task_desc}[/bold yellow]")
                 checkpoint_ok = _validate_checkpoint(task_desc, force)
                 if not checkpoint_ok:
-                    console.print(f"[red]✗[/red] Checkpoint failed. Halting execution.")
+                    console.print("[red]✗[/red] Checkpoint failed. Halting execution.")
                     execution_log[-1]["status"] = "failed_checkpoint"
                     raise typer.Exit(1)
-                console.print(f"[green]✓[/green] Checkpoint passed")
+                console.print("[green]✓[/green] Checkpoint passed")
             else:
                 # Regular task
                 is_parallel = "[P]" in task_desc
@@ -190,7 +189,7 @@ def _confirm_phase_start(phase: str, force: bool) -> bool:
 def _validate_checkpoint(checkpoint_desc: str, force: bool) -> bool:
     """Validate checkpoint conditions."""
     if force:
-        console.print(f"[yellow]Skipping checkpoint validation (--force)[/yellow]")
+        console.print("[yellow]Skipping checkpoint validation (--force)[/yellow]")
         return True
 
     console.print("\nValidate checkpoint conditions:")

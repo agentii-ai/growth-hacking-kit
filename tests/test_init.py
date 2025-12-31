@@ -1,8 +1,5 @@
 """Tests for CLI initialization command."""
 
-import pytest
-from pathlib import Path
-from growthkit.cli import main
 
 
 def test_init_command_creates_directory(tmp_path, monkeypatch):
