@@ -78,19 +78,19 @@ jobs:
         .github/workflows/scripts/generate-release-notes.sh ${{ github.ref_name || inputs.version }}
 
     - name: Upload Python package artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: python-package
         path: dist/*.tar.gz
 
     - name: Upload template artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: templates
         path: .genreleases/*.zip
 
     - name: Upload release notes
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: release-notes
         path: release_notes.md
@@ -109,19 +109,19 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Download Python package
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: python-package
         path: dist/
 
     - name: Download templates
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: templates
         path: .genreleases/
 
     - name: Download release notes
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: release-notes
         path: .
