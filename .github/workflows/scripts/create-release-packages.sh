@@ -15,9 +15,17 @@ if [[ -z "$VERSION" ]]; then
 fi
 
 # Configuration
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 GENRELEASES_DIR="${GENRELEASES_DIR:-.genreleases}"
 GROWTHKIT_SOURCE=".growthkit"
-REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+
+# Make paths absolute if they're relative
+if [[ ! "$GENRELEASES_DIR" = /* ]]; then
+    GENRELEASES_DIR="$REPO_ROOT/$GENRELEASES_DIR"
+fi
+if [[ ! "$GROWTHKIT_SOURCE" = /* ]]; then
+    GROWTHKIT_SOURCE="$REPO_ROOT/$GROWTHKIT_SOURCE"
+fi
 
 # All 17 supported agents
 ALL_AGENTS=(
@@ -177,8 +185,10 @@ build_variant() {
     # Generate agent-specific commands
     generate_commands "$agent" "$script" "$base_dir"
 
-    # Create ZIP archive
+    # Create ZIP archive (save current dir and cd to GENRELEASES_DIR)
+    local current_dir="$PWD"
     cd "$GENRELEASES_DIR"
+
     if zip -q -r "${variant_name}.zip" "$variant_name"; then
         # Calculate SHA-256 checksum
         local checksum=$(shasum -a 256 "${variant_name}.zip" | cut -d' ' -f1)
@@ -189,14 +199,17 @@ build_variant() {
         # Cleanup directory
         rm -rf "$variant_name"
 
+        # Return to previous directory
+        cd "$current_dir"
         return 0
     else
         echo "    ❌ Failed to create ZIP for $variant_name" >&2
         rm -rf "$variant_name"
+
+        # Return to previous directory
+        cd "$current_dir"
         return 1
     fi
-
-    cd "$REPO_ROOT"
 }
 
 # Main loop: Build all variants
