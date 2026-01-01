@@ -52,15 +52,23 @@ jobs:
       uses: astral-sh/setup-uv@v2
 
     - name: Install dependencies
+      shell: bash
       run: |
         uv venv
+        source .venv/bin/activate
         uv pip install build twine
 
     - name: Build Python package
-      run: python -m build
+      shell: bash
+      run: |
+        source .venv/bin/activate
+        python -m build
 
     - name: Check package
-      run: twine check dist/*
+      shell: bash
+      run: |
+        source .venv/bin/activate
+        twine check dist/*
 
     - name: Build template variants
       run: |
