@@ -51,7 +51,7 @@ class ConstitutionValidator:
         # Read spec content
         spec_content = spec_file.read_text()
 
-        results = {
+        results: dict[str, Any] = {
             "campaign": campaign,
             "spec_file": str(spec_file),
             "passed_gates": [],
@@ -95,7 +95,7 @@ class ConstitutionValidator:
 
         plan_content = plan_file.read_text()
 
-        results = {
+        results: dict[str, Any] = {
             "campaign": campaign,
             "plan_file": str(plan_file),
             "mandatory_gates": {

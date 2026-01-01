@@ -150,7 +150,7 @@ def _parse_execution_phases(tasks_content: str) -> list[str]:
 
 def _extract_phase_tasks(tasks_content: str, phase: str) -> list[dict[str, Any]]:
     """Extract tasks for a specific phase."""
-    tasks = []
+    tasks: list[dict[str, Any]] = []
 
     # Find phase section
     phase_pattern = rf"^## Phase \d+: {phase}.*?(?=^## Phase|\Z)"
