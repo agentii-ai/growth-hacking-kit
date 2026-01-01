@@ -1,6 +1,6 @@
 [project]
 name = "growthkit-cli"
-version = "0.1.0"
+version = "0.0.96"
 description = "Growth Hacking Kit - Spec-driven growth campaign management for AI SaaS products"
 readme = "README.md"
 requires-python = ">=3.11"
