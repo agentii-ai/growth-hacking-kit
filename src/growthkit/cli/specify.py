@@ -73,11 +73,15 @@ def specify_command(
 
     try:
         # Read template from .growthkit/templates/
-        spec_template_path = Path(config.get_project_root()) / config.TEMPLATES_DIR / "spec-template.md"
+        spec_template_path = (
+            Path(config.get_project_root()) / config.TEMPLATES_DIR / "spec-template.md"
+        )
 
         if not spec_template_path.exists():
             # Fallback: use spec from .specify if available
-            spec_template_path = Path(config.get_project_root()) / ".specify" / "templates" / "spec-template.md"
+            spec_template_path = (
+                Path(config.get_project_root()) / ".specify" / "templates" / "spec-template.md"
+            )
 
         if not spec_template_path.exists():
             console.print(f"[red]✗[/red] Spec template not found: {spec_template_path}")
@@ -106,9 +110,13 @@ def specify_command(
     # Check for clarification markers
     clarification_result = validator.count_clarification_markers(branch_name)
     if clarification_result["status"] == "PASS":
-        console.print(f"[green]✓[/green] Clarification markers: {clarification_result['count']}/{clarification_result['max_allowed']}")
+        console.print(
+            f"[green]✓[/green] Clarification markers: {clarification_result['count']}/{clarification_result['max_allowed']}"
+        )
     else:
-        console.print(f"[yellow]⚠[/yellow] Too many clarification markers: {clarification_result['count']}/{clarification_result['max_allowed']}")
+        console.print(
+            f"[yellow]⚠[/yellow] Too many clarification markers: {clarification_result['count']}/{clarification_result['max_allowed']}"
+        )
         console.print("  Please review and clarify remaining items")
 
     # Step 5: Create quality checklist

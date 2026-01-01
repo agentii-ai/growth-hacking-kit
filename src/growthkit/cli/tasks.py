@@ -38,7 +38,9 @@ def tasks_command(
 
         if not plan_file.exists():
             console.print(f"[red]✗[/red] Plan not found: {plan_file}")
-            console.print("[yellow]Run /growthkit.plan first to create implementation plan[/yellow]")
+            console.print(
+                "[yellow]Run /growthkit.plan first to create implementation plan[/yellow]"
+            )
             raise typer.Exit(1)
 
         plan_content = plan_file.read_text()
@@ -65,9 +67,7 @@ def tasks_command(
         console.print(f"[green]✓[/green] Identified {len(phases)} phases")
 
         # Generate tasks organized by phases
-        tasks_content = _generate_tasks_breakdown(
-            campaign_dir.name, phases, plan_content
-        )
+        tasks_content = _generate_tasks_breakdown(campaign_dir.name, phases, plan_content)
 
         tasks_file.write_text(tasks_content)
         console.print(f"[green]✓[/green] Tasks generated: {tasks_file}")
@@ -76,6 +76,7 @@ def tasks_command(
         console.print(f"[red]✗[/red] Failed to generate tasks: {e}")
         if debug:
             import traceback
+
             console.print(f"[dim]{traceback.format_exc()}[/dim]")
         raise typer.Exit(1)
 
@@ -122,9 +123,7 @@ def _parse_plan_phases(plan_content: str) -> list[str]:
     return [p for p in standard_phases if p in phases]
 
 
-def _generate_tasks_breakdown(
-    campaign_name: str, phases: list[str], plan_content: str
-) -> str:
+def _generate_tasks_breakdown(campaign_name: str, phases: list[str], plan_content: str) -> str:
     """Generate comprehensive task breakdown organized by phases."""
 
     task_id_counter = 1
@@ -222,7 +221,9 @@ This task breakdown organizes implementation into four distinct phases:
   - If GO: Proceed to Scale Phase
   - If NO-GO: Document learnings and iterate spec
 
-""".format(task_id=next_task_id())
+""".format(
+        task_id=next_task_id()
+    )
 
     tasks_md += "\n## Phase 3: Scale\n\n"
     tasks_md += """**Goal**: Roll out to full audience across all platforms
@@ -234,9 +235,17 @@ This task breakdown organizes implementation into four distinct phases:
 """
 
     scale_tasks = [
-        ("Expand to secondary platforms (TikTok, LinkedIn, GitHub)", "execution/secondary-platforms.md", True),
+        (
+            "Expand to secondary platforms (TikTok, LinkedIn, GitHub)",
+            "execution/secondary-platforms.md",
+            True,
+        ),
         ("Create platform-specific content variants", "content/platform-variants.md", True),
-        ("Optimize platform algorithms (repost timing, hashtags)", "optimization/algo-strategy.md", True),
+        (
+            "Optimize platform algorithms (repost timing, hashtags)",
+            "optimization/algo-strategy.md",
+            True,
+        ),
         ("Scale paid amplification (if applicable)", "campaigns/paid-campaigns.md", True),
         ("[P] Monitor scale metrics across platforms", "metrics/scale-dashboard.md", False),
         ("[P] Community management and support", "community/support-escalations.md", False),

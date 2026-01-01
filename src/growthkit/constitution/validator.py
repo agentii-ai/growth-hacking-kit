@@ -69,9 +69,7 @@ class ConstitutionValidator:
 
         # Overall status
         results["status"] = (
-            GateStatus.PASS.value
-            if len(results["failed_gates"]) == 0
-            else GateStatus.FAIL.value
+            GateStatus.PASS.value if len(results["failed_gates"]) == 0 else GateStatus.FAIL.value
         )
 
         return results
@@ -120,9 +118,7 @@ class ConstitutionValidator:
 
         # Validate advisory gates
         for gate_name, gate in self.advisory_gates.items():
-            validation_result = self._validate_advisory_gate(
-                gate_name, gate, plan_content
-            )
+            validation_result = self._validate_advisory_gate(gate_name, gate, plan_content)
             results["advisory_gates"][
                 "passed" if validation_result["status"] == GateStatus.PASS.value else "failed"
             ].append(validation_result)
@@ -136,13 +132,13 @@ class ConstitutionValidator:
 
         return results
 
-    def _validate_gate(
-        self, gate_name: str, gate: MandatoryGate, content: str
-    ) -> dict[str, Any]:
+    def _validate_gate(self, gate_name: str, gate: MandatoryGate, content: str) -> dict[str, Any]:
         """Validate a single mandatory gate."""
         # Simple regex-based validation
         validation_checks = {
-            "spec_exists": lambda c: bool(re.search(r"^#\s+Feature\s+Specification", c, re.MULTILINE)),
+            "spec_exists": lambda c: bool(
+                re.search(r"^#\s+Feature\s+Specification", c, re.MULTILINE)
+            ),
             "growth_type_identified": lambda c: bool(
                 re.search(r"(Vibe Growth|Trust Growth|Agentic Growth)", c)
             ),
@@ -180,9 +176,7 @@ class ConstitutionValidator:
     ) -> dict[str, Any]:
         """Validate a single advisory gate."""
         advisory_checks = {
-            "content_optimized": lambda c: bool(
-                re.search(r"\|.*\|.*\|", c)  # Tables
-            ),
+            "content_optimized": lambda c: bool(re.search(r"\|.*\|.*\|", c)),  # Tables
             "platform_strategy": lambda c: bool(
                 re.search(r"(X/Twitter|TikTok|LinkedIn|GitHub|Product Hunt)", c)
             ),
@@ -289,8 +283,12 @@ class ConstitutionValidator:
         """
         metrics = {
             "k_factor": re.search(r"k-factor\s*[>≥]\s*([0-9.]+)", content, re.IGNORECASE),
-            "time_to_wow": re.search(r"time.to.wow|time-to-wow\s*[:<]\s*(\d+)", content, re.IGNORECASE),
-            "nrr": re.search(r"NRR|Net Revenue Retention\s*[=:]\s*([0-9.]+)%?", content, re.IGNORECASE),
+            "time_to_wow": re.search(
+                r"time.to.wow|time-to-wow\s*[:<]\s*(\d+)", content, re.IGNORECASE
+            ),
+            "nrr": re.search(
+                r"NRR|Net Revenue Retention\s*[=:]\s*([0-9.]+)%?", content, re.IGNORECASE
+            ),
             "primary_activation": re.search(
                 r"primary.*activation|activation.*primary", content, re.IGNORECASE
             ),

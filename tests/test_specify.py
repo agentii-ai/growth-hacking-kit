@@ -1,7 +1,6 @@
 """Tests for campaign specification command."""
 
 
-
 def test_specify_command_creates_spec_file(tmp_path, monkeypatch):
     """Test that specify command creates spec.md file."""
     # Mock the campaign directory

@@ -1,7 +1,6 @@
 """Tests for CLI initialization command."""
 
 
-
 def test_init_command_creates_directory(tmp_path, monkeypatch):
     """Test that init command creates project directory."""
     # Test that directory structure is created

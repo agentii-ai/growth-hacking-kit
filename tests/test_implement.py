@@ -1,7 +1,6 @@
 """Tests for campaign implementation command."""
 
 
-
 def test_implement_command_requires_tasks(tmp_path):
     """Test that implement command requires an existing tasks.md file."""
     # Implement should fail if tasks.md doesn't exist

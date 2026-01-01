@@ -1,7 +1,6 @@
 """Tests for campaign planning command."""
 
 
-
 def test_plan_command_requires_spec(tmp_path):
     """Test that plan command requires an existing spec.md file."""
     # Plan should fail if spec doesn't exist

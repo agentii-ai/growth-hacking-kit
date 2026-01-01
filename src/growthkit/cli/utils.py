@@ -60,7 +60,9 @@ def create_campaign_branch(campaign_number: int, campaign_name: str) -> str:
 
         return branch_name
     except git.exc.InvalidGitRepositoryError:
-        raise ValueError("Not a git repository. Run 'git init' first or use 'growthkit init' with --no-git flag.")
+        raise ValueError(
+            "Not a git repository. Run 'git init' first or use 'growthkit init' with --no-git flag."
+        )
 
 
 def get_next_campaign_number() -> int:
@@ -118,13 +120,30 @@ def extract_campaign_name(description: str) -> str:
     """
     # Remove common growth hacking keywords
     stop_words = {
-        "campaign", "with", "using", "for", "and", "the", "a", "an",
-        "strategy", "tactics", "growth", "hacking", "launch", "create",
-        "build", "implement", "execute", "run", "start", "begin",
+        "campaign",
+        "with",
+        "using",
+        "for",
+        "and",
+        "the",
+        "a",
+        "an",
+        "strategy",
+        "tactics",
+        "growth",
+        "hacking",
+        "launch",
+        "create",
+        "build",
+        "implement",
+        "execute",
+        "run",
+        "start",
+        "begin",
     }
 
     # Extract words
-    words = re.findall(r'\b\w+\b', description.lower())
+    words = re.findall(r"\b\w+\b", description.lower())
 
     # Filter out stop words and keep meaningful words
     meaningful_words = [w for w in words if w not in stop_words and len(w) > 2]
@@ -395,7 +414,9 @@ def get_campaign_dir_from_branch(branch_or_campaign: str) -> Path:
 # Template Download from GitHub Releases
 
 
-def get_latest_release_version(github_token: Optional[str] = None, skip_tls: bool = False) -> Optional[str]:
+def get_latest_release_version(
+    github_token: Optional[str] = None, skip_tls: bool = False
+) -> Optional[str]:
     """
     Get the latest release version from GitHub.
 
@@ -415,6 +436,7 @@ def get_latest_release_version(github_token: Optional[str] = None, skip_tls: boo
 
         if skip_tls:
             import ssl
+
             context = ssl._create_unverified_context()
             response = urllib.request.urlopen(request, context=context)
         else:
@@ -432,7 +454,7 @@ def download_template_from_github(
     script: str,
     version: Optional[str] = None,
     github_token: Optional[str] = None,
-    skip_tls: bool = False
+    skip_tls: bool = False,
 ) -> Optional[Path]:
     """
     Download template ZIP from GitHub releases.
@@ -472,6 +494,7 @@ def download_template_from_github(
 
         if skip_tls:
             import ssl
+
             context = ssl._create_unverified_context()
             response = urllib.request.urlopen(request, context=context)
         else:
@@ -497,7 +520,7 @@ def extract_template(zip_path: Path, target_dir: Path) -> bool:
         True if extraction succeeded, False otherwise
     """
     try:
-        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+        with zipfile.ZipFile(zip_path, "r") as zip_ref:
             # List all files in the ZIP
             namelist = zip_ref.namelist()
 
@@ -528,6 +551,7 @@ def extract_template(zip_path: Path, target_dir: Path) -> bool:
 
                 # Cleanup temp directory
                 import shutil
+
                 shutil.rmtree(temp_extract)
             else:
                 # Extract directly
@@ -536,4 +560,3 @@ def extract_template(zip_path: Path, target_dir: Path) -> bool:
         return True
     except Exception:
         return False
-

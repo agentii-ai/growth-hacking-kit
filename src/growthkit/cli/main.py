@@ -42,8 +42,7 @@ def print_banner():
 @app.command()
 def init(
     project_name: Optional[str] = typer.Argument(
-        None,
-        help="Project name or path (use '.' or '--here' for current directory)"
+        None, help="Project name or path (use '.' or '--here' for current directory)"
     ),
     ai: Optional[str] = typer.Option(
         None,
@@ -160,6 +159,7 @@ def init(
 
     # Determine script type based on platform
     import platform
+
     if script is None:
         script = "ps" if platform.system() == "Windows" else "sh"
 
@@ -167,10 +167,7 @@ def init(
     console.print(f"\n[cyan]Downloading Growth Hacking Kit templates for {ai}...[/cyan]")
 
     template_zip = utils.download_template_from_github(
-        agent=ai,
-        script=script,
-        github_token=github_token,
-        skip_tls=skip_tls
+        agent=ai, script=script, github_token=github_token, skip_tls=skip_tls
     )
 
     if template_zip and template_zip.exists():
@@ -182,7 +179,9 @@ def init(
         else:
             console.print("[yellow]⚠[/yellow] Template extraction failed, using default structure")
     else:
-        console.print("[yellow]⚠[/yellow] Could not download templates from GitHub, using default structure")
+        console.print(
+            "[yellow]⚠[/yellow] Could not download templates from GitHub, using default structure"
+        )
 
     # Create agent command directories (fallback if download failed)
     for agent_name in config.AGENT_DIRS.keys():

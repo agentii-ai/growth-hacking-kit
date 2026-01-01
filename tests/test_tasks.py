@@ -1,7 +1,6 @@
 """Tests for campaign task generation command."""
 
 
-
 def test_tasks_command_requires_plan(tmp_path):
     """Test that tasks command requires an existing plan.md file."""
     # Tasks should fail if plan doesn't exist

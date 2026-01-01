@@ -10,6 +10,7 @@ from enum import Enum
 
 class GateStatus(Enum):
     """Status of a Constitution Check gate."""
+
     PASS = "PASS"
     FAIL = "FAIL"
     WARNING = "WARNING"
@@ -18,6 +19,7 @@ class GateStatus(Enum):
 
 class PrincipleID(Enum):
     """Growth Hacking Kit Seven Core Principles."""
+
     P1 = "Spec-Driven Growth"  # noqa: E741
     P2 = "Viral Loop Engineering"
     P3 = "Agent-First Architecture"

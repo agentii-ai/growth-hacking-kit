@@ -116,11 +116,13 @@ def get_current_campaign() -> str | None:
     # Try to get from git branch
     try:
         import git
+
         repo = git.Repo(get_project_root())
         branch = repo.active_branch.name
 
         # Check if branch matches campaign pattern (###-campaign-name)
         import re
+
         if re.match(BRANCH_PATTERN, branch):
             return branch
     except Exception:

@@ -76,16 +76,20 @@ def plan_command(
         context = {
             "CAMPAIGN_NAME": campaign_dir.name.split("-", 1)[1],
             "CAMPAIGN_BRANCH": campaign_dir.name,
-            "GROWTH_TYPE": growth_type['primary_type'].title(),
-            "VIRAL_LOOP": viral_loop['primary_loop'].title(),
-            "METRICS": ", ".join([m for m, v in metrics['metrics'].items() if v['found']]),
+            "GROWTH_TYPE": growth_type["primary_type"].title(),
+            "VIRAL_LOOP": viral_loop["primary_loop"].title(),
+            "METRICS": ", ".join([m for m, v in metrics["metrics"].items() if v["found"]]),
             "DATE": datetime.now().strftime("%Y-%m-%d"),
             "KIT_NAME": config.KIT_NAME,
         }
 
-        plan_template_path = Path(config.get_project_root()) / config.TEMPLATES_DIR / "plan-template.md"
+        plan_template_path = (
+            Path(config.get_project_root()) / config.TEMPLATES_DIR / "plan-template.md"
+        )
         if not plan_template_path.exists():
-            plan_template_path = Path(config.get_project_root()) / ".specify" / "templates" / "plan-template.md"
+            plan_template_path = (
+                Path(config.get_project_root()) / ".specify" / "templates" / "plan-template.md"
+            )
 
         if not plan_template_path.exists():
             console.print(f"[red]✗[/red] Plan template not found: {plan_template_path}")
@@ -150,7 +154,10 @@ def plan_command(
 
 
 def _generate_research_document(
-    campaign_name: str, growth_type: dict[str, Any], viral_loop: dict[str, Any], metrics: dict[str, Any]
+    campaign_name: str,
+    growth_type: dict[str, Any],
+    viral_loop: dict[str, Any],
+    metrics: dict[str, Any],
 ) -> str:
     """Generate GEO optimization research document."""
     return f"""# Research & GEO Strategy: {campaign_name}

@@ -1,7 +1,6 @@
 """Integration tests for the complete workflow."""
 
 
-
 class TestFullWorkflow:
     """Test the complete spec-driven workflow from spec to execution."""
 

@@ -69,11 +69,13 @@ def implement_command(
         console.print(f"Tasks in this phase: {len(phase_tasks)}\n")
 
         # Log phase start
-        execution_log.append({
-            "phase": phase,
-            "timestamp": datetime.now().isoformat(),
-            "status": "started",
-        })
+        execution_log.append(
+            {
+                "phase": phase,
+                "timestamp": datetime.now().isoformat(),
+                "status": "started",
+            }
+        )
 
         # Checkpoint before major phases
         if phase in ["Pilot", "Scale", "Measure"]:
@@ -110,9 +112,7 @@ def implement_command(
     try:
         console.print("\n[bold cyan]Step 3: Generating Retrospective[/bold cyan]")
         retrospective_file = campaign_dir / "retrospective.md"
-        retrospective_content = _generate_retrospective(
-            campaign_dir.name, phases, execution_log
-        )
+        retrospective_content = _generate_retrospective(campaign_dir.name, phases, execution_log)
         retrospective_file.write_text(retrospective_content)
         console.print(f"[green]✓[/green] Retrospective created: {retrospective_file}")
 
@@ -123,7 +123,9 @@ def implement_command(
     console.print("\n[bold green]Campaign execution complete![/bold green]\n")
     console.print(f"Campaign:        {campaign_dir.name}")
     console.print(f"Phases completed: {len(phases)}")
-    console.print(f"Retrospective:    {retrospective_file if retrospective_file.exists() else 'N/A'}")
+    console.print(
+        f"Retrospective:    {retrospective_file if retrospective_file.exists() else 'N/A'}"
+    )
     console.print("\nNext steps:")
     console.print("  1. Review retrospective.md for learnings")
     console.print("  2. Analyze success metrics")
@@ -165,11 +167,13 @@ def _extract_phase_tasks(tasks_content: str, phase: str) -> list[dict[str, Any]]
         task_id = match.group(1)
         task_desc = match.group(2).strip()
 
-        tasks.append({
-            "id": task_id,
-            "description": task_desc,
-            "completed": False,
-        })
+        tasks.append(
+            {
+                "id": task_id,
+                "description": task_desc,
+                "completed": False,
+            }
+        )
 
     return tasks
 
