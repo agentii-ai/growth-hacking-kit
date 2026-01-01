@@ -190,8 +190,18 @@ build_variant() {
     cd "$GENRELEASES_DIR"
 
     if zip -q -r "${variant_name}.zip" "$variant_name"; then
-        # Calculate SHA-256 checksum
-        local checksum=$(shasum -a 256 "${variant_name}.zip" | cut -d' ' -f1)
+        # Calculate SHA-256 checksum (cross-platform)
+        if command -v sha256sum &> /dev/null; then
+            # Linux
+            local checksum=$(sha256sum "${variant_name}.zip" | cut -d' ' -f1)
+        elif command -v shasum &> /dev/null; then
+            # macOS
+            local checksum=$(shasum -a 256 "${variant_name}.zip" | cut -d' ' -f1)
+        else
+            echo "    ⚠ Warning: No SHA-256 tool found" >&2
+            local checksum="unknown"
+        fi
+
         local size=$(ls -lh "${variant_name}.zip" | awk '{print $5}')
 
         echo "    ✓ Created ${variant_name}.zip ($size, sha256:${checksum:0:16}...)"
