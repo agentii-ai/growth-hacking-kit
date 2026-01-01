@@ -45,6 +45,7 @@ echo "🚀 Growth Hacking Kit Template Release Generator"
 echo "📦 Version: $VERSION"
 echo "📁 Output: $GENRELEASES_DIR"
 echo "🎯 Target: $TOTAL_VARIANTS variants (${#ALL_AGENTS[@]} agents × ${#SCRIPT_TYPES[@]} scripts)"
+echo "📍 Working Directory: $REPO_ROOT"
 echo ""
 
 # Create output directory
@@ -230,9 +231,9 @@ for agent in "${ALL_AGENTS[@]}"; do
     echo "Agent: $agent"
     for script in "${SCRIPT_TYPES[@]}"; do
         if build_variant "$agent" "$script" "$VERSION"; then
-            ((COMPLETED++))
+            COMPLETED=$((COMPLETED + 1))
         else
-            ((FAILED++))
+            FAILED=$((FAILED + 1))
         fi
     done
     echo ""
