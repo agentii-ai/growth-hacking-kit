@@ -77,9 +77,9 @@ TEMPLATE_COUNT=0
 if [[ -d "$GENRELEASES_DIR" ]]; then
     for zip in "$GENRELEASES_DIR"/*.zip; do
         if [[ -f "$zip" ]]; then
-            local filename=$(basename "$zip")
-            local size=$(ls -lh "$zip" | awk '{print $5}')
-            local checksum=$(shasum -a 256 "$zip" | cut -d' ' -f1)
+            filename=$(basename "$zip")
+            size=$(ls -lh "$zip" | awk '{print $5}')
+            checksum=$(shasum -a 256 "$zip" | cut -d' ' -f1)
 
             echo "### \`$filename\`" >> "$OUTPUT_FILE"
             echo "- **Size**: $size" >> "$OUTPUT_FILE"
