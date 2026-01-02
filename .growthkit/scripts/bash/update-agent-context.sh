@@ -84,7 +84,7 @@ This is a Growth Hacking Kit project - a spec-driven methodology for growth camp
 - **Campaign branching**: `git checkout -b ###-campaign-name`
 - **Spec validation**: Check for Constitution Check gate passes
 - **Platform tactics**: X/Twitter (30-60s 16:9), TikTok (15-30s 9:16), LinkedIn (case studies)
-- **Multi-kit coexistence**: /growthkit.* commands don't conflict with /speckit.* commands
+- **Multi-kit coexistence**: /growthkit.* commands don't conflict with /specify.* commands
 
 ## Notes
 - All campaigns should validate against constitution principles before planning

@@ -30,7 +30,7 @@ Follow-up TODOs:
 
 ### I. Spec-Driven Growth (NON-NEGOTIABLE)
 
-Every growth campaign MUST begin with a written specification before execution. Growth campaigns must follow the spec → plan → tasks → implement workflow inherited from spec-kit.
+Every growth campaign MUST begin with a written specification before execution. Growth campaigns must follow the spec → plan → tasks → implement workflow for Growth Hacking Kit.
 
 **Rationale**: Growth hacking is complex, multi-step work requiring systematic planning. Ad-hoc execution leads to inconsistent brand voice, wasted spend, and unmeasurable outcomes. Spec-driven development ensures campaigns are documented, repeatable, and can be improved through iteration. Analysis of successful 2024-2025 AI SaaS companies (Cursor, Lovable, Harvey) shows that systematic, planned approaches outperform reactive tactics.
 
@@ -225,19 +225,19 @@ To enable coexistence of multiple *-kit variants (spec-kit, growth-hacking-kit, 
 - `pmkit-cli`, `pdkit-cli`, `blogkit-cli` (future variants)
 
 **Command Namespace**: Each kit MUST use its own slash command prefix:
-- Spec-kit: `/speckit.specify`, `/speckit.plan`, `/speckit.tasks`, `/speckit.implement`
+- Spec-kit: `/specify.specify`, `/specify.plan`, `/specify.tasks`, `/specify.implement`
 - Growth Hacking Kit: `/growthkit.specify`, `/growthkit.plan`, `/growthkit.tasks`, `/growthkit.implement`
-- Future kits: `/pmkit.*`, `/pdkit.*`, `/blogkit.*`
+- Future kits: `/pmkit.*`, `/pdkit.*`
 
 **Directory Structure**: Each kit MUST use its own hidden directory to avoid file conflicts:
 - Spec-kit: `.specify/`
 - Growth Hacking Kit: `.growthkit/`
-- Future kits: `.pmkit/`, `.pdkit/`, `.blogkit/`
+- Future kits: `.pmkit/`, `.pdkit/`
 
 **Environment Variables**: Each kit MUST use prefixed environment variables:
 - Spec-kit: `SPECIFY_FEATURE`
 - Growth Hacking Kit: `GROWTHKIT_CAMPAIGN`
-- Future kits: `PMKIT_PROJECT`, `PDKIT_DESIGN`, etc.
+- Future kits: `PMKIT_PROJECT`, `PDKIT_DESIGN`
 
 ### Shared Agent Integration
 
