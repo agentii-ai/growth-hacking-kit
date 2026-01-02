@@ -287,14 +287,14 @@ elif [[ -d "$INPUT" ]]; then
 
     for zip in "$INPUT"/*.zip; do
         if [[ ! -f "$zip" ]]; then
-            echo "Warning: glob returned non-file: $zip"
             continue
         fi
 
-        # Validate variant and continue regardless of result
-        if ! validate_variant "$zip"; then
-            true  # Continue even if validation fails
-        fi
+        # Validate variant and capture exit code
+        validate_variant "$zip"
+        VALIDATE_EXIT=$?
+
+        # Increment counter regardless of result (continue on failure)
         ((TOTAL_VALIDATED++))
         echo ""
     done
