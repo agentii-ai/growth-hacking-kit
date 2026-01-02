@@ -221,7 +221,6 @@ validate_variant() {
 
     # Create temp directory for extraction
     local temp_dir=$(mktemp -d)
-    trap "rm -rf $temp_dir" EXIT
 
     # Extract ZIP
     if ! unzip -q "$variant_path" -d "$temp_dir" 2>/dev/null; then
