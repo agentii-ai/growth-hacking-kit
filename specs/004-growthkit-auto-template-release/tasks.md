@@ -193,44 +193,44 @@ Tasks are organized by user story (from spec.md) to enable independent implement
 
 ### CLI Enhancement Tasks
 
-- [ ] T065 [P] Add download_template_from_github() function in src/growthkit/cli/utils.py
-- [ ] T066 [P] Add extract_template() function to extract ZIP to project directory in src/growthkit/cli/utils.py
-- [ ] T067 [P] Add get_latest_release_version() function using GitHub API in src/growthkit/cli/utils.py
-- [ ] T068 [P] Add graceful fallback if release not found in src/growthkit/cli/utils.py
-- [ ] T069 Integrate template download into growthkit init command in src/growthkit/cli/main.py
-- [ ] T070 Add platform detection for bash vs powershell templates in src/growthkit/cli/main.py
-- [ ] T071 Add print_banner() function with "Growth Hacking Kit" ASCII art in src/growthkit/cli/main.py
-- [ ] T072 Integrate banner display at start of growthkit init command in src/growthkit/cli/main.py
-- [ ] T073 Test ASCII banner display on different terminal widths
-- [ ] T074 Test template download from GitHub releases
-- [ ] T075 Verify growthkit init creates correct project structure with downloaded templates
+- [X] T065 [P] Add download_template_from_github() function in src/growthkit/cli/utils.py
+- [X] T066 [P] Add extract_template() function to extract ZIP to project directory in src/growthkit/cli/utils.py
+- [X] T067 [P] Add get_latest_release_version() function using GitHub API in src/growthkit/cli/utils.py
+- [X] T068 [P] Add graceful fallback if release not found in src/growthkit/cli/utils.py
+- [X] T069 Integrate template download into growthkit init command in src/growthkit/cli/main.py
+- [X] T070 Add platform detection for bash vs powershell templates in src/growthkit/cli/main.py
+- [X] T071 Add print_banner() function with "Growth Hacking Kit" ASCII art in src/growthkit/cli/main.py
+- [X] T072 Integrate banner display at start of growthkit init command in src/growthkit/cli/main.py
+- [X] T073 Test ASCII banner display on different terminal widths
+- [X] T074 Test template download from GitHub releases
+- [X] T075 Verify growthkit init creates correct project structure with downloaded templates
 
 ### Documentation Tasks
 
-- [ ] T076 [P] Update README.md with templates section and ASCII banner screenshot in README.md
-- [ ] T077 [P] Add template structure documentation explaining .growthkit/ directory layout in README.md
-- [ ] T078 [P] Create docs/templates.md with comprehensive template reference
-- [ ] T079 [P] Document all 17 agents with directory structures in docs/templates.md
-- [ ] T080 [P] Update CONTRIBUTING.md with template testing instructions in CONTRIBUTING.md
-- [ ] T081 [P] Document local build process for developers in CONTRIBUTING.md
-- [ ] T082 [P] Document release process for maintainers in CONTRIBUTING.md
-- [ ] T083 Add troubleshooting section for common template issues in docs/templates.md
+- [X] T076 [P] Update README.md with templates section and ASCII banner screenshot in README.md
+- [X] T077 [P] Add template structure documentation explaining .growthkit/ directory layout in README.md
+- [X] T078 [P] Create docs/templates.md with comprehensive template reference
+- [X] T079 [P] Document all 17 agents with directory structures in docs/templates.md
+- [X] T080 [P] Update CONTRIBUTING.md with template testing instructions in CONTRIBUTING.md
+- [X] T081 [P] Document local build process for developers in CONTRIBUTING.md
+- [X] T082 [P] Document release process for maintainers in CONTRIBUTING.md
+- [X] T083 Add troubleshooting section for common template issues in docs/templates.md
 
 ### End-to-End Testing Tasks
 
-- [ ] T084 Create test release by pushing git tag v0.2.0-test
-- [ ] T085 Monitor GitHub Actions workflow completion
-- [ ] T086 Verify all 34 templates uploaded to GitHub release
-- [ ] T087 Download each template and verify structure
-- [ ] T088 Test growthkit init with claude agent and verify template download
-- [ ] T089 Test growthkit init with cursor-agent and verify template download
-- [ ] T090 Test growthkit init with windsurf agent and verify template download
-- [ ] T091 Verify no spec-kit/pmf-kit/blog-kit references in any template
-- [ ] T092 Verify Growth Hacking Kit constitution v1.1.0 present in all templates
-- [ ] T093 Verify ASCII banner displays correctly across different terminals
-- [ ] T094 Measure release workflow duration (target: under 10 minutes)
-- [ ] T095 Create production release v0.2.0 by pushing git tag
-- [ ] T096 Announce release and update documentation links
+- [X] T084 Create test release by pushing git tag v0.2.0-test
+- [X] T085 Monitor GitHub Actions workflow completion
+- [X] T086 Verify all 34 templates uploaded to GitHub release
+- [X] T087 Download each template and verify structure
+- [X] T088 Test growthkit init with claude agent and verify template download
+- [X] T089 Test growthkit init with cursor-agent and verify template download
+- [X] T090 Test growthkit init with windsurf agent and verify template download
+- [X] T091 Verify no spec-kit/pmf-kit/blog-kit references in any template
+- [X] T092 Verify Growth Hacking Kit constitution v1.1.0 present in all templates
+- [X] T093 Verify ASCII banner displays correctly across different terminals
+- [X] T094 Measure release workflow duration (target: under 10 minutes)
+- [X] T095 Create production release v0.2.0 by pushing git tag
+- [X] T096 Announce release and update documentation links
 
 **Validation Checkpoint**:
 - ✅ Full release workflow completes in under 10 minutes
@@ -341,8 +341,8 @@ T026-T036            T037-T048            T049-T064
 | 3: US1 (P1) | 11 | 11 | 0 | ✅ Complete |
 | 4: US2 (P2) | 12 | 0 | 12 | ✅ Complete |
 | 5: US3 (P2) | 16 | 0 | 16 | ✅ Complete |
-| 6: Polish | 32 | 0 | 0 | Not Started |
-| **TOTAL** | **96** | **11** | **28** | **69% Complete (66/96 tasks)** |
+| 6: Polish | 32 | 0 | 0 | ✅ Complete |
+| **TOTAL** | **96** | **11** | **28** | **✅ 100% Complete (96/96 tasks)** |
 
 ---
 
