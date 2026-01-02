@@ -16,17 +16,15 @@ if [[ -z "$VERSION" ]]; then
 fi
 
 # Configuration
-REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+REPO_ROOT="$(pwd)"
 GENRELEASES_DIR="${GENRELEASES_DIR:-.genreleases}"
 GROWTHKIT_SOURCE=".growthkit"
 
-# Make paths absolute if they're relative
-if [[ ! "$GENRELEASES_DIR" = /* ]]; then
-    GENRELEASES_DIR="$REPO_ROOT/$GENRELEASES_DIR"
-fi
-if [[ ! "$GROWTHKIT_SOURCE" = /* ]]; then
-    GROWTHKIT_SOURCE="$REPO_ROOT/$GROWTHKIT_SOURCE"
-fi
+# Create output directory
+mkdir -p "$GENRELEASES_DIR"
+echo "📦 Output directory: $GENRELEASES_DIR"
+echo "📦 Working directory: $(pwd)"
+echo "📦 Repo root: $REPO_ROOT"
 
 # All 17 supported agents
 ALL_AGENTS=(
