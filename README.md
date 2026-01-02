@@ -129,24 +129,30 @@ Growth Hacking Kit works with all agents supported by Spec-Kit:
 
 ## 📦 Growth Hacking Kit Templates
 
-Growth Hacking Kit provides project templates for 17 AI coding agents, automatically downloaded when you run `growthkit init`. Each template includes:
+Growth Hacking Kit provides **34 project templates** (17 agents × 2 script types) automatically downloaded when you run `growthkit init`. Each template includes:
 
-- **Growth Hacking Kit Constitution v0.1.0** with 7 growth-focused principles
-- **Workflow templates**: spec.md, plan.md, tasks.md for growth documentation
-- **6 slash commands**: /growthkit.specify, /growthkit.plan, /growthkit.tasks, /growthkit.implement, /growthkit.clarify, /growthkit.constitution
-- **Scripts**: Bash and PowerShell variants for automation
-- **Memory system**: constitution.md for project-specific growth principles
+- **Growth Hacking Kit Constitution v1.1.0** with 7 growth-focused principles
+- **Workflow templates**: spec-template.md, plan-template.md, tasks-template.md
+- **5 core commands**:
+  - `/growthkit.specify` - Define growth campaign
+  - `/growthkit.plan` - Create campaign plan
+  - `/growthkit.tasks` - Generate task breakdown
+  - `/growthkit.implement` - Execute with checkpoints
+  - `/growthkit.constitution` - View governance
+- **Automation scripts**: Bash and PowerShell for cross-platform support
+- **Memory system**: .growthkit/ working directory with growth governance
 
-### Supported Template Agents
+### Supported Template Agents (17 Total)
 
-Templates are available for all 17 agents in both bash and PowerShell variants (34 total):
+Templates available for all major AI agents in both **bash** and **PowerShell** variants:
 
-- Claude Code • Cursor Agent • Windsurf • Google Gemini
-- GitHub Copilot • Qoder • Qwen • OpenCode
-- Codex • KiloCode • Auggie • CodeBuddy
-- AMP • Shai • Amazon Q • Bob • Roo
+**Tier 1 (Official)**: Claude Code • Cursor Agent • Windsurf • Google Gemini
+**Tier 2**: GitHub Copilot • Qwen • Codex • OpenCode
+**Tier 3**: Qoder • KiloCode • Auggie • Roo • CodeBuddy • AMP • Shai • Jules • Q
 
-See [GitHub Releases](https://github.com/agentii-ai/growth-hacking-kit/releases) for downloadable template archives with SHA-256 checksums.
+**👉 [Full Template Reference →](./docs/templates.md)** - See all 17 agents, template structure, platform support, and customization guides.
+
+Download from [GitHub Releases](https://github.com/anthropics/growth-hacking-kit/releases) with SHA-256 checksums.
 
 ---
 

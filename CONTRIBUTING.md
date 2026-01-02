@@ -219,12 +219,144 @@ When developing features, ensure:
 3. **Package distinction**: `growthkit-cli` not `specify-cli`
 4. **Environment variable**: `GROWTHKIT_CAMPAIGN` not `SPECIFY_FEATURE`
 
+## Template Testing
+
+### Local Template Development
+
+Build and test templates locally before publishing:
+
+```bash
+# Build all 34 templates locally
+./scripts/build-templates.sh v0.2.0
+
+# Build specific agent
+AGENTS=claude ./scripts/build-templates.sh v0.2.0
+
+# Build specific script type
+AGENTS=claude SCRIPTS=sh ./scripts/build-templates.sh v0.2.0
+
+# Output goes to dist/templates/
+ls dist/templates/growthkit-template-*.zip
+```
+
+### Template Validation
+
+Validate template integrity:
+
+```bash
+# Test error detection with fixtures
+./scripts/test-validation.sh
+
+# Validate built templates
+./scripts/validate-templates.sh dist/templates/
+
+# Expected output: All 34 templates pass validation
+```
+
+### Manual Template Testing
+
+Extract and test a template manually:
+
+```bash
+# Extract a template
+unzip dist/templates/growthkit-template-claude-sh-v0.2.0.zip -d /tmp/test-template
+
+# Verify structure
+ls -R /tmp/test-template/.growthkit/
+cat /tmp/test-template/.growthkit/memory/constitution.md
+
+# Test in growthkit init
+growthkit init my-test --ai claude
+```
+
+### CI/CD Template Testing
+
+The CI workflow automatically:
+
+1. **Builds** all 34 templates using `create-release-packages.sh`
+2. **Validates** templates using `validate-templates.sh`
+3. **Lints** bash scripts with shellcheck
+4. **Lints** PowerShell scripts with PSScriptAnalyzer
+5. **Extracts** sample templates and verifies structure
+6. **Publishes** to GitHub Releases with SHA-256 checksums
+
+Triggered on PRs affecting:
+- `.growthkit/**`
+- `scripts/**`
+- `.github/workflows/scripts/**`
+
+### Release Process for Templates
+
+When releasing a new version:
+
+```bash
+# 1. Update version in src/growthkit/__init__.py
+# Example: __version__ = "0.2.1"
+
+# 2. Build templates with new version
+./scripts/build-templates.sh v0.2.1
+
+# 3. Validate all templates pass
+./scripts/validate-templates.sh dist/templates/
+
+# 4. Create git tag
+git tag v0.2.1
+
+# 5. Push tag (triggers GitHub Actions release workflow)
+git push origin v0.2.1
+
+# 6. GitHub Actions will:
+#    - Build all 34 templates
+#    - Validate them
+#    - Create release with ZIP files
+#    - Upload with SHA-256 checksums
+```
+
+### Adding New Agent Templates
+
+When adding a new AI agent:
+
+1. **Add to configuration** (`src/growthkit/cli/config.py`):
+   ```python
+   AGENT_DIRS = {
+       "new-agent": ".newagent/claude",  # Path pattern
+       # ... existing agents
+   }
+   ```
+
+2. **Add to build script** (`.github/workflows/scripts/create-release-packages.sh`):
+   ```bash
+   AGENTS=(
+       "claude" "cursor-agent" "windsurf" "gemini" "copilot"
+       "qwen" "codex" "opencode" "qoder" "kilocode"
+       "auggie" "roo" "codebuddy" "amp" "shai" "jules" "q"
+       "new-agent"  # Add here
+   )
+   ```
+
+3. **Generate templates**:
+   ```bash
+   ./scripts/build-templates.sh v0.2.1
+   ```
+
+4. **Validate**:
+   ```bash
+   ./scripts/validate-templates.sh dist/templates/
+   ```
+
+5. **Update documentation** (`docs/templates.md`):
+   - Add agent to supported agents table
+   - Add to agent grid in README.md
+
 ## Documentation
 
 - Update README.md for user-facing changes
 - Add docstrings to all functions
 - Document new Constitution Check gates
-- Update this file for development changes
+- Update CONTRIBUTING.md for development changes
+- Update docs/templates.md when adding agents or changing template structure
+- Document local build process for developers
+- Document release process for maintainers
 
 ## Release Process
 
