@@ -4,7 +4,8 @@
 # Validates template integrity, namespace, and structure
 # Usage: ./validate-templates.sh <directory|zip_file>
 
-set -euo pipefail
+# GitHub Actions runs with 'bash -e' automatically
+# No additional options needed for strict mode
 
 INPUT="${1:-}"
 
