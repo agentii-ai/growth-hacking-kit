@@ -125,18 +125,18 @@ Tasks are organized by user story (from spec.md) to enable independent implement
 
 ### US2 Implementation Tasks
 
-- [ ] T037 [P] [US2] Create scripts/build-templates.sh wrapper script for local development
-- [ ] T038 [P] [US2] Add version argument handling with usage instructions in scripts/build-templates.sh
-- [ ] T039 [P] [US2] Add AGENTS and SCRIPTS environment variable support for subset building in scripts/build-templates.sh
-- [ ] T040 [P] [US2] Configure output to dist/templates/ directory (not .genreleases/) in scripts/build-templates.sh
-- [ ] T041 [P] [US2] Add build manifest generation with JSON output in scripts/build-templates.sh
-- [ ] T042 [P] [US2] Add verbose progress output and summary with file sizes in scripts/build-templates.sh
-- [ ] T043 [P] [US2] Integrate validation automatically after build completes in scripts/build-templates.sh
-- [ ] T044 [US2] Test local build with single agent (AGENTS=claude SCRIPTS=sh ./scripts/build-templates.sh v0.2.0-test)
-- [ ] T045 [US2] Extract and manually inspect single agent template structure
-- [ ] T046 [US2] Test full local build with all 34 variants
-- [ ] T047 [US2] Verify build-manifest.json contains all variants with correct metadata
-- [ ] T048 [US2] Add .gitignore entry for dist/ directory to prevent accidental commits
+- [X] T037 [P] [US2] Create scripts/build-templates.sh wrapper script for local development
+- [X] T038 [P] [US2] Add version argument handling with usage instructions in scripts/build-templates.sh
+- [X] T039 [P] [US2] Add AGENTS and SCRIPTS environment variable support for subset building in scripts/build-templates.sh
+- [X] T040 [P] [US2] Configure output to dist/templates/ directory (not .genreleases/) in scripts/build-templates.sh
+- [X] T041 [P] [US2] Add build manifest generation with JSON output in scripts/build-templates.sh
+- [X] T042 [P] [US2] Add verbose progress output and summary with file sizes in scripts/build-templates.sh
+- [X] T043 [P] [US2] Integrate validation automatically after build completes in scripts/build-templates.sh
+- [X] T044 [US2] Test local build with single agent (AGENTS=claude SCRIPTS=sh ./scripts/build-templates.sh v0.2.0-test)
+- [X] T045 [US2] Extract and manually inspect single agent template structure
+- [X] T046 [US2] Test full local build with all 34 variants
+- [X] T047 [US2] Verify build-manifest.json contains all variants with correct metadata
+- [X] T048 [US2] Add .gitignore entry for dist/ directory to prevent accidental commits
 
 **US2 Acceptance Criteria**:
 - ✅ Local build script generates all 34 templates in under 5 minutes
