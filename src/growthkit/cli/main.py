@@ -34,7 +34,8 @@ def print_banner():
  | |_| | | | (_) \ V  V /| |_| | | | |  _  | (_| | (__|   <| | | | | (_| | . \| | |_
   \____|_|  \___/ \_/\_/  \__|_| |_| |_| |_|\__,_|\___|_|\_\_|_| |_|\__, |_|\_\_|\__|
                                                                      |___/
-                          Spec-Driven Growth Campaign Management
+                              Growth Hacking Kit v0.2.0
+                         Spec-Driven Campaign Management for AI SaaS
     """
     console.print(f"[bold cyan]{banner}[/bold cyan]")
 

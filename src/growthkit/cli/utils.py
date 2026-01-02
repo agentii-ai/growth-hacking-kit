@@ -22,7 +22,7 @@ from growthkit.cli.config import (
 )
 
 # Constants for template downloads
-GITHUB_REPO = "your-org/growth-hacking-kit"  # TODO: Update with actual repo
+GITHUB_REPO = "anthropics/growth-hacking-kit"  # Growth Hacking Kit public repository
 GITHUB_API_URL = "https://api.github.com"
 GITHUB_RELEASES_URL = f"{GITHUB_API_URL}/repos/{GITHUB_REPO}/releases"
 
