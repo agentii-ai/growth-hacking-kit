@@ -82,18 +82,21 @@ check_content_references() {
     local errors=0
 
     # Scan for speckit, pmfkit, blogkit references
-    if grep -r "speckit\." "$extract_dir" 2>/dev/null | grep -v "Binary file" | head -5; then
+    if grep -r "speckit\." "$extract_dir" 2>/dev/null | grep -v "Binary file" >/dev/null 2>&1; then
         echo "    ❌ Found /speckit.* references in template" >&2
+        grep -r "speckit\." "$extract_dir" 2>/dev/null | grep -v "Binary file" | head -5 >&2
         ((errors++))
     fi
 
-    if grep -r "pmfkit\." "$extract_dir" 2>/dev/null | grep -v "Binary file" | head -5; then
+    if grep -r "pmfkit\." "$extract_dir" 2>/dev/null | grep -v "Binary file" >/dev/null 2>&1; then
         echo "    ❌ Found /pmfkit.* references in template" >&2
+        grep -r "pmfkit\." "$extract_dir" 2>/dev/null | grep -v "Binary file" | head -5 >&2
         ((errors++))
     fi
 
-    if grep -r "blogkit\." "$extract_dir" 2>/dev/null | grep -v "Binary file" | head -5; then
+    if grep -r "blogkit\." "$extract_dir" 2>/dev/null | grep -v "Binary file" >/dev/null 2>&1; then
         echo "    ❌ Found /blogkit.* references in template" >&2
+        grep -r "blogkit\." "$extract_dir" 2>/dev/null | grep -v "Binary file" | head -5 >&2
         ((errors++))
     fi
 
