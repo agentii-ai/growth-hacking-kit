@@ -158,22 +158,22 @@ Tasks are organized by user story (from spec.md) to enable independent implement
 
 ### US3 Implementation Tasks
 
-- [ ] T049 [P] [US3] Create .github/workflows/ci.yml for pull request validation
-- [ ] T050 [P] [US3] Add trigger for pull requests affecting .growthkit/**, memory/**, scripts/**, templates/** paths in .github/workflows/ci.yml
-- [ ] T051 [P] [US3] Add checkout step with full git history for validation in .github/workflows/ci.yml
-- [ ] T052 [P] [US3] Add build templates step using create-release-packages.sh in .github/workflows/ci.yml
-- [ ] T053 [P] [US3] Add validate templates step that fails on any errors in .github/workflows/ci.yml
-- [ ] T054 [P] [US3] Add shellcheck linting for bash scripts in .github/workflows/ci.yml
-- [ ] T055 [P] [US3] Add PSScriptAnalyzer linting for PowerShell scripts in .github/workflows/ci.yml
-- [ ] T056 [US3] Create test fixtures with intentional errors for validation testing in test-data/
-- [ ] T057 [US3] Create test-validation.sh script to verify validation catches errors
-- [ ] T058 [US3] Test negative case: Wrong namespace (agent: speckit.specify)
-- [ ] T059 [US3] Test negative case: Missing required file (remove constitution.md)
-- [ ] T060 [US3] Test negative case: Speckit reference in content (/speckit.plan)
-- [ ] T061 [US3] Test negative case: Wrong scripts (both bash/ and powershell/ in sh variant)
-- [ ] T062 [US3] Test positive case: Valid template passes all checks
-- [ ] T063 [US3] Add validation report generation with detailed error messages in scripts/validate-templates.sh
-- [ ] T064 [US3] Test CI workflow by creating test PR with template changes
+- [X] T049 [P] [US3] Create .github/workflows/ci.yml for pull request validation
+- [X] T050 [P] [US3] Add trigger for pull requests affecting .growthkit/**, memory/**, scripts/**, templates/** paths in .github/workflows/ci.yml
+- [X] T051 [P] [US3] Add checkout step with full git history for validation in .github/workflows/ci.yml
+- [X] T052 [P] [US3] Add build templates step using create-release-packages.sh in .github/workflows/ci.yml
+- [X] T053 [P] [US3] Add validate templates step that fails on any errors in .github/workflows/ci.yml
+- [X] T054 [P] [US3] Add shellcheck linting for bash scripts in .github/workflows/ci.yml
+- [X] T055 [P] [US3] Add PSScriptAnalyzer linting for PowerShell scripts in .github/workflows/ci.yml
+- [X] T056 [US3] Create test fixtures with intentional errors for validation testing in test-data/
+- [X] T057 [US3] Create test-validation.sh script to verify validation catches errors
+- [X] T058 [US3] Test negative case: Wrong namespace (agent: speckit.specify)
+- [X] T059 [US3] Test negative case: Missing required file (remove constitution.md)
+- [X] T060 [US3] Test negative case: Speckit reference in content (/speckit.plan)
+- [X] T061 [US3] Test negative case: Wrong scripts (both bash/ and powershell/ in sh variant)
+- [X] T062 [US3] Test positive case: Valid template passes all checks
+- [X] T063 [US3] Add validation report generation with detailed error messages in scripts/validate-templates.sh
+- [X] T064 [US3] Test CI workflow by creating test PR with template changes
 
 **US3 Acceptance Criteria**:
 - ✅ CI triggers on pull requests modifying templates
@@ -336,13 +336,13 @@ T026-T036            T037-T048            T049-T064
 
 | Phase | Total Tasks | P1 Tasks | P2 Tasks | Status |
 |-------|-------------|----------|----------|--------|
-| 1: Setup | 10 | 0 | 0 | Not Started |
-| 2: Foundational | 15 | 0 | 0 | Not Started |
-| 3: US1 (P1) | 11 | 11 | 0 | Not Started |
-| 4: US2 (P2) | 12 | 0 | 12 | Not Started |
-| 5: US3 (P2) | 16 | 0 | 16 | Not Started |
+| 1: Setup | 10 | 0 | 0 | ✅ Complete |
+| 2: Foundational | 15 | 0 | 0 | ✅ Complete |
+| 3: US1 (P1) | 11 | 11 | 0 | ✅ Complete |
+| 4: US2 (P2) | 12 | 0 | 12 | ✅ Complete |
+| 5: US3 (P2) | 16 | 0 | 16 | ✅ Complete |
 | 6: Polish | 32 | 0 | 0 | Not Started |
-| **TOTAL** | **96** | **11** | **28** | **0% Complete** |
+| **TOTAL** | **96** | **11** | **28** | **69% Complete (66/96 tasks)** |
 
 ---
 
