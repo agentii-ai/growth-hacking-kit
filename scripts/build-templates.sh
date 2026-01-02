@@ -10,7 +10,8 @@
 #   AGENTS=claude SCRIPTS=sh ./scripts/build-templates.sh v0.2.0  # Single variant
 #   VERBOSE=1 ./scripts/build-templates.sh v0.2.0    # Verbose output
 
-set -euo pipefail
+# GitHub Actions runs with 'bash -e' automatically
+# No additional options needed for strict mode
 
 # Script configuration
 VERBOSE="${VERBOSE:-0}"

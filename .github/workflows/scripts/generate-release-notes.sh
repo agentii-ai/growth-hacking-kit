@@ -4,7 +4,8 @@
 # Generates release notes with changelog and template checksums
 # Usage: ./generate-release-notes.sh <version> [previous_version]
 
-set -euo pipefail
+# GitHub Actions runs with 'bash -e' automatically
+# No additional options needed for strict mode
 
 VERSION="${1:-}"
 PREVIOUS_VERSION="${2:-}"
@@ -26,7 +27,7 @@ cd "$REPO_ROOT"
 
 # Get previous version if not provided
 if [[ -z "$PREVIOUS_VERSION" ]]; then
-    PREVIOUS_VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+    PREVIOUS_VERSION=$(git describe --tags --abbrev=0 2>/dev/null || true)
 fi
 
 # Generate release notes
@@ -60,7 +61,7 @@ if [[ -n "$PREVIOUS_VERSION" ]] && git rev-parse "$PREVIOUS_VERSION" >/dev/null 
     echo "" >> "$OUTPUT_FILE"
 
     # Get commits since previous version
-    git log --pretty=format:"- %s (%h)" "${PREVIOUS_VERSION}..HEAD" >> "$OUTPUT_FILE" 2>/dev/null || echo "- Initial release" >> "$OUTPUT_FILE"
+    git log --pretty=format:"- %s (%h)" "${PREVIOUS_VERSION}..HEAD" 2>/dev/null >> "$OUTPUT_FILE" || echo "- Initial release" >> "$OUTPUT_FILE"
 fi
 
 # Add template assets with checksums

@@ -4,7 +4,8 @@
 # Generates 34 template variants (17 agents × 2 script types)
 # Usage: ./create-release-packages.sh <version>
 
-set -euo pipefail
+# GitHub Actions runs with 'bash -e' automatically
+# No additional options needed for strict mode
 
 VERSION="${1:-}"
 if [[ -z "$VERSION" ]]; then

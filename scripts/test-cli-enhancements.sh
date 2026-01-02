@@ -5,7 +5,8 @@
 #
 # Usage: ./scripts/test-cli-enhancements.sh
 
-set -euo pipefail
+# GitHub Actions runs with 'bash -e' automatically
+# No additional options needed for strict mode
 
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 TEST_DIR="/tmp/growthkit-cli-test"

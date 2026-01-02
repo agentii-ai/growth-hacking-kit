@@ -21,146 +21,146 @@ This release provides automated template packages for all supported AI agents wi
 
 ## 📋 Changelog
 
-- Fix: Use RETURN trap instead of EXIT and add || true to validation loop (2a9c7fe)
+- Remove strict shell options to avoid GitHub Actions conflicts (b0b7eb5)
 ## 📥 Template Assets
 
 Download the template for your AI agent:
 
-### `growthkit-template-amp-ps-v0.2.1.zip`
+### `growthkit-template-amp-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `e7bbf0bc6cf2a189b5b7e7d13f6d42a621f2513dd4a589cf60c68065fd413240`
+- **SHA-256**: `90be8ca6c4e84369877a7390d9de6f58b12a472b93c1b8ffd812bd1fc9c8d186`
 
-### `growthkit-template-amp-sh-v0.2.1.zip`
+### `growthkit-template-amp-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `aa1d8099c942312cb561cf377f288db3e91242042466436ee06c44b414d2fc65`
+- **SHA-256**: `79da497dd2e2d85ad39a7c851fa0f4cb38abae7102d77b0329d3505182d76f81`
 
-### `growthkit-template-auggie-ps-v0.2.1.zip`
+### `growthkit-template-auggie-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `b9641bd81beaa0eb3bc4ab0cfb89ad3d2d7746d34419de4759daacdfc5b4e53c`
+- **SHA-256**: `b8dbf3b03ef40a56c654d8242c8795d8ec2fd2310b7b84bcd163d33cad144c5b`
 
-### `growthkit-template-auggie-sh-v0.2.1.zip`
+### `growthkit-template-auggie-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `52788c1cbf183e4a97995050881f674399bf1ba1aa65c81b0549fb2e7b4a13c0`
+- **SHA-256**: `11877d69c9fe2705d0cf88646467468d3701c473ca9d1e138701e068252a995e`
 
-### `growthkit-template-claude-ps-v0.2.1.zip`
+### `growthkit-template-claude-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `537c2486f7f774bc8b126eab21cbe9402ce61942eabe3da18a9f4f19319c823d`
+- **SHA-256**: `191cb8189383181e6efcaa193b0a56991e4eddb90801dab9a88eace995e8863e`
 
-### `growthkit-template-claude-sh-v0.2.1.zip`
+### `growthkit-template-claude-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `94612142189dda99348b65946186b0e9f613d4432ff8b76bff2761ff502be3dc`
+- **SHA-256**: `d8e0cab2d64a873deb2c0aba700ffd838c40630ab851a89d615617e20b015dd2`
 
-### `growthkit-template-codebuddy-ps-v0.2.1.zip`
+### `growthkit-template-codebuddy-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `4e106c5e5051d4b7c8a5341356b5c98281cd6a97ffc164eefd5c9722179065dd`
+- **SHA-256**: `746f5466c1eafe085ac87bb3d0e3c830dd42cb4604451e2d05dee75f05e2fb34`
 
-### `growthkit-template-codebuddy-sh-v0.2.1.zip`
+### `growthkit-template-codebuddy-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `f73be73ebd7578ebfbe7276a8ca5814d649ff492fd1c2f9d38be0577308227d5`
+- **SHA-256**: `39eaeb2174f0d1e80a7e29a581ba0cfdef3d6dad3ec8403e8a32c1893a9c0d67`
 
-### `growthkit-template-codex-ps-v0.2.1.zip`
+### `growthkit-template-codex-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `b6267e52611443f475422ed8c82cf0f8e22becd8f112db67d0672b7ed2ce3bdb`
+- **SHA-256**: `e62398030326e71bb2dde4af91505f7c322826eae56f36d7971fff93d50c9bc2`
 
-### `growthkit-template-codex-sh-v0.2.1.zip`
+### `growthkit-template-codex-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `2bd14528556f82a71a4396fb14307bc3a3e311693d7cfaa2384b474a2f3f7661`
+- **SHA-256**: `227703a80a0660c38283b9896f007c112af59914a1af01c9dfef1cf84aab4730`
 
-### `growthkit-template-copilot-ps-v0.2.1.zip`
+### `growthkit-template-copilot-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `eb4cb87ca923d47be830659c87a19f815609f945fd13594e2bc4a6b68f5d2a6a`
+- **SHA-256**: `81802fa0dc2ceffb76be341d858e727512d4c0218b72d594daa80756a245878c`
 
-### `growthkit-template-copilot-sh-v0.2.1.zip`
+### `growthkit-template-copilot-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `0dbfc29da0eee8da34e741f4417c5bedecc3afa1ad64f9bc692c5bb75b55c14c`
+- **SHA-256**: `1f29e52d6c9f696600f5fb925a07ff3a167b74b690c40a98404c9d251b9345d9`
 
-### `growthkit-template-cursor-agent-ps-v0.2.1.zip`
+### `growthkit-template-cursor-agent-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `b4547211b915a8b86596152e0b6ccfed2e770edc130ffe19b1089582a240c7bc`
+- **SHA-256**: `158b416f1305f7825c1135707e2bef614731f658b04bdddfd4891d0e620fa0a0`
 
-### `growthkit-template-cursor-agent-sh-v0.2.1.zip`
+### `growthkit-template-cursor-agent-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `824e4305667fab32237ebb4a5cf9cbf9ad305a4d46e33cd653d15850e9bfecbc`
+- **SHA-256**: `82fedc869bf90bb4d9f2ca2d9f20a4d54c0f66264601cbda00d5a8920b86f263`
 
-### `growthkit-template-gemini-ps-v0.2.1.zip`
+### `growthkit-template-gemini-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `fd754601362326d34677cf85ab7e65efbb95b42e9bcd08a28fac2d1777d14434`
+- **SHA-256**: `13a8d111f772ff144b16a18f5bde8c7ca282ed5d48f7963d1dd9f4da393374dc`
 
-### `growthkit-template-gemini-sh-v0.2.1.zip`
+### `growthkit-template-gemini-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `fb29e64a0e9fe207f0144ac237fd2fa131097ee32aabcced5e77e0d7ae3f7d81`
+- **SHA-256**: `a21d9eb84c196e548e7a2e4c4fd9c540e252653c85df9438885fe1bc49a8d0b6`
 
-### `growthkit-template-jules-ps-v0.2.1.zip`
+### `growthkit-template-jules-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `5e3e8a43a232e4da11715ed80991ab07ba174e49a1e83734e353f2aafe41a4ab`
+- **SHA-256**: `e6cfdab368ef09d440aecf0dd02b22251fdd16cc92efc72da73e10df60b053bd`
 
-### `growthkit-template-jules-sh-v0.2.1.zip`
+### `growthkit-template-jules-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `53565487c66f26006b50192aeaaaca4f55b39df67679e66913eed3a5fd022625`
+- **SHA-256**: `0bb652f9e3aca3c5d8d77477df515722708b1c1007a435ee4242cb2c8c8f1f10`
 
-### `growthkit-template-kilocode-ps-v0.2.1.zip`
+### `growthkit-template-kilocode-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `95b10779e6483ac1166e443d09f47521c091e8dc56cde681d5b4d96f015b8383`
+- **SHA-256**: `e9b653bc10c330175085db17412dc05c0084a9f072bd351c1c4976726f08cf92`
 
-### `growthkit-template-kilocode-sh-v0.2.1.zip`
+### `growthkit-template-kilocode-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `da2c06621bac9d326a9768810f93d76d97777dfcb1becfae98f3eb5da9a5424d`
+- **SHA-256**: `63bb83721a05d86eb839a55958fcb7c6eb6dd3259eed6a8f8b7e4fc0f56e1adc`
 
-### `growthkit-template-opencode-ps-v0.2.1.zip`
+### `growthkit-template-opencode-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `d32aaa475b80c70bda05a24726548781b7e012eb6c89e2dc0e99200ac9f38407`
+- **SHA-256**: `ac96fdcc566142751430ad6d493436adff1c2a7c0cb8b7a7fb2db8f1a93fc35c`
 
-### `growthkit-template-opencode-sh-v0.2.1.zip`
+### `growthkit-template-opencode-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `8842359935a2034b6f817ffd5275ea2b175911041c3e70346305b13c91472a69`
+- **SHA-256**: `5b8d8f993c708afea58e4408484c3b0c219e32bc8182ac49f6bb9acab1bb421c`
 
-### `growthkit-template-q-ps-v0.2.1.zip`
+### `growthkit-template-q-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `68cecddb33491f2c480c5da222541f4d8f844ffc5020a12dc084256a9156d9b4`
+- **SHA-256**: `43cbee789c9b1739006f4e5a0082d83867b71ec8578d0a75bc357c249c913049`
 
-### `growthkit-template-q-sh-v0.2.1.zip`
+### `growthkit-template-q-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `f8fa9a8276d02503df5de147de59093bc628a5dd8695cb60abee9a6d7be98119`
+- **SHA-256**: `0d02ac70170f43e0ee9f5267e8e78fb80e72732a8a445851d66560e3af06c553`
 
-### `growthkit-template-qoder-ps-v0.2.1.zip`
+### `growthkit-template-qoder-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `fb5a64cede3804dc81fd5e3bb082bbdf355c2a11047507b61fcf528b391db5f2`
+- **SHA-256**: `88d1426f7fdd2a42ea82d9819b683ec19bf87cfc64775365f20db6ce700d45ca`
 
-### `growthkit-template-qoder-sh-v0.2.1.zip`
+### `growthkit-template-qoder-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `60432919833198d4f1a979f6deb1c35f232576bcbe57f7fc36fc540694015e8c`
+- **SHA-256**: `1f4f5c616d7f94ce57cab6f0424394fd5135141b809bde54e40f0298d7136c14`
 
-### `growthkit-template-qwen-ps-v0.2.1.zip`
+### `growthkit-template-qwen-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `a531337993b0d42a318087d8cd7bb7dbd02ca0e7eb6008e98f8c37f978a3f258`
+- **SHA-256**: `72f50ffa68effe235221f80a5375e454783debfdfc599ca61802389facb7cd24`
 
-### `growthkit-template-qwen-sh-v0.2.1.zip`
+### `growthkit-template-qwen-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `7c53625bfe307f819077dceb4b641a2eea1e5160beb4343ba85f78e28f2b47b4`
+- **SHA-256**: `939409844e7925baa168e38648dae2cac3f904455b319ac3bb774c3155bd046b`
 
-### `growthkit-template-roo-ps-v0.2.1.zip`
+### `growthkit-template-roo-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `3194f394ccb2f38de8915d28fc7fb7b5118af149e59a442445daa0e8374e3fcf`
+- **SHA-256**: `f416eb7a0e5ad196d94de4d6815ed40d93272a1fafa9279ec7a51b7aac802395`
 
-### `growthkit-template-roo-sh-v0.2.1.zip`
+### `growthkit-template-roo-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `e358c515018766477542ac953215165772322a44a986b4bfe15ea037947be555`
+- **SHA-256**: `377c34b567fa7b91eec0069c0740b57805b45d1421fcb338e58410cce3dadc72`
 
-### `growthkit-template-shai-ps-v0.2.1.zip`
+### `growthkit-template-shai-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `71e3022b236a141aa175d4fc2caad6ea500c51e843423c64840eb79ccd4a0c7c`
+- **SHA-256**: `ad29e08f74a19a4bc553523f44851e4a121537923b3f20ee53eb9b5ae2304553`
 
-### `growthkit-template-shai-sh-v0.2.1.zip`
+### `growthkit-template-shai-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `ba502b082a8d84cee00f18bd76807e1fc758553f4984cf55de427e1f35364d90`
+- **SHA-256**: `d7329281c9b8d19919c2af03b15bd67c07865028fb22e12fccb6119200ecc223`
 
-### `growthkit-template-windsurf-ps-v0.2.1.zip`
+### `growthkit-template-windsurf-ps-v0.2.3.zip`
 - **Size**: 31K
-- **SHA-256**: `5c39d3de8e4107cad0f97132dee1083abd0f4d48b66a0c4a4859404223ab1e9e`
+- **SHA-256**: `43054636153c5f93c958530df605b97d147a9f70504e75029d9f539dd532cda9`
 
-### `growthkit-template-windsurf-sh-v0.2.1.zip`
+### `growthkit-template-windsurf-sh-v0.2.3.zip`
 - **Size**: 32K
-- **SHA-256**: `5f49d6750593a0ba6c94bbf5db375864e5abb4c74365fc16ee4c73d53054ab71`
+- **SHA-256**: `d0aa63e09d015aafe8d528f24ddb31f3af41e24d7c44b3c66efa5d33e462cf87`
 
 
 ## 🔧 Installation

@@ -5,7 +5,8 @@
 #
 # Usage: ./scripts/test-validation.sh
 
-set -euo pipefail
+# GitHub Actions runs with 'bash -e' automatically
+# No additional options needed for strict mode
 
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 TEST_DATA_DIR="${REPO_ROOT}/test-data"
