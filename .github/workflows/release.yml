@@ -105,11 +105,6 @@ jobs:
         name: release-notes
         path: release_notes.md
 
-    - name: Publish to PyPI
-      uses: pypa/gh-action-pypi-publish@v1.11.1
-      with:
-        password: ${{ secrets.PYPI_API_TOKEN }}
-
   release:
     needs: build
     runs-on: ubuntu-latest
