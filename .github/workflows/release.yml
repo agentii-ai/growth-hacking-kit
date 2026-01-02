@@ -76,21 +76,36 @@ jobs:
       run: |
         chmod +x .github/workflows/scripts/create-release-packages.sh
         echo "=== Running template build ==="
-        .github/workflows/scripts/create-release-packages.sh ${{ github.ref_name || inputs.version }} || exit 1
+        .github/workflows/scripts/create-release-packages.sh ${{ github.ref_name || inputs.version }}
+        BUILD_STATUS=$?
+        if [ $BUILD_STATUS -ne 0 ]; then
+          echo "❌ Template build failed with status $BUILD_STATUS"
+          exit $BUILD_STATUS
+        fi
         echo "=== Template build complete ==="
 
     - name: Validate templates
       run: |
         chmod +x scripts/validate-templates.sh
         echo "=== Running template validation ==="
-        ./scripts/validate-templates.sh .genreleases/ || exit 1
+        ./scripts/validate-templates.sh .genreleases/
+        VALIDATE_STATUS=$?
+        if [ $VALIDATE_STATUS -ne 0 ]; then
+          echo "❌ Template validation failed with status $VALIDATE_STATUS"
+          exit $VALIDATE_STATUS
+        fi
         echo "=== Template validation complete ==="
 
     - name: Generate release notes
       run: |
         chmod +x .github/workflows/scripts/generate-release-notes.sh
         echo "=== Generating release notes ==="
-        .github/workflows/scripts/generate-release-notes.sh ${{ github.ref_name || inputs.version }} || exit 1
+        .github/workflows/scripts/generate-release-notes.sh ${{ github.ref_name || inputs.version }}
+        NOTES_STATUS=$?
+        if [ $NOTES_STATUS -ne 0 ]; then
+          echo "❌ Release notes generation failed with status $NOTES_STATUS"
+          exit $NOTES_STATUS
+        fi
         echo "=== Release notes generation complete ==="
 
     - name: List generated files
