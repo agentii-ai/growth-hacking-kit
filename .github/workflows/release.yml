@@ -75,8 +75,14 @@ jobs:
     - name: Build template variants
       run: |
         chmod +x .github/workflows/scripts/create-release-packages.sh
+        echo "=== Template Build Debug Info ==="
+        echo "github.ref_name: ${{ github.ref_name }}"
+        echo "inputs.version: ${{ inputs.version }}"
+        echo "Version to use: ${{ github.ref_name || inputs.version }}"
+        echo "Script path: $(pwd)/.github/workflows/scripts/create-release-packages.sh"
+        echo ""
         echo "=== Running template build ==="
-        .github/workflows/scripts/create-release-packages.sh ${{ github.ref_name || inputs.version }}
+        .github/workflows/scripts/create-release-packages.sh "${{ github.ref_name || inputs.version }}"
         BUILD_STATUS=$?
         if [ $BUILD_STATUS -ne 0 ]; then
           echo "❌ Template build failed with status $BUILD_STATUS"
