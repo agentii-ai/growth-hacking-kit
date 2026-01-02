@@ -282,13 +282,19 @@ if [[ -f "$INPUT" ]] && [[ "$INPUT" == *.zip ]]; then
     fi
 elif [[ -d "$INPUT" ]]; then
     # Validate directory of ZIPs
+    ZIP_COUNT=$(find "$INPUT" -maxdepth 1 -name "*.zip" -type f | wc -l)
+    echo "Found $ZIP_COUNT ZIP files in $INPUT"
+
     for zip in "$INPUT"/*.zip; do
         if [[ ! -f "$zip" ]]; then
+            echo "Warning: glob returned non-file: $zip"
             continue
         fi
 
         # Validate variant and continue regardless of result
-        validate_variant "$zip" || true
+        if ! validate_variant "$zip"; then
+            true  # Continue even if validation fails
+        fi
         ((TOTAL_VALIDATED++))
         echo ""
     done
