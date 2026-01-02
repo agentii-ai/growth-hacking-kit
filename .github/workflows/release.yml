@@ -75,17 +75,42 @@ jobs:
     - name: Build template variants
       run: |
         chmod +x .github/workflows/scripts/create-release-packages.sh
-        .github/workflows/scripts/create-release-packages.sh ${{ github.ref_name || inputs.version }}
+        echo "=== Running template build ==="
+        .github/workflows/scripts/create-release-packages.sh ${{ github.ref_name || inputs.version }} || exit 1
+        echo "=== Template build complete ==="
 
     - name: Validate templates
       run: |
         chmod +x scripts/validate-templates.sh
-        ./scripts/validate-templates.sh .genreleases/
+        echo "=== Running template validation ==="
+        ./scripts/validate-templates.sh .genreleases/ || exit 1
+        echo "=== Template validation complete ==="
 
     - name: Generate release notes
       run: |
         chmod +x .github/workflows/scripts/generate-release-notes.sh
-        .github/workflows/scripts/generate-release-notes.sh ${{ github.ref_name || inputs.version }}
+        echo "=== Generating release notes ==="
+        .github/workflows/scripts/generate-release-notes.sh ${{ github.ref_name || inputs.version }} || exit 1
+        echo "=== Release notes generation complete ==="
+
+    - name: List generated files
+      if: always()
+      run: |
+        echo "=== Build Job Artifacts Diagnostic ==="
+        echo ""
+        echo "Current directory: $(pwd)"
+        echo ""
+        echo "=== Contents of dist/ ==="
+        ls -lah dist/ 2>&1 || true
+        echo ""
+        echo "=== Contents of .genreleases/ ==="
+        ls -lah .genreleases/ 2>&1 || true
+        echo ""
+        echo "=== Release notes ==="
+        ls -lah release_notes.md 2>&1 || true
+        echo ""
+        echo "=== Root directory listing ==="
+        ls -la 2>&1 | head -30
 
     - name: Upload Python package artifacts
       uses: actions/upload-artifact@v4
