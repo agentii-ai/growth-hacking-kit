@@ -282,7 +282,7 @@ if [[ -f "$INPUT" ]] && [[ "$INPUT" == *.zip ]]; then
     fi
 elif [[ -d "$INPUT" ]]; then
     # Validate directory of ZIPs
-    ZIP_COUNT=$(find "$INPUT" -maxdepth 1 -name "*.zip" -type f | wc -l)
+    ZIP_COUNT=$(find "$INPUT" -maxdepth 1 -name "*.zip" -type f 2>/dev/null | wc -l)
     echo "Found $ZIP_COUNT ZIP files in $INPUT"
 
     for zip in "$INPUT"/*.zip; do
