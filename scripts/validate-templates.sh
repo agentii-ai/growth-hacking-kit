@@ -224,7 +224,7 @@ validate_variant() {
 
     # Create temp directory for extraction
     local temp_dir=$(mktemp -d)
-    trap "rm -rf '$temp_dir'" RETURN
+    trap "rm -rf \"$temp_dir\"" RETURN
 
     # Extract ZIP
     if ! unzip -q "$variant_path" -d "$temp_dir" 2>/dev/null; then
@@ -273,7 +273,7 @@ if [[ -f "$INPUT" ]] && [[ "$INPUT" == *.zip ]]; then
             ((PASSED++))
         else
             ((FAILED++))
-            FAILED_TEMPLATES+=("$(basename $INPUT)")
+            FAILED_TEMPLATES+=("$(basename "$INPUT")")
         fi
         ((TOTAL_VALIDATED++))
     else
