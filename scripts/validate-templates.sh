@@ -224,7 +224,8 @@ validate_variant() {
 
     # Create temp directory for extraction
     local temp_dir=$(mktemp -d)
-    trap "rm -rf \"$temp_dir\"" RETURN
+    # Cleanup on function exit (errors suppressed)
+    trap "rm -rf \"$temp_dir\" 2>/dev/null || true" RETURN
 
     # Extract ZIP
     if ! unzip -q "$variant_path" -d "$temp_dir" 2>/dev/null; then
@@ -284,6 +285,7 @@ elif [[ -d "$INPUT" ]]; then
     # Validate directory of ZIPs
     ZIP_COUNT=$(find "$INPUT" -maxdepth 1 -name "*.zip" -type f 2>/dev/null | wc -l)
     echo "Found $ZIP_COUNT ZIP files in $INPUT"
+    echo ""
 
     for zip in "$INPUT"/*.zip; do
         if [[ ! -f "$zip" ]]; then
