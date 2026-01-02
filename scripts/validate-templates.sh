@@ -221,11 +221,13 @@ validate_variant() {
 
     # Create temp directory for extraction
     local temp_dir=$(mktemp -d)
+    trap "rm -rf '$temp_dir'" RETURN
 
     # Extract ZIP
     if ! unzip -q "$variant_path" -d "$temp_dir" 2>/dev/null; then
         echo "  ❌ Failed to extract ZIP" >&2
-        rm -rf "$temp_dir"
+        ((FAILED++))
+        FAILED_TEMPLATES+=("$variant_name")
         return 1
     fi
 
@@ -234,7 +236,8 @@ validate_variant() {
 
     if [[ -z "$extract_dir" ]]; then
         echo "  ❌ No directory found in ZIP" >&2
-        rm -rf "$temp_dir"
+        ((FAILED++))
+        FAILED_TEMPLATES+=("$variant_name")
         return 1
     fi
 
@@ -247,14 +250,14 @@ validate_variant() {
     check_script_consistency "$extract_dir" "$variant_name" || ((errors++))
     check_command_count "$extract_dir" || ((errors++))
 
-    # Cleanup
-    rm -rf "$temp_dir"
-
     if [[ $errors -gt 0 ]]; then
         echo "  ⛔ FAILED ($errors errors)"
+        ((FAILED++))
+        FAILED_TEMPLATES+=("$variant_name")
         return 1
     else
         echo "  ✅ PASSED"
+        ((PASSED++))
         return 0
     fi
 }
@@ -281,21 +284,9 @@ elif [[ -d "$INPUT" ]]; then
             continue
         fi
 
-        if check_zip_integrity "$zip"; then
-            if validate_variant "$zip"; then
-                ((PASSED++))
-            else
-                ((FAILED++))
-                FAILED_TEMPLATES+=("$(basename $zip)")
-            fi
-            ((TOTAL_VALIDATED++))
-        else
-            echo "❌ ZIP integrity check failed: $(basename $zip)" >&2
-            ((FAILED++))
-            FAILED_TEMPLATES+=("$(basename $zip)")
-            ((TOTAL_VALIDATED++))
-        fi
-
+        # Validate variant and continue regardless of result
+        validate_variant "$zip" || true
+        ((TOTAL_VALIDATED++))
         echo ""
     done
 else
