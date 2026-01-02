@@ -29,16 +29,16 @@ Tasks are organized by user story (from spec.md) to enable independent implement
 
 ### Setup Tasks
 
-- [ ] T001 Verify .growthkit/ directory structure contains all required files in .growthkit/memory/, .growthkit/templates/, .growthkit/scripts/bash/
-- [ ] T002 Create .growthkit/scripts/powershell/ directory for PowerShell script variants
-- [ ] T003 Port common.sh to common.ps1 in .growthkit/scripts/powershell/
-- [ ] T004 Port setup-plan.sh to setup-plan.ps1 in .growthkit/scripts/powershell/
-- [ ] T005 Port check-prerequisites.sh to check-prerequisites.ps1 in .growthkit/scripts/powershell/
-- [ ] T006 Port create-new-feature.sh to create-new-feature.ps1 in .growthkit/scripts/powershell/
-- [ ] T007 Port update-agent-context.sh to update-agent-context.ps1 in .growthkit/scripts/powershell/
-- [ ] T008 Port setup-agent-commands.sh to setup-agent-commands.ps1 in .growthkit/scripts/powershell/
-- [ ] T009 Create .github/workflows/scripts/ directory for modular build scripts
-- [ ] T010 Create scripts/ directory in repo root for local development scripts
+- [X] T001 Verify .growthkit/ directory structure contains all required files in .growthkit/memory/, .growthkit/templates/, .growthkit/scripts/bash/
+- [X] T002 Create .growthkit/scripts/powershell/ directory for PowerShell script variants
+- [X] T003 Port common.sh to common.ps1 in .growthkit/scripts/powershell/
+- [X] T004 Port setup-plan.sh to setup-plan.ps1 in .growthkit/scripts/powershell/
+- [X] T005 Port check-prerequisites.sh to check-prerequisites.ps1 in .growthkit/scripts/powershell/
+- [X] T006 Port create-new-feature.sh to create-new-feature.ps1 in .growthkit/scripts/powershell/
+- [X] T007 Port update-agent-context.sh to update-agent-context.ps1 in .growthkit/scripts/powershell/
+- [X] T008 Port setup-agent-commands.sh to setup-agent-commands.ps1 in .growthkit/scripts/powershell/
+- [X] T009 Create .github/workflows/scripts/ directory for modular build scripts
+- [X] T010 Create scripts/ directory in repo root for local development scripts
 
 **Validation Checkpoint**:
 - ✅ All 6 bash scripts have PowerShell equivalents
@@ -56,21 +56,21 @@ Tasks are organized by user story (from spec.md) to enable independent implement
 
 ### Foundational Tasks
 
-- [ ] T011 Implement create-release-packages.sh with main() loop for 17 agents × 2 scripts in .github/workflows/scripts/create-release-packages.sh
-- [ ] T012 Implement build_variant() function to create single template variant with .growthkit/ structure in .github/workflows/scripts/create-release-packages.sh
-- [ ] T013 Implement generate_commands() function to transform growthkit-*.md templates with namespace replacement in .github/workflows/scripts/create-release-packages.sh
-- [ ] T014 Add agent directory mappings for all 17 agents (claude, cursor-agent, windsurf, gemini, copilot, qwen, codex, opencode, qoder, kilocode, auggie, roo, codebuddy, amp, shai, jules, q) in .github/workflows/scripts/create-release-packages.sh
-- [ ] T015 Implement ZIP creation and SHA-256 checksum calculation in .github/workflows/scripts/create-release-packages.sh
-- [ ] T016 Add progress reporting and error handling with clear messages in .github/workflows/scripts/create-release-packages.sh
-- [ ] T017 Implement generate-release-notes.sh to create release notes with changelog and checksums in .github/workflows/scripts/generate-release-notes.sh
-- [ ] T018 Implement validate-templates.sh with frontmatter namespace validation in scripts/validate-templates.sh
-- [ ] T019 Add required files check to validate .growthkit/ structure in scripts/validate-templates.sh
-- [ ] T020 Add content scanning for /speckit.*, /pmfkit.*, /blogkit.* references in scripts/validate-templates.sh
-- [ ] T021 Add directory structure validation to verify .growthkit/ working directory in scripts/validate-templates.sh
-- [ ] T022 Add constitution version check for Growth Hacking Kit v1.1.0 in scripts/validate-templates.sh
-- [ ] T023 Add script consistency check (sh has bash/, ps has powershell/) in scripts/validate-templates.sh
-- [ ] T024 Add command count validation (5 required commands) in scripts/validate-templates.sh
-- [ ] T025 Add ZIP integrity check to verify extraction works in scripts/validate-templates.sh
+- [X] T011 Implement create-release-packages.sh with main() loop for 17 agents × 2 scripts in .github/workflows/scripts/create-release-packages.sh
+- [X] T012 Implement build_variant() function to create single template variant with .growthkit/ structure in .github/workflows/scripts/create-release-packages.sh
+- [X] T013 Implement generate_commands() function to transform growthkit-*.md templates with namespace replacement in .github/workflows/scripts/create-release-packages.sh
+- [X] T014 Add agent directory mappings for all 17 agents (claude, cursor-agent, windsurf, gemini, copilot, qwen, codex, opencode, qoder, kilocode, auggie, roo, codebuddy, amp, shai, jules, q) in .github/workflows/scripts/create-release-packages.sh
+- [X] T015 Implement ZIP creation and SHA-256 checksum calculation in .github/workflows/scripts/create-release-packages.sh
+- [X] T016 Add progress reporting and error handling with clear messages in .github/workflows/scripts/create-release-packages.sh
+- [X] T017 Implement generate-release-notes.sh to create release notes with changelog and checksums in .github/workflows/scripts/generate-release-notes.sh
+- [X] T018 Implement validate-templates.sh with frontmatter namespace validation in scripts/validate-templates.sh
+- [X] T019 Add required files check to validate .growthkit/ structure in scripts/validate-templates.sh
+- [X] T020 Add content scanning for /speckit.*, /pmfkit.*, /blogkit.* references in scripts/validate-templates.sh
+- [X] T021 Add directory structure validation to verify .growthkit/ working directory in scripts/validate-templates.sh
+- [X] T022 Add constitution version check for Growth Hacking Kit v1.1.0 in scripts/validate-templates.sh
+- [X] T023 Add script consistency check (sh has bash/, ps has powershell/) in scripts/validate-templates.sh
+- [X] T024 Add command count validation (5 required commands) in scripts/validate-templates.sh
+- [X] T025 Add ZIP integrity check to verify extraction works in scripts/validate-templates.sh
 
 **Validation Checkpoint**:
 - ✅ create-release-packages.sh generates 34 ZIP files (17 agents × 2 scripts)
