@@ -93,17 +93,17 @@ Tasks are organized by user story (from spec.md) to enable independent implement
 
 ### US1 Implementation Tasks
 
-- [ ] T026 [US1] Backup existing .github/workflows/release.yml as .github/workflows/release.yml.backup
-- [ ] T027 [US1] Update release.yml to add build template variants step after Python package build in .github/workflows/release.yml
-- [ ] T028 [US1] Add validate templates step to release workflow in .github/workflows/release.yml
-- [ ] T029 [US1] Add generate release notes step to release workflow in .github/workflows/release.yml
-- [ ] T030 [US1] Modify release creation step to use release_notes.md instead of CHANGELOG.md in .github/workflows/release.yml
-- [ ] T031 [US1] Add upload template assets step to upload all 34 ZIPs in .github/workflows/release.yml
-- [ ] T032 [US1] Update release workflow to pass artifacts between jobs using actions/upload-artifact and actions/download-artifact in .github/workflows/release.yml
-- [ ] T033 [US1] Test workflow with dry-run by creating test branch and triggering workflow_dispatch
-- [ ] T034 [US1] Verify workflow generates all 34 templates and validates them correctly
-- [ ] T035 [US1] Add error handling for partial template generation failures in .github/workflows/release.yml
-- [ ] T036 [US1] Add retry logic for GitHub API rate limit handling in .github/workflows/release.yml
+- [X] T026 [US1] Backup existing .github/workflows/release.yml as .github/workflows/release.yml.backup
+- [X] T027 [US1] Update release.yml to add build template variants step after Python package build in .github/workflows/release.yml
+- [X] T028 [US1] Add validate templates step to release workflow in .github/workflows/release.yml
+- [X] T029 [US1] Add generate release notes step to release workflow in .github/workflows/release.yml
+- [X] T030 [US1] Modify release creation step to use release_notes.md instead of CHANGELOG.md in .github/workflows/release.yml
+- [X] T031 [US1] Add upload template assets step to upload all 34 ZIPs in .github/workflows/release.yml
+- [X] T032 [US1] Update release workflow to pass artifacts between jobs using actions/upload-artifact and actions/download-artifact in .github/workflows/release.yml
+- [X] T033 [US1] Test workflow with dry-run by creating test branch and triggering workflow_dispatch
+- [X] T034 [US1] Verify workflow generates all 34 templates and validates them correctly
+- [X] T035 [US1] Add error handling for partial template generation failures in .github/workflows/release.yml
+- [X] T036 [US1] Add retry logic for GitHub API rate limit handling in .github/workflows/release.yml
 
 **US1 Acceptance Criteria**:
 - ✅ Workflow triggers on git tag push (v*)
