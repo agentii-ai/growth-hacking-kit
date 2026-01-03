@@ -1,0 +1,224 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g., v0.2.0)'
+        required: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v2
+
+    - name: Create venv and install dependencies
+      run: |
+        uv venv
+        source .venv/bin/activate
+        uv pip install -e ".[dev]"
+
+    - name: Run tests
+      run: |
+        source .venv/bin/activate
+        pytest tests/ -v
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Get version
+      id: get_version
+      run: |
+        if [[ -n "${{ inputs.version }}" ]]; then
+          VERSION="${{ inputs.version }}"
+          echo "Using provided version: $VERSION"
+        elif [[ "${{ github.ref }}" == refs/tags/* ]]; then
+          VERSION="${{ github.ref_name }}"
+          echo "Using tag version: $VERSION"
+        else
+          echo "❌ Error: No version provided and not a tag push"
+          exit 1
+        fi
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "Final version: $VERSION"
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    - name: Install uv and build tools
+      uses: astral-sh/setup-uv@v2
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        uv venv
+        source .venv/bin/activate
+        uv pip install build twine
+
+    - name: Build Python package
+      shell: bash
+      run: |
+        source .venv/bin/activate
+        python -m build
+
+    - name: Check package
+      shell: bash
+      run: |
+        source .venv/bin/activate
+        twine check dist/*
+
+    - name: Build template variants
+      shell: bash -e {0}
+      run: |
+        set -x  # Enable debug mode
+        chmod +x .github/workflows/scripts/create-release-packages.sh
+        echo "=== Building templates for version: ${{ steps.get_version.outputs.version }} ==="
+        echo "=== Current directory: $(pwd) ==="
+        echo "=== Checking .growthkit source ==="
+        ls -la .growthkit/
+        ls -la .growthkit/templates/
+        ls -la .growthkit/templates/commands/
+        echo "=== Running build script ==="
+        .github/workflows/scripts/create-release-packages.sh "${{ steps.get_version.outputs.version }}"
+        echo ""
+        echo "=== Verifying templates were created ==="
+        ls -la .genreleases/
+        TEMPLATE_COUNT=$(ls -1 .genreleases/*.zip 2>/dev/null | wc -l | tr -d ' ')
+        echo "Templates created: $TEMPLATE_COUNT"
+        if [ "$TEMPLATE_COUNT" -lt 34 ]; then
+          echo "❌ Error: Expected 34 templates, got $TEMPLATE_COUNT"
+          ls -la .genreleases/
+          exit 1
+        fi
+        echo "✅ All 34 templates created successfully"
+
+    - name: Validate templates
+      run: |
+        chmod +x scripts/validate-templates.sh
+        ./scripts/validate-templates.sh .genreleases/
+
+    - name: Generate release notes
+      run: |
+        chmod +x .github/workflows/scripts/generate-release-notes.sh
+        .github/workflows/scripts/generate-release-notes.sh ${{ steps.get_version.outputs.version }}
+
+    - name: List generated files
+      if: always()
+      run: |
+        echo "=== Build Job Artifacts Diagnostic ==="
+        echo ""
+        echo "Current directory: $(pwd)"
+        echo ""
+        echo "=== Contents of dist/ ==="
+        ls -lah dist/ 2>&1 || true
+        echo ""
+        echo "=== Contents of .genreleases/ ==="
+        ls -lah .genreleases/ 2>&1 || true
+        echo ""
+        echo "=== Release notes ==="
+        ls -lah release_notes.md 2>&1 || true
+        echo ""
+        echo "=== Root directory listing ==="
+        ls -la 2>&1 | head -30
+
+    - name: Upload Python package artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: python-package
+        path: dist/
+        retention-days: 1
+
+    - name: Upload template artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: templates
+        path: .genreleases/
+        retention-days: 1
+        if-no-files-found: error
+
+    - name: Upload release notes
+      uses: actions/upload-artifact@v4
+      with:
+        name: release-notes
+        path: release_notes.md
+        retention-days: 1
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Download Python package
+      uses: actions/download-artifact@v4
+      with:
+        name: python-package
+        path: dist/
+
+    - name: Download templates
+      uses: actions/download-artifact@v4
+      with:
+        name: templates
+        path: .genreleases/
+
+    - name: Download release notes
+      uses: actions/download-artifact@v4
+      with:
+        name: release-notes
+        path: .
+
+    - name: Create GitHub Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ needs.build.outputs.version }}
+        release_name: Growth Hacking Kit ${{ needs.build.outputs.version }}
+        body_path: release_notes.md
+        draft: false
+        prerelease: false
+
+    - name: Upload template assets to release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        set -e
+        for zip in .genreleases/*.zip; do
+          if [ -f "$zip" ]; then
+            echo "Uploading $(basename $zip)..."
+            gh release upload ${{ needs.build.outputs.version }} "$zip" --clobber || true
+          fi
+        done
+
+    - name: Verify release assets
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo "Verifying release assets..."
+        gh release view ${{ needs.build.outputs.version }} --json assets --jq '.assets[].name'
