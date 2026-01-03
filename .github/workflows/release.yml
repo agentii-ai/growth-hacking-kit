@@ -91,27 +91,21 @@ jobs:
         twine check dist/*
 
     - name: Build template variants
+      shell: bash -e {0}
       run: |
         set -x  # Enable debug mode
         chmod +x .github/workflows/scripts/create-release-packages.sh
         echo "=== Building templates for version: ${{ steps.get_version.outputs.version }} ==="
         echo "=== Current directory: $(pwd) ==="
         echo "=== Checking .growthkit source ==="
-        ls -la .growthkit/ || echo "❌ .growthkit not found!"
-        ls -la .growthkit/templates/ || echo "❌ .growthkit/templates not found!"
-        ls -la .growthkit/templates/commands/ || echo "❌ .growthkit/templates/commands not found!"
+        ls -la .growthkit/
+        ls -la .growthkit/templates/
+        ls -la .growthkit/templates/commands/
         echo "=== Running build script ==="
-        .github/workflows/scripts/create-release-packages.sh "${{ steps.get_version.outputs.version }}" || {
-          echo "❌ Build script failed with exit code $?"
-          ls -la .genreleases/ || echo "No .genreleases directory"
-          exit 1
-        }
+        .github/workflows/scripts/create-release-packages.sh "${{ steps.get_version.outputs.version }}"
         echo ""
         echo "=== Verifying templates were created ==="
-        ls -la .genreleases/ || {
-          echo "❌ .genreleases directory not found!"
-          exit 1
-        }
+        ls -la .genreleases/
         TEMPLATE_COUNT=$(ls -1 .genreleases/*.zip 2>/dev/null | wc -l | tr -d ' ')
         echo "Templates created: $TEMPLATE_COUNT"
         if [ "$TEMPLATE_COUNT" -lt 34 ]; then
