@@ -5,7 +5,7 @@ from pathlib import Path
 
 # Kit identification
 KIT_NAME = "growthkit"
-KIT_VERSION = "0.0.96"
+KIT_VERSION = "0.1.0"
 
 # Directory structure
 PACKAGE_DIR = ".growthkit/"
