@@ -93,42 +93,28 @@ jobs:
     - name: Build template variants
       run: |
         chmod +x .github/workflows/scripts/create-release-packages.sh
-        echo "=== Template Build Debug Info ==="
-        echo "Version: ${{ steps.get_version.outputs.version }}"
-        echo "Script path: $(pwd)/.github/workflows/scripts/create-release-packages.sh"
-        echo ""
-        echo "=== Running template build ==="
+        echo "=== Building templates for version: ${{ steps.get_version.outputs.version }} ==="
         .github/workflows/scripts/create-release-packages.sh "${{ steps.get_version.outputs.version }}"
-        BUILD_STATUS=$?
-        if [ $BUILD_STATUS -ne 0 ]; then
-          echo "❌ Template build failed with status $BUILD_STATUS"
-          exit $BUILD_STATUS
+        echo ""
+        echo "=== Verifying templates were created ==="
+        TEMPLATE_COUNT=$(ls -1 .genreleases/*.zip 2>/dev/null | wc -l)
+        echo "Templates created: $TEMPLATE_COUNT"
+        if [ "$TEMPLATE_COUNT" -lt 34 ]; then
+          echo "❌ Error: Expected 34 templates, got $TEMPLATE_COUNT"
+          ls -la .genreleases/ || true
+          exit 1
         fi
-        echo "=== Template build complete ==="
+        echo "✅ All 34 templates created successfully"
 
     - name: Validate templates
       run: |
         chmod +x scripts/validate-templates.sh
-        echo "=== Running template validation ==="
         ./scripts/validate-templates.sh .genreleases/
-        VALIDATE_STATUS=$?
-        if [ $VALIDATE_STATUS -ne 0 ]; then
-          echo "❌ Template validation failed with status $VALIDATE_STATUS"
-          exit $VALIDATE_STATUS
-        fi
-        echo "=== Template validation complete ==="
 
     - name: Generate release notes
       run: |
         chmod +x .github/workflows/scripts/generate-release-notes.sh
-        echo "=== Generating release notes ==="
         .github/workflows/scripts/generate-release-notes.sh ${{ steps.get_version.outputs.version }}
-        NOTES_STATUS=$?
-        if [ $NOTES_STATUS -ne 0 ]; then
-          echo "❌ Release notes generation failed with status $NOTES_STATUS"
-          exit $NOTES_STATUS
-        fi
-        echo "=== Release notes generation complete ==="
 
     - name: List generated files
       if: always()

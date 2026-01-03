@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # Growth Hacking Kit - Template Release Package Generator
 # Generates 34 template variants (17 agents × 2 script types)
 # Usage: ./create-release-packages.sh <version>
-
-# GitHub Actions runs with 'bash -e' automatically
-# No additional options needed for strict mode
 
 VERSION="${1:-}"
 if [[ -z "$VERSION" ]]; then
