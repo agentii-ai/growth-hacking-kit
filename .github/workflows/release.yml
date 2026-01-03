@@ -40,10 +40,28 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
+
+    - name: Get version
+      id: get_version
+      run: |
+        if [[ -n "${{ inputs.version }}" ]]; then
+          VERSION="${{ inputs.version }}"
+          echo "Using provided version: $VERSION"
+        elif [[ "${{ github.ref }}" == refs/tags/* ]]; then
+          VERSION="${{ github.ref_name }}"
+          echo "Using tag version: $VERSION"
+        else
+          echo "❌ Error: No version provided and not a tag push"
+          exit 1
+        fi
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "Final version: $VERSION"
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -76,13 +94,11 @@ jobs:
       run: |
         chmod +x .github/workflows/scripts/create-release-packages.sh
         echo "=== Template Build Debug Info ==="
-        echo "github.ref_name: ${{ github.ref_name }}"
-        echo "inputs.version: ${{ inputs.version }}"
-        echo "Version to use: ${{ github.ref_name || inputs.version }}"
+        echo "Version: ${{ steps.get_version.outputs.version }}"
         echo "Script path: $(pwd)/.github/workflows/scripts/create-release-packages.sh"
         echo ""
         echo "=== Running template build ==="
-        .github/workflows/scripts/create-release-packages.sh "${{ github.ref_name || inputs.version }}"
+        .github/workflows/scripts/create-release-packages.sh "${{ steps.get_version.outputs.version }}"
         BUILD_STATUS=$?
         if [ $BUILD_STATUS -ne 0 ]; then
           echo "❌ Template build failed with status $BUILD_STATUS"
@@ -106,7 +122,7 @@ jobs:
       run: |
         chmod +x .github/workflows/scripts/generate-release-notes.sh
         echo "=== Generating release notes ==="
-        .github/workflows/scripts/generate-release-notes.sh ${{ github.ref_name || inputs.version }}
+        .github/workflows/scripts/generate-release-notes.sh ${{ steps.get_version.outputs.version }}
         NOTES_STATUS=$?
         if [ $NOTES_STATUS -ne 0 ]; then
           echo "❌ Release notes generation failed with status $NOTES_STATUS"
@@ -146,6 +162,7 @@ jobs:
         name: templates
         path: .genreleases/
         retention-days: 1
+        if-no-files-found: error
 
     - name: Upload release notes
       uses: actions/upload-artifact@v4
@@ -186,8 +203,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref_name || inputs.version }}
-        release_name: Growth Hacking Kit ${{ github.ref_name || inputs.version }}
+        tag_name: ${{ needs.build.outputs.version }}
+        release_name: Growth Hacking Kit ${{ needs.build.outputs.version }}
         body_path: release_notes.md
         draft: false
         prerelease: false
@@ -200,7 +217,7 @@ jobs:
         for zip in .genreleases/*.zip; do
           if [ -f "$zip" ]; then
             echo "Uploading $(basename $zip)..."
-            gh release upload ${{ github.ref_name || inputs.version }} "$zip" --clobber || true
+            gh release upload ${{ needs.build.outputs.version }} "$zip" --clobber || true
           fi
         done
 
@@ -209,4 +226,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         echo "Verifying release assets..."
-        gh release view ${{ github.ref_name || inputs.version }} --json assets --jq '.assets[].name'
+        gh release view ${{ needs.build.outputs.version }} --json assets --jq '.assets[].name'
