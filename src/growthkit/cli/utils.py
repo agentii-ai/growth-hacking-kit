@@ -22,7 +22,7 @@ from growthkit.cli.config import (
 )
 
 # Constants for template downloads
-GITHUB_REPO = "anthropics/growth-hacking-kit"  # Growth Hacking Kit public repository
+GITHUB_REPO = "agentii-ai/growth-hacking-kit"  # Growth Hacking Kit public repository
 GITHUB_API_URL = "https://api.github.com"
 GITHUB_RELEASES_URL = f"{GITHUB_API_URL}/repos/{GITHUB_REPO}/releases"
 
@@ -414,6 +414,27 @@ def get_campaign_dir_from_branch(branch_or_campaign: str) -> Path:
 # Template Download from GitHub Releases
 
 
+def get_template_agent_name(agent: str) -> str:
+    """
+    Map internal agent name to template agent name used in releases.
+
+    Args:
+        agent: Internal agent name (cursor, claude, windsurf, copilot)
+
+    Returns:
+        Template agent name used in release ZIP filenames
+    """
+    # Map internal names to template names
+    agent_mapping = {
+        "cursor": "cursor-agent",
+        "claude": "claude",
+        "windsurf": "windsurf",
+        "copilot": "copilot",
+    }
+
+    return agent_mapping.get(agent, agent)
+
+
 def get_latest_release_version(
     github_token: Optional[str] = None, skip_tls: bool = False
 ) -> Optional[str]:
@@ -460,7 +481,7 @@ def download_template_from_github(
     Download template ZIP from GitHub releases.
 
     Args:
-        agent: Agent name (claude, cursor-agent, windsurf, etc.)
+        agent: Agent name (claude, cursor, windsurf, etc.)
         script: Script type (sh or ps)
         version: Version tag (e.g., "v0.2.0"). If None, uses latest
         github_token: Optional GitHub token for API requests
@@ -476,8 +497,11 @@ def download_template_from_github(
             if not version:
                 return None
 
+        # Map agent name to template agent name
+        template_agent = get_template_agent_name(agent)
+
         # Construct download URL
-        filename = f"growthkit-template-{agent}-{script}-{version}.zip"
+        filename = f"growthkit-template-{template_agent}-{script}-{version}.zip"
         download_url = f"https://github.com/{GITHUB_REPO}/releases/download/{version}/{filename}"
 
         # Create temp file
