@@ -96,8 +96,8 @@ validate_variant() {
   else
     print_pass "Agent directory present: $(basename "$agent_dir")"
 
-    # Check 6: Command files
-    local cmd_count=$(find "$agent_dir" -type f -name "growthkit.*.md" 2>/dev/null | wc -l | tr -d ' ')
+    # Check 6: Command files (supports .md and .toml formats)
+    local cmd_count=$(find "$agent_dir" -type f \( -name "growthkit.*.md" -o -name "growthkit.*.toml" \) 2>/dev/null | wc -l | tr -d ' ')
     if [[ $cmd_count -ge 5 ]]; then
       print_pass "Command files present: $cmd_count"
     else
