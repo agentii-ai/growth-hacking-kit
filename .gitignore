@@ -41,7 +41,6 @@ htmlcov/
 .tox/
 
 # Project-specific
-.growthkit/memory/
 specs/*/assets/
 *.log
 .env
