@@ -48,7 +48,6 @@ Run directly without installing—always uses the latest version:
 
 ```bash
 uvx --from git+https://github.com/agentii-ai/growth-hacking-kit.git growthkit init my-product
-uvx --from git+https://github.com/agentii-ai/growth-hacking-kit.git growthkit check
 ```
 
 > **Note**: This project is improving rapidly. We recommend `uvx` to always get the latest features and fixes.
@@ -65,7 +64,6 @@ Then use the tool directly:
 
 ```bash
 growthkit init my-product
-growthkit check
 ```
 
 To update to the latest version:
@@ -259,12 +257,8 @@ uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
 uv tool install growthkit-cli --from git+https://github.com/agentii-ai/growth-hacking-kit.git
 
 # Both tools work independently
-specify check    # Shows Spec-Kit configuration
-growthkit check  # Shows Growth Hacking Kit configuration
-
-# Create projects with different kits
-specify init my-feature           # Software feature project
-growthkit init my-campaign       # Growth campaign project
+specify init my-feature      # Software feature project
+growthkit init my-campaign   # Growth campaign project
 ```
 
 In your AI agent, both command namespaces are available:
@@ -279,27 +273,24 @@ In your AI agent, both command namespaces are available:
 
 ```bash
 growthkit init <PROJECT_NAME>
-growthkit init my-product --ai claude
-growthkit init . --here --force        # Initialize in current directory
-growthkit init my-product --ai cursor --script ps   # PowerShell scripts
+growthkit init my-product --agent claude
+growthkit init my-product --agent cursor-agent --script ps   # PowerShell scripts
 ```
 
 **Options:**
-- `--ai` - Specify AI assistant (claude, cursor, windsurf, gemini, copilot, etc.)
-- `--script` - Script variant (sh for bash/zsh, ps for PowerShell)
-- `--here` - Initialize in current directory
-- `--force` - Skip confirmation when directory has files
-- `--no-git` - Skip git initialization
-- `--ignore-agent-tools` - Skip tool availability checks
-- `--debug` - Enable detailed debugging
+- `--agent, -a` - Specify AI assistant (claude, cursor-agent, windsurf, gemini, copilot, qoder, qwen, opencode, codex, kilocode, auggie, roo, codebuddy, amp, shai, q, bob)
+- `--script, -s` - Script variant (sh for bash/zsh, ps for PowerShell)
+- `--version, -v` - Template version to download (default: latest)
+- `--force, -f` - Overwrite existing directory without confirmation
 
-### `growthkit check` - Verify Installation
+**Interactive Mode:**
+
+If you don't provide options, the CLI will prompt you interactively:
 
 ```bash
-growthkit check
+growthkit init my-product
+# Prompts for: agent selection, script type
 ```
-
-Verifies Growth Hacking Kit installation and checks for required tools (git, python, uv) and AI agents.
 
 ---
 
@@ -360,8 +351,7 @@ Expected artifacts:
 ## 🚧 Roadmap
 
 ### Phase 1: Core Growth Workflow ✅ COMPLETE
-- `growthkit init` - Project initialization
-- `growthkit check` - Dependency verification
+- `growthkit init` - Project initialization with 17 AI agents
 - `/growthkit.specify` - Campaign specification
 - `/growthkit.clarify` - Ambiguity resolution
 - `/growthkit.plan` - Campaign planning
@@ -440,10 +430,17 @@ growth-hacking-kit/
 
 ### Verify Your Setup
 
-Run `growthkit check` to verify all prerequisites and see which AI agents are available:
+Ensure you have the required tools installed:
 
 ```bash
-growthkit check
+# Check uv installation
+uv --version
+
+# Check Python version
+python --version
+
+# Check Git installation
+git --version
 ```
 
 ---
