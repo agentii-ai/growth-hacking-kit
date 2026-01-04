@@ -35,8 +35,8 @@ console = Console()
     "--script",
     "-s",
     type=click.Choice(SCRIPTS, case_sensitive=False),
-    default="sh",
-    help="Script type: sh (bash) or ps (PowerShell)",
+    default=None,
+    help="Script type: sh (bash/Linux/macOS) or ps (PowerShell/Windows)",
 )
 @click.option(
     "--version",
@@ -111,6 +111,20 @@ def init_command(project_name, agent, script, version, force):
             "[cyan]Choose an agent[/cyan]",
             choices=AGENTS,
             default="claude",
+        )
+
+    # Get script type if not provided
+    if not script:
+        console.print()
+        console.print("[bold]Script Type:[/bold]")
+        console.print("  [cyan]sh[/cyan]  - Bash scripts (Linux, macOS, Git Bash, WSL)")
+        console.print("  [cyan]ps[/cyan]  - PowerShell scripts (Windows)")
+        console.print()
+
+        script = Prompt.ask(
+            "[cyan]Choose script type[/cyan]",
+            choices=SCRIPTS,
+            default="sh",
         )
 
     # Validate inputs
