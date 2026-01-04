@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "growthkit-cli"
+version = "0.3.0"
+description = "CLI tool for Growth-Hacking-Kit - Systematic growth campaign management"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "Agentii AI", email = "hello@agentii.ai"},
+]
+keywords = ["growth-hacking", "marketing", "campaigns", "cli", "templates"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "click>=8.1.0",
+    "requests>=2.31.0",
+    "rich>=13.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.7.0",
+    "ruff>=0.0.285",
+]
+
+[project.scripts]
+growthkit = "growthkit_cli.main:cli"
+
+[project.urls]
+Homepage = "https://github.com/agentii-ai/growth-hacking-kit"
+Documentation = "https://github.com/agentii-ai/growth-hacking-kit#readme"
+Repository = "https://github.com/agentii-ai/growth-hacking-kit"
+Issues = "https://github.com/agentii-ai/growth-hacking-kit/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/growthkit_cli"]
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
