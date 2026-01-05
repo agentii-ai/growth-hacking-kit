@@ -302,6 +302,8 @@ growthkit init my-product
 # Prompts for: agent selection, script type
 ```
 
+![Growthkit CLI interactive installer (agent + OS/script selection)](./public/screenshot-cli.png)
+
 ---
 
 ## 🚀 Examples by Growth Type
