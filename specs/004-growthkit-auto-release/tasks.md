@@ -22,17 +22,17 @@ This feature enables automated generation and publication of 34 Growth-Hacking-K
 
 ### Setup Tasks
 
-- [ ] T001 Verify .growthkit/ directory structure and Growth-Hacking-Kit constitution v1.1.0 in .growthkit/memory/constitution.md
-- [ ] T002 List all bash scripts in .growthkit/scripts/bash/ and verify 5 scripts present
-- [ ] T003 List all template files in .growthkit/templates/ and verify spec, plan, tasks templates present
-- [ ] T004 List all command files in .growthkit/templates/commands/ and verify 9 growthkit.*.md files present
-- [ ] T005 Scan .growthkit/ for any speckit or blogkit references using grep -r
-- [ ] T006 Create .growthkit/scripts/powershell/ directory for PowerShell script variants
-- [ ] T007 [P] Port .growthkit/scripts/bash/common.sh to .growthkit/scripts/powershell/common.ps1
-- [ ] T008 [P] Port .growthkit/scripts/bash/setup-plan.sh to .growthkit/scripts/powershell/setup-plan.ps1
-- [ ] T009 [P] Port .growthkit/scripts/bash/check-prerequisites.sh to .growthkit/scripts/powershell/check-prerequisites.ps1
-- [ ] T010 [P] Port .growthkit/scripts/bash/create-new-feature.sh to .growthkit/scripts/powershell/create-new-feature.ps1
-- [ ] T011 [P] Port .growthkit/scripts/bash/update-agent-context.sh to .growthkit/scripts/powershell/update-agent-context.ps1
+- [x] T001 Verify .growthkit/ directory structure and Growth-Hacking-Kit constitution v1.1.0 in .growthkit/memory/constitution.md
+- [x] T002 List all bash scripts in .growthkit/scripts/bash/ and verify 5 scripts present
+- [x] T003 List all template files in .growthkit/templates/ and verify spec, plan, tasks templates present
+- [x] T004 List all command files in .growthkit/templates/commands/ and verify 9 growthkit.*.md files present
+- [x] T005 Scan .growthkit/ for any speckit or blogkit references using grep -r
+- [x] T006 Create .growthkit/scripts/powershell/ directory for PowerShell script variants
+- [x] T007 [P] Port .growthkit/scripts/bash/common.sh to .growthkit/scripts/powershell/common.ps1
+- [x] T008 [P] Port .growthkit/scripts/bash/setup-plan.sh to .growthkit/scripts/powershell/setup-plan.ps1
+- [x] T009 [P] Port .growthkit/scripts/bash/check-prerequisites.sh to .growthkit/scripts/powershell/check-prerequisites.ps1
+- [x] T010 [P] Port .growthkit/scripts/bash/create-new-feature.sh to .growthkit/scripts/powershell/create-new-feature.ps1
+- [x] T011 [P] Port .growthkit/scripts/bash/update-agent-context.sh to .growthkit/scripts/powershell/update-agent-context.ps1
 
 **Acceptance Criteria**:
 - ✅ All 5 bash scripts verified in .growthkit/scripts/bash/
@@ -49,13 +49,13 @@ This feature enables automated generation and publication of 34 Growth-Hacking-K
 
 ### Foundational Tasks
 
-- [ ] T012 Create .github/workflows/scripts/ directory for workflow scripts
-- [ ] T013 [P] Create empty placeholder .github/workflows/scripts/get-next-version.sh
-- [ ] T014 [P] Create empty placeholder .github/workflows/scripts/check-release-exists.sh
-- [ ] T015 [P] Create empty placeholder .github/workflows/scripts/create-release-packages.sh
-- [ ] T016 [P] Create empty placeholder .github/workflows/scripts/generate-release-notes.sh
-- [ ] T017 [P] Create empty placeholder .github/workflows/scripts/create-github-release.sh
-- [ ] T018 Make all workflow scripts executable with chmod +x
+- [x] T012 Create .github/workflows/scripts/ directory for workflow scripts
+- [x] T013 [P] Create empty placeholder .github/workflows/scripts/get-next-version.sh
+- [x] T014 [P] Create empty placeholder .github/workflows/scripts/check-release-exists.sh
+- [x] T015 [P] Create empty placeholder .github/workflows/scripts/create-release-packages.sh
+- [x] T016 [P] Create empty placeholder .github/workflows/scripts/generate-release-notes.sh
+- [x] T017 [P] Create empty placeholder .github/workflows/scripts/create-github-release.sh
+- [x] T018 Make all workflow scripts executable with chmod +x
 
 **Acceptance Criteria**:
 - ✅ Directory .github/workflows/scripts/ created
@@ -72,36 +72,36 @@ This feature enables automated generation and publication of 34 Growth-Hacking-K
 
 ### US1: Core Build Script
 
-- [ ] T019 [US1] Implement build_variant() function in .github/workflows/scripts/create-release-packages.sh to create .specify/ structure
-- [ ] T020 [US1] Implement copy logic to copy from .growthkit/memory/ to .specify/memory/ in build_variant()
-- [ ] T021 [US1] Implement copy logic to copy from .growthkit/templates/ to .specify/templates/ in build_variant()
-- [ ] T022 [US1] Implement script selection logic to copy bash/ or powershell/ based on variant type
-- [ ] T023 [US1] Implement generate_commands() function to transform growthkit.*.md templates for each agent
-- [ ] T024 [US1] Implement agent directory mapping for all 17 agents (claude, cursor-agent, windsurf, gemini, copilot, qoder, qwen, opencode, codex, kilocode, auggie, codebuddy, amp, shai, q, bob, roo)
-- [ ] T025 [US1] Implement ZIP creation and SHA-256 checksum calculation in build_variant()
-- [ ] T026 [US1] Implement main loop to iterate through 17 agents × 2 script types in create-release-packages.sh
-- [ ] T027 [US1] Add progress reporting and error handling to create-release-packages.sh
+- [x] T019 [US1] Implement build_variant() function in .github/workflows/scripts/create-release-packages.sh to create .specify/ structure
+- [x] T020 [US1] Implement copy logic to copy from .growthkit/memory/ to .specify/memory/ in build_variant()
+- [x] T021 [US1] Implement copy logic to copy from .growthkit/templates/ to .specify/templates/ in build_variant()
+- [x] T022 [US1] Implement script selection logic to copy bash/ or powershell/ based on variant type
+- [x] T023 [US1] Implement generate_commands() function to transform growthkit.*.md templates for each agent
+- [x] T024 [US1] Implement agent directory mapping for all 17 agents (claude, cursor-agent, windsurf, gemini, copilot, qoder, qwen, opencode, codex, kilocode, auggie, codebuddy, amp, shai, q, bob, roo)
+- [x] T025 [US1] Implement ZIP creation and SHA-256 checksum calculation in build_variant()
+- [x] T026 [US1] Implement main loop to iterate through 17 agents × 2 script types in create-release-packages.sh
+- [x] T027 [US1] Add progress reporting and error handling to create-release-packages.sh
 
 ### US1: Helper Scripts
 
-- [ ] T028 [P] [US1] Implement get-next-version.sh to extract version from git tag ($GITHUB_REF)
-- [ ] T029 [P] [US1] Implement check-release-exists.sh to check if release already published using gh CLI
-- [ ] T030 [P] [US1] Implement generate-release-notes.sh to create changelog from commits since last tag
-- [ ] T031 [US1] Update generate-release-notes.sh to list all 34 ZIP files with SHA-256 checksums
-- [ ] T032 [US1] Update generate-release-notes.sh to reference "Growth-Hacking-Kit CLI" (not Spec-Kit or Blog-Tech-Kit)
-- [ ] T033 [P] [US1] Implement create-github-release.sh to publish release with gh CLI and upload 34 ZIP assets
+- [x] T028 [P] [US1] Implement get-next-version.sh to extract version from git tag ($GITHUB_REF)
+- [x] T029 [P] [US1] Implement check-release-exists.sh to check if release already published using gh CLI
+- [x] T030 [P] [US1] Implement generate-release-notes.sh to create changelog from commits since last tag
+- [x] T031 [US1] Update generate-release-notes.sh to list all 34 ZIP files with SHA-256 checksums
+- [x] T032 [US1] Update generate-release-notes.sh to reference "Growth-Hacking-Kit CLI" (not Spec-Kit or Blog-Tech-Kit)
+- [x] T033 [P] [US1] Implement create-github-release.sh to publish release with gh CLI and upload 34 ZIP assets
 
 ### US1: GitHub Actions Workflow
 
-- [ ] T034 [US1] Create .github/workflows/release.yml with tag trigger (on: push: tags: - 'v*.*.*')
-- [ ] T035 [US1] Add checkout step with fetch-depth: 0 to release.yml
-- [ ] T036 [US1] Add get next version step calling get-next-version.sh in release.yml
-- [ ] T037 [US1] Add check release exists step calling check-release-exists.sh in release.yml
-- [ ] T038 [US1] Add create release packages step calling create-release-packages.sh in release.yml
-- [ ] T039 [US1] Add validate release packages step (placeholder for Phase 4) in release.yml
-- [ ] T040 [US1] Add generate release notes step calling generate-release-notes.sh in release.yml
-- [ ] T041 [US1] Add create GitHub release step calling create-github-release.sh with GITHUB_TOKEN in release.yml
-- [ ] T042 [US1] Add workflow_dispatch trigger for manual testing in release.yml
+- [x] T034 [US1] Create .github/workflows/release.yml with tag trigger (on: push: tags: - 'v*.*.*')
+- [x] T035 [US1] Add checkout step with fetch-depth: 0 to release.yml
+- [x] T036 [US1] Add get next version step calling get-next-version.sh in release.yml
+- [x] T037 [US1] Add check release exists step calling check-release-exists.sh in release.yml
+- [x] T038 [US1] Add create release packages step calling create-release-packages.sh in release.yml
+- [x] T039 [US1] Add validate release packages step (placeholder for Phase 4) in release.yml
+- [x] T040 [US1] Add generate release notes step calling generate-release-notes.sh in release.yml
+- [x] T041 [US1] Add create GitHub release step calling create-github-release.sh with GITHUB_TOKEN in release.yml
+- [x] T042 [US1] Add workflow_dispatch trigger for manual testing in release.yml
 
 ### US1: First Release Test
 
@@ -130,25 +130,25 @@ This feature enables automated generation and publication of 34 Growth-Hacking-K
 
 ### US2: Local Build Wrapper
 
-- [ ] T049 [US2] Create scripts/build-templates.sh wrapper script with version argument validation
-- [ ] T050 [US2] Implement DIST_DIR creation and GENRELEASES_DIR export in build-templates.sh
-- [ ] T051 [US2] Add call to create-release-packages.sh from build-templates.sh
-- [ ] T052 [US2] Implement generate_manifest() function to create build-manifest.json in build-templates.sh
-- [ ] T053 [US2] Add progress output and summary display in build-templates.sh
-- [ ] T054 [US2] Add support for AGENTS and SCRIPTS env vars for subset building in build-templates.sh
+- [x] T049 [US2] Create scripts/build-templates.sh wrapper script with version argument validation
+- [x] T050 [US2] Implement DIST_DIR creation and GENRELEASES_DIR export in build-templates.sh
+- [x] T051 [US2] Add call to create-release-packages.sh from build-templates.sh
+- [x] T052 [US2] Implement generate_manifest() function to create build-manifest.json in build-templates.sh
+- [x] T053 [US2] Add progress output and summary display in build-templates.sh
+- [x] T054 [US2] Add support for AGENTS and SCRIPTS env vars for subset building in build-templates.sh
 
 ### US2: Local Testing
 
-- [ ] T055 [US2] Test single agent build with AGENTS=claude SCRIPTS=sh ./scripts/build-templates.sh v0.1.0-test
-- [ ] T056 [US2] Extract test ZIP to /tmp/test-template and verify directory structure
-- [ ] T057 [US2] Verify .specify/memory/, .specify/scripts/bash/, .specify/templates/ directories exist
-- [ ] T058 [US2] Verify .claude/commands/ contains 9 growthkit.*.md files
-- [ ] T059 [US2] Scan extracted template for speckit references with grep -r
-- [ ] T060 [US2] Verify constitution is Growth-Hacking-Kit v1.1.0 in extracted template
-- [ ] T061 [US2] Test full build with ./scripts/build-templates.sh v0.1.0-test
-- [ ] T062 [US2] Verify exactly 34 ZIP files created in dist/templates/
-- [ ] T063 [US2] Verify build-manifest.json shows all 34 variants with status completed
-- [ ] T064 [US2] Spot-check 3-4 different agent variants for correctness
+- [x] T055 [US2] Test single agent build with AGENTS=claude SCRIPTS=sh ./scripts/build-templates.sh v0.1.0-test
+- [x] T056 [US2] Extract test ZIP to /tmp/test-template and verify directory structure
+- [x] T057 [US2] Verify .specify/memory/, .specify/scripts/bash/, .specify/templates/ directories exist
+- [x] T058 [US2] Verify .claude/commands/ contains 9 growthkit.*.md files
+- [x] T059 [US2] Scan extracted template for speckit references with grep -r
+- [x] T060 [US2] Verify constitution is Growth-Hacking-Kit v1.1.0 in extracted template
+- [x] T061 [US2] Test full build with ./scripts/build-templates.sh v0.1.0-test
+- [x] T062 [US2] Verify exactly 34 ZIP files created in dist/templates/
+- [x] T063 [US2] Verify build-manifest.json shows all 34 variants with status completed
+- [x] T064 [US2] Spot-check 3-4 different agent variants for correctness
 
 **US2 Acceptance Criteria**:
 - ✅ Local build script generates all 34 templates
@@ -167,18 +167,18 @@ This feature enables automated generation and publication of 34 Growth-Hacking-K
 
 ### US3: Validation Script
 
-- [ ] T065 [US3] Create scripts/validate-templates.sh with ZIP extraction logic
-- [ ] T066 [P] [US3] Implement check_frontmatter_namespace() to verify agent: growthkit.* in all commands
-- [ ] T067 [P] [US3] Implement check_required_files() to verify files from .growthkit/ present in .specify/
-- [ ] T068 [P] [US3] Implement check_content_references() to scan for /speckit.* or /blogkit.* references
-- [ ] T069 [P] [US3] Implement check_directory_structure() to verify .specify/ working directory exists
-- [ ] T070 [P] [US3] Implement check_constitution_version() to verify Growth-Hacking-Kit v1.1.0
-- [ ] T071 [P] [US3] Implement check_script_consistency() to ensure sh has bash/, ps has powershell/
-- [ ] T072 [P] [US3] Implement check_command_count() to verify 9 required commands present
-- [ ] T073 [P] [US3] Implement check_zip_integrity() to test ZIP extracts without errors
-- [ ] T074 [US3] Implement validate_variant() function to run all checks on single ZIP
-- [ ] T075 [US3] Implement main() function to process directory or single ZIP file
-- [ ] T076 [US3] Add error reporting and exit code handling to validate-templates.sh
+- [x] T065 [US3] Create scripts/validate-templates.sh with ZIP extraction logic
+- [x] T066 [P] [US3] Implement check_frontmatter_namespace() to verify agent: growthkit.* in all commands
+- [x] T067 [P] [US3] Implement check_required_files() to verify files from .growthkit/ present in .specify/
+- [x] T068 [P] [US3] Implement check_content_references() to scan for /speckit.* or /blogkit.* references
+- [x] T069 [P] [US3] Implement check_directory_structure() to verify .specify/ working directory exists
+- [x] T070 [P] [US3] Implement check_constitution_version() to verify Growth-Hacking-Kit v1.1.0
+- [x] T071 [P] [US3] Implement check_script_consistency() to ensure sh has bash/, ps has powershell/
+- [x] T072 [P] [US3] Implement check_command_count() to verify 9 required commands present
+- [x] T073 [P] [US3] Implement check_zip_integrity() to test ZIP extracts without errors
+- [x] T074 [US3] Implement validate_variant() function to run all checks on single ZIP
+- [x] T075 [US3] Implement main() function to process directory or single ZIP file
+- [x] T076 [US3] Add error reporting and exit code handling to validate-templates.sh
 
 ### US3: Validation Testing
 
@@ -214,10 +214,10 @@ This feature enables automated generation and publication of 34 Growth-Hacking-K
 
 ### Documentation Tasks
 
-- [ ] T088 [P] Update README.md to mention Growth-Hacking-Kit templates
-- [ ] T089 [P] Document template structure in README.md or docs/templates.md
-- [ ] T090 [P] Document release process with tag-based trigger in CONTRIBUTING.md
-- [ ] T091 [P] Add local build instructions to documentation
+- [x] T088 [P] Update README.md to mention Growth-Hacking-Kit templates
+- [x] T089 [P] Document template structure in README.md or docs/templates.md
+- [x] T090 [P] Document release process with tag-based trigger in CONTRIBUTING.md
+- [x] T091 [P] Add local build instructions to documentation
 
 ### First Production Release
 

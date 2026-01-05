@@ -73,10 +73,10 @@ jobs:
           # Spot-check one variant
           unzip -q -d /tmp/validate-check .genreleases/spec-kit-template-claude-sh-*.zip
 
-          if [[ -d "/tmp/validate-check/spec-kit-template-claude-sh-${{ steps.version.outputs.new_version }}/.specify" ]]; then
-            echo "✅ Package structure validated (.specify/ directory present)"
+          if [[ -d "/tmp/validate-check/spec-kit-template-claude-sh-${{ steps.version.outputs.new_version }}/.growthkit" ]]; then
+            echo "✅ Package structure validated (.growthkit/ directory present)"
           else
-            echo "❌ Package structure invalid (missing .specify/ directory)"
+            echo "❌ Package structure invalid (missing .growthkit/ directory)"
             exit 1
           fi
 

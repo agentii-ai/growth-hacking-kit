@@ -74,11 +74,9 @@ generate_commands() {
     # For copilot, also create prompt files
     if [[ "$agent" == "copilot" ]]; then
       local prompt_file="$base_dir/.github/prompts/growthkit.${cmd_basename}.prompt.md"
-      # Transform template
+      # Transform template - keep .growthkit/ paths for multi-kit coexistence
       sed "s/__AGENT__/growthkit.${cmd_basename}/g" "$template" | \
-      sed "s/{SCRIPT}/${script}/g" | \
-      sed "s|\.growthkit/scripts/bash/|.specify/scripts/bash/|g" | \
-      sed "s|\.growthkit/scripts/powershell/|.specify/scripts/powershell/|g" > "$prompt_file"
+      sed "s/{SCRIPT}/${script}/g" > "$prompt_file"
     fi
 
     # Transform template for the main command file
@@ -86,14 +84,10 @@ generate_commands() {
       # TOML format uses {{args}} instead of $ARGUMENTS
       sed "s/__AGENT__/growthkit.${cmd_basename}/g" "$template" | \
       sed "s/{SCRIPT}/${script}/g" | \
-      sed 's/\$ARGUMENTS/{{args}}/g' | \
-      sed "s|\.growthkit/scripts/bash/|.specify/scripts/bash/|g" | \
-      sed "s|\.growthkit/scripts/powershell/|.specify/scripts/powershell/|g" > "$target_file"
+      sed 's/\$ARGUMENTS/{{args}}/g' > "$target_file"
     else
       sed "s/__AGENT__/growthkit.${cmd_basename}/g" "$template" | \
-      sed "s/{SCRIPT}/${script}/g" | \
-      sed "s|\.growthkit/scripts/bash/|.specify/scripts/bash/|g" | \
-      sed "s|\.growthkit/scripts/powershell/|.specify/scripts/powershell/|g" > "$target_file"
+      sed "s/{SCRIPT}/${script}/g" > "$target_file"
     fi
   done
 }
@@ -109,19 +103,19 @@ build_variant() {
 
   echo "Building $variant_name from $GROWTHKIT_SOURCE..."
 
-  # Create .specify/ working directory structure (per constitution)
-  mkdir -p "$base_dir/.specify/memory"
-  mkdir -p "$base_dir/.specify/templates"
-  mkdir -p "$base_dir/.specify/scripts"
+  # Create .growthkit/ working directory structure (for multi-kit coexistence)
+  mkdir -p "$base_dir/.growthkit/memory"
+  mkdir -p "$base_dir/.growthkit/templates"
+  mkdir -p "$base_dir/.growthkit/scripts"
 
-  # Copy from .growthkit/ source to .specify/ target
-  cp "$GROWTHKIT_SOURCE/memory/constitution.md" "$base_dir/.specify/memory/"
-  cp -r "$GROWTHKIT_SOURCE/templates/"*.md "$base_dir/.specify/templates/" 2>/dev/null || true
+  # Copy from .growthkit/ source to .growthkit/ target
+  cp "$GROWTHKIT_SOURCE/memory/constitution.md" "$base_dir/.growthkit/memory/"
+  cp -r "$GROWTHKIT_SOURCE/templates/"*.md "$base_dir/.growthkit/templates/" 2>/dev/null || true
 
   if [[ "$script" == "sh" ]]; then
-    cp -r "$GROWTHKIT_SOURCE/scripts/bash" "$base_dir/.specify/scripts/"
+    cp -r "$GROWTHKIT_SOURCE/scripts/bash" "$base_dir/.growthkit/scripts/"
   else
-    cp -r "$GROWTHKIT_SOURCE/scripts/powershell" "$base_dir/.specify/scripts/"
+    cp -r "$GROWTHKIT_SOURCE/scripts/powershell" "$base_dir/.growthkit/scripts/"
   fi
 
   # Generate agent-specific commands
@@ -141,7 +135,7 @@ build_variant() {
 # Main build loop
 echo "Building Growth-Hacking-Kit templates v$VERSION from $GROWTHKIT_SOURCE source..."
 echo "Output directory: $GENRELEASES_DIR"
-echo "Target structure: .specify/ (per multi-kit coexistence strategy)"
+echo "Target structure: .growthkit/ (for multi-kit coexistence with spec-kit)"
 echo ""
 
 total=0

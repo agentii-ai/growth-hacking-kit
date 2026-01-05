@@ -42,20 +42,20 @@ validate_variant() {
   local extract_dir="$TEMP_DIR/$variant_name"
   local errors=0
 
-  # Check 1: .specify/ directory exists
-  if [[ ! -d "$extract_dir/.specify" ]]; then
-    print_fail "Missing .specify/ directory"
+  # Check 1: .growthkit/ directory exists (for multi-kit coexistence)
+  if [[ ! -d "$extract_dir/.growthkit" ]]; then
+    print_fail "Missing .growthkit/ directory"
     ((errors++))
   else
-    print_pass ".specify/ directory present"
+    print_pass ".growthkit/ directory present"
   fi
 
   # Check 2: Required files
   local required_files=(
-    ".specify/memory/constitution.md"
-    ".specify/templates/spec-template.md"
-    ".specify/templates/plan-template.md"
-    ".specify/templates/tasks-template.md"
+    ".growthkit/memory/constitution.md"
+    ".growthkit/templates/spec-template.md"
+    ".growthkit/templates/plan-template.md"
+    ".growthkit/templates/tasks-template.md"
   )
 
   for file in "${required_files[@]}"; do
@@ -70,7 +70,7 @@ validate_variant() {
   fi
 
   # Check 3: Constitution version
-  if grep -q "Version.*1.1.0" "$extract_dir/.specify/memory/constitution.md" 2>/dev/null; then
+  if grep -q "Version.*1.1.0" "$extract_dir/.growthkit/memory/constitution.md" 2>/dev/null; then
     print_pass "Constitution is v1.1.0"
   else
     print_fail "Constitution version incorrect"
@@ -89,7 +89,7 @@ validate_variant() {
   fi
 
   # Check 5: Agent directory exists
-  local agent_dir=$(find "$extract_dir" -maxdepth 1 -type d -name ".*" ! -name ".specify" | head -1)
+  local agent_dir=$(find "$extract_dir" -maxdepth 1 -type d -name ".*" ! -name ".growthkit" | head -1)
   if [[ -z "$agent_dir" ]]; then
     print_fail "No agent directory found"
     ((errors++))
@@ -108,14 +108,14 @@ validate_variant() {
 
   # Check 7: Script consistency
   if [[ "$variant_name" =~ -sh- ]]; then
-    if [[ -d "$extract_dir/.specify/scripts/bash" ]]; then
+    if [[ -d "$extract_dir/.growthkit/scripts/bash" ]]; then
       print_pass "Bash scripts present for sh variant"
     else
       print_fail "Missing bash scripts for sh variant"
       ((errors++))
     fi
   elif [[ "$variant_name" =~ -ps- ]]; then
-    if [[ -d "$extract_dir/.specify/scripts/powershell" ]]; then
+    if [[ -d "$extract_dir/.growthkit/scripts/powershell" ]]; then
       print_pass "PowerShell scripts present for ps variant"
     else
       print_fail "Missing powershell scripts for ps variant"

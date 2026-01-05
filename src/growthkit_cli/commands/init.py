@@ -63,8 +63,18 @@ def init_command(project_name, agent, script, version, force):
 
         growthkit init my-campaign -a windsurf -s sh
     """
-    console.print()
-    console.print("[bold cyan]Growth-Hacking-Kit Initializer[/bold cyan]")
+    # ASCII art banner
+    banner = """
+[bold cyan]
+   ____                   _   _       _   _            _    _             _  ___ _
+  / ___|_ __ _____      _| |_| |__   | | | | __ _  ___| | _(_)_ __   __ _| |/ (_) |_
+ | |  _| '__/ _ \\ \\ /\\ / / __| '_ \\  | |_| |/ _` |/ __| |/ / | '_ \\ / _` | ' /| | __|
+ | |_| | | | (_) \\ V  V /| |_| | | | |  _  | (_| | (__|   <| | | | | (_| | . \\| | |_
+  \\____|_|  \\___/ \\_/\\_/  \\__|_| |_| |_| |_|\\__,_|\\___|_|\\_\\_|_| |_|\\__, |_|\\_\\_|\\__|
+                                                                      |___/
+[/bold cyan][dim]  Spec-driven growth campaigns for AI SaaS products[/dim]
+"""
+    console.print(banner)
     console.print()
 
     # Get project name if not provided
@@ -176,9 +186,9 @@ def init_command(project_name, agent, script, version, force):
                 f"[bold green]✓ Project initialized successfully![/bold green]\\n\\n"
                 f"[bold]Next steps:[/bold]\\n"
                 f"  1. cd {project_name}\\n"
-                f"  2. Review .specify/memory/constitution.md\\n"
+                f"  2. Review .growthkit/memory/constitution.md\\n"
                 f"  3. Start with: /{agent.replace('-', '')}.specify\\n\\n"
-                f"[dim]Templates are in .specify/templates/[/dim]\\n"
+                f"[dim]Templates are in .growthkit/templates/[/dim]\\n"
                 f"[dim]Commands are in .{agent.split('-')[0]}/commands/[/dim]",
                 title="Success",
                 border_style="green",

@@ -138,7 +138,7 @@ Growth Hacking Kit provides **34 project templates** (17 agents × 2 script type
   - `/growthkit.implement` - Execute with checkpoints
   - `/growthkit.constitution` - View governance
 - **Automation scripts**: Bash and PowerShell for cross-platform support
-- **Memory system**: .growthkit/ working directory with growth governance
+- **Memory system**: `.growthkit/` working directory with growth governance (enables multi-kit coexistence with spec-kit)
 
 ### Supported Template Agents (17 Total)
 
@@ -150,7 +150,17 @@ Templates available for all major AI agents in both **bash** and **PowerShell** 
 
 **👉 [Full Template Reference →](./docs/templates.md)** - See all 17 agents, template structure, platform support, and customization guides.
 
-Download from [GitHub Releases](https://github.com/anthropics/growth-hacking-kit/releases) with SHA-256 checksums.
+### Automated Template Releases
+
+Growth Hacking Kit uses **automated GitHub Actions** to generate and publish all 34 template variants:
+
+- **Trigger**: Push a version tag (e.g., `git tag v0.1.0 && git push --tags`)
+- **Generation**: All templates built from `.growthkit/` source directory
+- **Validation**: Automated checks ensure no Spec-Kit references, correct structure, and Growth-Hacking-Kit v1.1.0 constitution
+- **Distribution**: Published to [GitHub Releases](https://github.com/agentii-ai/growth-hacking-kit/releases) with SHA-256 checksums
+- **Local Testing**: Run `./scripts/build-templates.sh v0.1.0-test` to build and validate locally
+
+Download from [GitHub Releases](https://github.com/agentii-ai/growth-hacking-kit/releases) with SHA-256 checksums.
 
 ---
 
